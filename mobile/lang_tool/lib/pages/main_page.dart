@@ -1,5 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:lang_tool/pages/settings_page.dart';
 import 'package:lang_tool/widgets/main_menu_nav.dart';
 import 'package:lang_tool/pages/account_page.dart';
 
@@ -24,7 +25,7 @@ class MainPages {
   final _kpages = <Widget>[
     MainMenuNav(),
     AccountPage(),
-    MainMenuNav(),
+    SettingsPage(),
   ];
 
 
@@ -52,6 +53,7 @@ class _MainPageState extends State<MainPage> {
       length: 3,
       initialIndex: 0,
       child: Scaffold(
+        resizeToAvoidBottomInset : false,
         appBar: AppBar(
         title: Center(
           child: Text(

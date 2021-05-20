@@ -242,7 +242,7 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
           color: const Color(0xff2a375a),
           image: DecorationImage(
-            image: AssetImage('assets/images/2.jpg'),
+            image: AssetImage('assets/images/3.jpg'),
             fit: BoxFit.cover,
           ),
         ),
