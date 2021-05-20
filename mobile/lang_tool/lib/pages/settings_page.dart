@@ -84,19 +84,27 @@ class _SettingsPageState extends State<SettingsPage> {
               // Use Navigator.pop() to return value (of type T).
               showDialog<String>(
                 context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Зміна логіну'),
-                  content: ChangeLogin(),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text('Змінити'),
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                    ),
-                    FlatButton(
-                      child: Text('Скасувати'),
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                    ),
-                  ],
+                builder: (BuildContext context) => Form(
+                  key: _formKey,
+                  child: AlertDialog(
+                    title: const Text('Зміна логіну'),
+                    content: ChangeLogin(),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text('Змінити'),
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            return Navigator.pop(context, 'Cancel');
+                          }
+                          ;
+                        },
+                      ),
+                      FlatButton(
+                        child: Text('Скасувати'),
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
@@ -131,19 +139,21 @@ class _SettingsPageState extends State<SettingsPage> {
               // Use Navigator.pop() to return value (of type T).
               showDialog<String>(
                 context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Видалення облікового запису'),
-                  content: RemoveAccount(),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text('Видалити'),
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                    ),
-                    FlatButton(
-                      child: Text('Скасувати'),
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                    ),
-                  ],
+                builder: (BuildContext context) => Form(
+                  child: AlertDialog(
+                    title: const Text('Видалення облікового запису'),
+                    content: RemoveAccount(),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text('Видалити'),
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                      ),
+                      FlatButton(
+                        child: Text('Скасувати'),
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
@@ -171,19 +181,26 @@ class _SettingsPageState extends State<SettingsPage> {
               // Use Navigator.pop() to return value (of type T).
               showDialog<String>(
                 context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Відгук'),
-                  content: AddComment(),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text('Відправити'),
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                    ),
-                    FlatButton(
-                      child: Text('Скасувати'),
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                    ),
-                  ],
+                builder: (BuildContext context) => Form(
+                  key: _formKey,
+                  child: AlertDialog(
+                    title: const Text('Відгук'),
+                    content: AddComment(),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text('Відправити'),
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            return Navigator.pop(context, 'Cancel');
+                          }
+                        },
+                      ),
+                      FlatButton(
+                        child: Text('Скасувати'),
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
