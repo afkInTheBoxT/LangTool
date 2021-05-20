@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dRlzr8DzN595UnuAIBxcAS2vC3rZ5gczDnEXdl8fh5LpzJUk1nD/OFrGcaUHYQwSbvqla6bU2dVjKYfCPc5FQw==",
+  "dgSpecHash": "6DxOtt/jd2fF9cwQNoiR//jiXJo5btDggKToF3g5HxwtdeC37FykOO3lSEWCQMeEN/yd7Fa9OFJTHlfs8YcW9w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\andre\\source\\repos\\ASP.NET Web API\\ASP.NET Web API\\ASP.NET Web API.csproj",
+  "projectFilePath": "C:\\Users\\andre\\OneDrive\\Документы\\GitHub\\LangTool\\ASP.NET\\ASP.NET Web API\\ASP.NET Web API\\ASP.NET Web API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\andre\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\andre\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
