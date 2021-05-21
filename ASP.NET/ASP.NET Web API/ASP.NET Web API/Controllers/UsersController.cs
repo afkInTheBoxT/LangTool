@@ -1,4 +1,4 @@
-﻿using ASP.NET_WEB_API_study_metanit.Models;
+﻿using ASP.NET_Web_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,23 +7,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ASP.NET_WEB_API_study_metanit.Controllers
+
+namespace ASP.NET_Web_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("test/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        UsersContext db;
-        public UsersController(UsersContext context)
+        Context db;
+
+
+        public UsersController(Context context)
         {
             db = context;
-            if (!db.Users.Any())
-            {
-                db.Users.Add(new User { Name = "Tom", Age = 26 });
-                db.Users.Add(new User { Name = "Alice", Age = 31 });
-                db.SaveChanges();
-            }
+
+            //if (!db.Users.Any())
+            //{
+            //    //db.Users.Add(new User { Name = "Tom", Age = 26 });
+            //    //db.Users.Add(new User { Name = "Alice", Age = 31 });
+            //    //db.SaveChanges();
+            //    db.Users.Remove
+            //}
+
+            // To clear db as a test.
+            //if (db.Users.Any())
+            //{
+            //    var records = db.Users.Select(user => user);
+            //    foreach (var record in records)
+            //    {
+            //        db.Users.Remove(record);
+            //    }
+            //    db.SaveChanges();
+            //}
         }
+
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
@@ -31,17 +48,28 @@ namespace ASP.NET_WEB_API_study_metanit.Controllers
             return await db.Users.ToListAsync();
         }
 
-        // GET api/users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(int id)
+        //// GET test/users/{id}
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<User>> Get(int id)
+        //{
+        //    User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
+        //    if (user == null)
+        //        return NotFound();
+        //    return new ObjectResult(user);
+        //}
+
+        // GET test/users/{email}
+        [HttpGet("{Email}")]
+        public async Task<ActionResult<User>> Get(string email)
         {
-            User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            User user = await db.Users.FirstOrDefaultAsync(x => x.Email == email);
             if (user == null)
                 return NotFound();
             return new ObjectResult(user);
         }
 
-        // POST api/users
+
+        // POST test/users
         [HttpPost]
         public async Task<ActionResult<User>> Post(User user)
         {
@@ -55,7 +83,7 @@ namespace ASP.NET_WEB_API_study_metanit.Controllers
             return Ok(user);
         }
 
-        // PUT api/users/
+        // PUT test/users/
         [HttpPut]
         public async Task<ActionResult<User>> Put(User user)
         {
@@ -73,11 +101,11 @@ namespace ASP.NET_WEB_API_study_metanit.Controllers
             return Ok(user);
         }
 
-        // DELETE api/users/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> Delete(int id)
+        // DELETE test/users/{email}
+        [HttpDelete("{Email}")]
+        public async Task<ActionResult<User>> Delete(string email)
         {
-            User user = db.Users.FirstOrDefault(x => x.Id == id);
+            User user = db.Users.FirstOrDefault(x => x.Email == email);
             if (user == null)
             {
                 return NotFound();

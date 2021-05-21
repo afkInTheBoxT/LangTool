@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace ASP.NET_Web_API.Models
 {
-    public class User
+    public class Achievement
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string Description { get; set; }
+        //public int Photo { get; set; }
     }
 }

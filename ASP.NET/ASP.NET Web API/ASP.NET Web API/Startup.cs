@@ -1,4 +1,4 @@
-using ASP.NET_WEB_API_study_metanit.Models;
+using ASP.NET_Web_API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,15 +15,16 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ASP.NET_WEB_API_study_metanit
+namespace ASP.NET_Web_API
 {
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            string con = "Server=(localdb)\\mssqllocaldb;Database=usersdbstore;Trusted_Connection=True;";
+            string con = "Server=(localdb)\\mssqllocaldb;Database=testUserRegestration;Trusted_Connection=True;";
             // устанавливаем контекст данных
-            services.AddDbContext<UsersContext>(options => options.UseSqlServer(con));
+            services.AddDbContext<Context>(options => options.UseSqlServer(con));
+            //services.AddDbContext<AchievementsContext>(options => options.UseSqlServer(con));
 
             services.AddControllers(); // используем контроллеры без представлений
 
