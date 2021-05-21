@@ -31,6 +31,7 @@ dependencies:
   convex_bottom_bar: ^3.0.0
   image_picker: ^0.7.5
   syncfusion_flutter_datepicker: ^19.1.63-beta
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:
