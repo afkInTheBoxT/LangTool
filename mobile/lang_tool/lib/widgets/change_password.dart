@@ -61,7 +61,7 @@ class _ChangePassState extends State<ChangePass> {
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
-                  labelText: 'Введіть ноий пароль',
+                  labelText: 'Введіть новий пароль',
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
@@ -110,7 +110,7 @@ class _ChangePassState extends State<ChangePass> {
                 ),
                 validator: (value) {
                   if (value != newPass1) {
-                    return 'Пароль повинен містити велику літеру та цифру';
+                    return 'Пароль не співпадає';
                   }
                   // password1 = value;
                   return null;

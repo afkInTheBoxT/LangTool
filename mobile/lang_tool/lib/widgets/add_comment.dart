@@ -11,7 +11,7 @@ class _AddCommentState extends State<AddComment> {
   final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: this._controller,
       maxLines: 10,
       textCapitalization: TextCapitalization.sentences,
@@ -22,6 +22,19 @@ class _AddCommentState extends State<AddComment> {
         border: const OutlineInputBorder(),
       ),
       onChanged: (text) => setState(() {}),
+      validator: (value) {
+                  if (!value.isNotEmpty) {
+                    return 'Напишіть що-небудь';
+                  }
+                  // password1 = value;
+                  return null;
+                },
     );
+  }
+}
+
+extension extString on String {
+  bool get isNotNull {
+    return this != null;
   }
 }
