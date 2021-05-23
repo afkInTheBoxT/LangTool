@@ -13,24 +13,45 @@ namespace LangTool_ASP.NET_Web_API.Controllers
     [ApiController]
     public class TestsController : ControllerBase
     {
-        private readonly Context _context;
+        private readonly Context db;
 
         public TestsController(Context context)
         {
-            _context = context;
+            db = context;
         }
 
         // GET: Tests
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Test>>> GetTests()
         {
-            return await _context.Tests.ToListAsync();
+            return await db.Tests.ToListAsync();
+        }
+
+
+        [HttpGet("{TestName}")]
+        public async Task<ActionResult<Test>> Get(string testName)
+        {
+            Test test = await db.Tests.FirstOrDefaultAsync(x => x.TestName == testName);
+            if (test == null)
+                return NotFound();
+            return new ObjectResult(test);
+        }
+
+
+        // Проверка теста.
+        [HttpPost("/checkTest/{TestName}")]
+        public async Task<ActionResult<Test>> CheckTest(string testName)
+        {
+            Test test = await db.Tests.FirstOrDefaultAsync(x => x.TestName == testName);
+            if (test == null)
+                return NotFound();
+            return new ObjectResult(test);
         }
 
 
         private bool TestExists(int id)
         {
-            return _context.Tests.Any(e => e.Test_id == id);
+            return db.Tests.Any(e => e.Test_id == id);
         }
 
 
@@ -39,7 +60,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Test>> GetTest(int id)
         //{
-        //    var test = await _context.Tests.FindAsync(id);
+        //    var test = await db.Tests.FindAsync(id);
 
         //    if (test == null)
         //    {
@@ -59,11 +80,11 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         //        return BadRequest();
         //    }
 
-        //    _context.Entry(test).State = EntityState.Modified;
+        //    db.Entry(test).State = EntityState.Modified;
 
         //    try
         //    {
-        //        await _context.SaveChangesAsync();
+        //        await db.SaveChangesAsync();
         //    }
         //    catch (DbUpdateConcurrencyException)
         //    {
@@ -85,8 +106,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         //[HttpPost]
         //public async Task<ActionResult<Test>> PostTest(Test test)
         //{
-        //    _context.Tests.Add(test);
-        //    await _context.SaveChangesAsync();
+        //    db.Tests.Add(test);
+        //    await db.SaveChangesAsync();
 
         //    return CreatedAtAction("GetTest", new { id = test.Test_id }, test);
         //}
@@ -95,14 +116,14 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> DeleteTest(int id)
         //{
-        //    var test = await _context.Tests.FindAsync(id);
+        //    var test = await db.Tests.FindAsync(id);
         //    if (test == null)
         //    {
         //        return NotFound();
         //    }
 
-        //    _context.Tests.Remove(test);
-        //    await _context.SaveChangesAsync();
+        //    db.Tests.Remove(test);
+        //    await db.SaveChangesAsync();
 
         //    return NoContent();
         //}

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LangTool_ASP.NET_Web_API.Models;
 
 
 namespace LangTool_ASP.NET_Web_API.Models
@@ -21,6 +22,11 @@ namespace LangTool_ASP.NET_Web_API.Models
             : base(options)
         {
             Database.EnsureCreated();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=testUserRegestration;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,6 +51,30 @@ namespace LangTool_ASP.NET_Web_API.Models
                 .HasOne(testUser => testUser.User)
                 .WithMany(testUser => testUser.TestUser)
                 .HasForeignKey(testUser => testUser.User_id);
+
+
+
+            //modelBuilder.Entity<TestQuestion>().HasKey(testQuestion =>
+            //   new
+            //   {
+            //       testQuestion.Test_id,
+            //       testQuestion.Question_id
+            //   });
+
+            //// Relationships.
+            //modelBuilder.Entity<TestQuestion>()
+            //    .HasOne(testQuestion => testQuestion.Test)
+            //    .WithMany(testQuestion => testQuestion.TestQuestion)
+            //    .HasForeignKey(testQuestion => testQuestion.Test_id);
+
+            //modelBuilder.Entity<TestQuestion>()
+            //    .HasOne(testQuestion => testQuestion.Question)
+            //    .WithMany(testQuestion => testQuestion.TestQuestion)
+            //    .HasForeignKey(testQuestion => testQuestion.Question_id);
         }
+
+        public DbSet<LangTool_ASP.NET_Web_API.Models.TestUser> TestUsers { get; set; }
+
+        //public DbSet<LangTool_ASP.NET_Web_API.Models.TestQuestion> TestQuestion { get; set; }
     }
 }

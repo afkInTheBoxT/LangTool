@@ -1,22 +1,19 @@
-﻿using LangTool_ASP.NET_Web_API.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using LangTool_ASP.NET_Web_API.Models;
 
-
-namespace LangTool_ASP.NET_Web_API
+namespace LangTool_ASP.NET_Web_API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        Context db;
-
+        private readonly Context db;
 
         public UsersController(Context context)
         {
@@ -28,37 +25,55 @@ namespace LangTool_ASP.NET_Web_API
                 db.Users.Add(new User { Name = "Alice", Email = "secondemaul@gna", Password = "12Qwerty" });
                 db.SaveChanges();
             }
-
-            // To clear db as a test.
-            //if (db.Users.Any())
+            if (!db.Tests.Any())
+            {
+                db.Tests.Add(new Test { TestName = "Food", TotalMark = 100 });
+                db.Tests.Add(new Test { TestName = "Daily", TotalMark = 200 });
+                db.SaveChanges();
+            }
+            if (!db.Achievements.Any())
+            {
+                db.Achievements.Add(new Achievement { Name = "Do it!", Description = "Finish the 1st stage" });
+                db.Achievements.Add(new Achievement { Name = "Do it x2!", Description = "Finish the 2nd stage" });
+                db.SaveChanges();
+            }
+            if (!db.Phrases.Any())
+            {
+                db.Phrases.Add(new Phrase { TopicName = "Food", PhraseName = "Banana" });
+                db.Phrases.Add(new Phrase { TopicName = "Daily", PhraseName = "Hello" });
+                db.SaveChanges();
+            }
+            if (!db.Questions.Any())
+            {
+                db.Questions.Add(new Question { QuestionName = "Where are u from?", Multiplyer = 1 });
+                db.Questions.Add(new Question { QuestionName = "How old are you?", Multiplyer = 2 });
+                db.SaveChanges();
+            }
+            //if (!db.TestQuestion.Any())
             //{
-            //    var records = db.Users.Select(user => user);
-            //    foreach (var record in records)
-            //    {
-            //        db.Users.Remove(record);
-            //    }
+            //    db.TestQuestion.Add(new TestQuestion { Question_id = 1, Test_id = 1 });
+            //    db.TestQuestion.Add(new TestQuestion { Question_id = 2, Test_id = 1 });
             //    db.SaveChanges();
+            //}
+            if (!db.TestUsers.Any())
+            {
+                db.TestUsers.Add(new TestUser { User_id = 1, Test_id = 1, IsEnabled = false, CurrentMark = 0 });
+                db.TestUsers.Add(new TestUser { User_id = 2, Test_id = 1, IsEnabled = true, CurrentMark = 100 });
+                db.SaveChanges();
+            }
+            //if (!db.Answers.Any()) {
+            //    db.Answers.Add(new Answer { Answer_id = 1, CorrectAnswer = "a)", Mark = 5 });
+            //    db.Answers.Add(new Answer { Answer_id = 2, CorrectAnswer = "b)", Mark = 0 });
             //}
         }
 
-        //[Authorize]
+        // GET: Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await db.Users.ToListAsync();
         }
 
-        //// GET test/users/{id}
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<User>> Get(int id)
-        //{
-        //    User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
-        //    if (user == null)
-        //        return NotFound();
-        //    return new ObjectResult(user);
-        //}
-
-        // GET users/{email}
         [HttpGet("{Email}")]
         public async Task<ActionResult<User>> Get(string email)
         {
@@ -68,7 +83,47 @@ namespace LangTool_ASP.NET_Web_API
             return new ObjectResult(user);
         }
 
+        // PUT: Users/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutUser(int id, User user)
+        {
+            if (id != user.User_id)
+            {
+                return BadRequest();
+            }
 
+            db.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<User>> PostUser(User user)
+        //{
+        //    db.Users.Add(user);
+        //    await db.SaveChangesAsync();
+
+        //    return CreatedAtAction("GetUser", new { id = user.User_id }, user);
+        //}
         // POST users
         [HttpPost]
         public async Task<ActionResult<User>> Post(User user)
@@ -83,23 +138,6 @@ namespace LangTool_ASP.NET_Web_API
             return Ok(user);
         }
 
-        // PUT users/
-        [HttpPut]
-        public async Task<ActionResult<User>> Put(User user)
-        {
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            if (!db.Users.Any(x => x.User_id == user.User_id))
-            {
-                return NotFound();
-            }
-
-            db.Update(user);
-            await db.SaveChangesAsync();
-            return Ok(user);
-        }
 
         // DELETE users/{email}
         [HttpDelete("{Email}")]
@@ -113,6 +151,11 @@ namespace LangTool_ASP.NET_Web_API
             db.Users.Remove(user);
             await db.SaveChangesAsync();
             return Ok(user);
+        }
+
+        private bool UserExists(int id)
+        {
+            return db.Users.Any(e => e.User_id == id);
         }
     }
 }

@@ -15,5 +15,6 @@ namespace LangTool_ASP.NET_Web_API.Models
 
         public virtual ICollection<TestUser> TestUsers { get; set; }
         public List<Question> Questions { get; set; }
+        //public virtual ICollection<TestQuestion> TestQuestions { get; set; }
     }
 }

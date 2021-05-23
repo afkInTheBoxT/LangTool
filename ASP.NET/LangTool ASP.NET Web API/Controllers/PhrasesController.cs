@@ -13,25 +13,25 @@ namespace LangTool_ASP.NET_Web_API.Controllers
     [ApiController]
     public class PhrasesController : ControllerBase
     {
-        private readonly Context _context;
+        private readonly Context db;
 
         public PhrasesController(Context context)
         {
-            _context = context;
+            db = context;            
         }
 
         // GET: Phrases
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Phrase>>> GetPhrases()
         {
-            return await _context.Phrases.ToListAsync();
+            return await db.Phrases.ToListAsync();
         }
 
         // GET: Phrases/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Phrase>> GetPhrase(int id)
         {
-            var phrase = await _context.Phrases.FindAsync(id);
+            var phrase = await db.Phrases.FindAsync(id);
 
             if (phrase == null)
             {
@@ -51,11 +51,11 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(phrase).State = EntityState.Modified;
+            db.Entry(phrase).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,8 +77,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Phrase>> PostPhrase(Phrase phrase)
         {
-            _context.Phrases.Add(phrase);
-            await _context.SaveChangesAsync();
+            db.Phrases.Add(phrase);
+            await db.SaveChangesAsync();
 
             return CreatedAtAction("GetPhrase", new { id = phrase.Phrase_Id }, phrase);
         }
@@ -87,21 +87,21 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePhrase(int id)
         {
-            var phrase = await _context.Phrases.FindAsync(id);
+            var phrase = await db.Phrases.FindAsync(id);
             if (phrase == null)
             {
                 return NotFound();
             }
 
-            _context.Phrases.Remove(phrase);
-            await _context.SaveChangesAsync();
+            db.Phrases.Remove(phrase);
+            await db.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool PhraseExists(int id)
         {
-            return _context.Phrases.Any(e => e.Phrase_Id == id);
+            return db.Phrases.Any(e => e.Phrase_Id == id);
         }
     }
 }

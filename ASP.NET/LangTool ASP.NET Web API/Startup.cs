@@ -32,7 +32,9 @@ namespace LangTool_ASP.NET_Web_API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
             string con = "Server=(localdb)\\mssqllocaldb;Database=testUserRegestration;Trusted_Connection=True;";
             // устанавливаем контекст данных
