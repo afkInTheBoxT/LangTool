@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:lang_tool/models/api.services.dart';
+import 'package:lang_tool/models/user.dart';
 import 'package:lang_tool/pages/main_page.dart';
 import 'package:lang_tool/pages/reg_page.dart';
 
@@ -11,6 +15,13 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  bool _checkUserBool;
+  // _RegPageState();
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passController = TextEditingController();
+  // List<User> user;
+  User user = new User.withId(null, "null", "null", "null");
   final _formKey = GlobalKey<FormState>();
   bool _showPassword = false;
   @override
@@ -48,6 +59,11 @@ class _AuthPageState extends State<AuthPage> {
                     padding: const EdgeInsets.only(top: 30),
                     // padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: TextFormField(
+                      controller: emailController,
+                      onChanged: (value){
+                        this.checkUser();
+                        this.getUser();
+                      },
                       style: TextStyle(
                         fontSize: 18,
                       ),
@@ -60,7 +76,7 @@ class _AuthPageState extends State<AuthPage> {
                       validator: (value) {
                         if (!value.isValidEmail) {
                           return 'Невірно введена електронна адреса!';
-                        }
+                        } else if(_checkUserBool) return 'Невірно введена електронна адреса!';
                         return null;
                       },
                     ),
@@ -69,6 +85,7 @@ class _AuthPageState extends State<AuthPage> {
                     padding: const EdgeInsets.only(top: 20),
                     // padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: TextFormField(
+                      controller: passController,
                       obscureText: !this._showPassword,
                       style: TextStyle(
                         fontSize: 18,
@@ -93,7 +110,7 @@ class _AuthPageState extends State<AuthPage> {
                       validator: (value) {
                         if (!value.isValidPassword) {
                           return 'Невірно введен пароль!';
-                        }
+                        } else if(passController.text != getUserPass()) return 'Невірно введен пароль!';
                         return null;
                       },
                     ),
@@ -109,12 +126,18 @@ class _AuthPageState extends State<AuthPage> {
                     // ignore: deprecated_member_use
                     child: FlatButton(
                       onPressed: () {
+                        // getUser();
                         if (_formKey.currentState.validate()) {
+                          print('UserList:' + user.toString());
+                          print('userPass');
+                          print(getUserPass());
+                          if(passController.text == getUserPass()){
                           Navigator.pop(context);
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => MainPage()),
+                            MaterialPageRoute(builder: (context) => MainPage(curUser: user,)),
                           );
+                          } else print("notFindPass");
                         }
                       },
                       child: Text(
@@ -200,6 +223,37 @@ class _AuthPageState extends State<AuthPage> {
         ),
       ),
     );
+  }
+
+  void getUser() async {
+    if(true){
+    APIServices.fetchUserEmail(emailController.text).then((response) {
+      
+      var list = json.decode(response.body);
+      User user2 = new User.fromJson(list);
+      // List<User> userList;
+      // userList = list.map((model) => User.fromJson(model)).toList();
+      // user = userList;
+        // return user;    
+        // count = students.length;   
+        user = user2;
+      });
+    } else print("NotFind");
+    }
+
+    String getUserPass() {
+      return user.password;
+    }
+
+    void checkUser() async {
+    User user1 = new User(
+        nameController.text, emailController.text, passController.text);
+    var saveResponse = await APIServices.getEmailUser(user1);
+    print(saveResponse);
+    if (saveResponse) {
+      _checkUserBool = true;
+    } else
+      _checkUserBool = false;
   }
 }
 

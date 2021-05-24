@@ -1,47 +1,57 @@
 class User {
-  int _id;
-  String _name;
-  String _email;
-  String _password;
+  int id;
+  String name;
+  String email;
+  String password;
 
-  User(this._name, this._email, this._password);
-  User.withId(this._id, this._name, this._email, this._password);
+  User(this.name, this.email, this.password);
+  User.withId(this.id, this.name, this.email, this.password);
+  User._({this.id, this.name, this.email, this.password});
 
-  int get id => _id;
-  String get name => _name;
-  String get email => _email;
-  String get password => _password;
+  int get idUser => id;
+  String get nameUser => name;
+  String get emailUser => email;
+  String get passwordUser => password;
 
-  set name(String newName){
-    this._name = newName;
+  set nameUser(String newName){
+    this.name = newName;
   }
 
-  set email(String newEmail){
-   this._email = newEmail;
+  set emailUser(String newEmail){
+   this.email = newEmail;
   }
 
-  set password(String newPasswrod){
-    _password = newPasswrod;
+  set passwordUser(String newPasswrod){
+    password = newPasswrod;
   }
 
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
 
-    map["name"] = _name;
-    map["email"] = _email;
-    map["password"] = _password;
+    map["name"] = name;
+    map["email"] = email;
+    map["password"] = password;
 
-    if(_id != null) {
-      map["id"] = _id;
+    if(id != null) {
+      map["user_id"] = id;
     }
 
     return map;
   }
 
+  factory User.fromJson(Map<String, dynamic> json) {
+    return new User._(
+      id: json['user_id'],
+      name: json['name'],
+      email: json['email'],
+      password: json['password'],
+    );
+  }
+
   User.fromObject(dynamic o){
-    this._id = o["id"];
-    this._name = o["name"];
-    this._email = o["email"];
-    this._password = o["password"];
+    this.id = o["user_id"];
+    this.name = o["name"];
+    this.email = o["email"];
+    this.password = o["password"];
   }
 }

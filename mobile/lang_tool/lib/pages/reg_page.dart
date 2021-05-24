@@ -14,7 +14,7 @@ class RegPage extends StatefulWidget {
 
 class _RegPageState extends State<RegPage> {
   List<User> users;
-  User user;
+  User user = new User("", "", "");
   bool _checkUserBool;
   // _RegPageState();
   var nameController = TextEditingController();
@@ -76,8 +76,8 @@ class _RegPageState extends State<RegPage> {
                       // checkUser();
                       if (!value.isValidEmail) {
                         return 'Невірно введена електронна адреса!';
-                      } else {      
-                        if(!_checkUserBool){
+                      } else {
+                        if (!_checkUserBool) {
                           return 'Така адреса вже зареєстрована!';
                         }
                       }
@@ -196,7 +196,10 @@ class _RegPageState extends State<RegPage> {
                             actions: <Widget>[
                               FlatButton(
                                 child: Text('Ок'),
-                                onPressed: () => Navigator.pop(context, 'OK'),
+                                onPressed: () {
+                                  saveUser();
+                                  Navigator.pop(context, 'OK');
+                                  }
                               ),
                             ],
                           ),
@@ -247,42 +250,50 @@ class _RegPageState extends State<RegPage> {
     );
   }
 
-  getUser() {
-    APIServices.fetchUser().then((response) {
-      Iterable list = json.decode(response.body);
-      List<User> userList = List<User>();
-      userList = list.map((e) => User.fromObject(e)).toList();
+  // getUser() {
+  //   APIServices.fetchUserEmail(emailController.text).then((response) {
+  //     Iterable list = json.decode(response.body);
+  //     List<User> userList = List<User>();
+  //     userList = list.map((e) => User.fromObject(e)).toList();
 
-      // print("Response status: ${response.statusCode}");
-      // print("Response body: ${response.body}");
+  //     // print("Response status: ${response.statusCode}");
+  //     // print("Response body: ${response.body}");
 
-      setState(() {
-        users = userList;
-      });
-      // }).catchError((error) {
-      //               print("Error: $error");
-    });
-  }
+  //     setState(() {
+  //       users = userList;
+  //     });
+  //     // }).catchError((error) {
+  //     //               print("Error: $error");
+  //   });
+  // }
 
   void saveUser() async {
-    User user1 = new User(nameController.text, emailController.text, passController.text);
+    User user1 = new User(
+        nameController.text, emailController.text, passController.text);
     var saveResponse = await APIServices.postUser(user1);
-    saveResponse == true
-        ? Navigator.pop(context, true)
-        : Scaffold.of(context).showSnackBar(connectionIssurSnackBar);
+    try {
+      saveResponse == true
+          ? Navigator.pop(context, true)
+          : Scaffold.of(context).showSnackBar(connectionIssurSnackBar);
+    } on Exception catch (e) {
+      //Handle exception of type SomeException
+    } catch (e) {
+      //Handle all other exceptions
+    }
   }
 
   void checkUser() async {
-    User user1 = new User(nameController.text, emailController.text, passController.text);
+    User user1 = new User(
+        nameController.text, emailController.text, passController.text);
     var saveResponse = await APIServices.getEmailUser(user1);
-    
+
     print(saveResponse);
-    if(saveResponse){
+    if (saveResponse) {
       // saveUser();
       _checkUserBool = true;
-    } else _checkUserBool = false;
+    } else
+      _checkUserBool = false;
     // saveUser();
-
   }
 
   void updateName() {
@@ -291,7 +302,6 @@ class _RegPageState extends State<RegPage> {
 
   void updateEmail() {
     user.email = emailController.text;
-    
   }
 
   void updatePass() {

@@ -1,5 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:lang_tool/models/user.dart';
 import 'package:lang_tool/pages/settings_page.dart';
 import 'package:lang_tool/widgets/main_menu_nav.dart';
 import 'package:lang_tool/pages/account_page.dart';
@@ -24,10 +25,11 @@ class MainPages {
   // ];
   final _kpages = <Widget>[
     MainMenuNav(),
-    AccountPage(),
-    SettingsPage(),
+    AccountPage(curUser: curUserA),
+    SettingsPage(curUser: curUserA),
   ];
 
+User curUserA = new User("name", "email", "password");
 
 const _kPages = <String, IconData>{
   'Навчання': Icons.menu_book_rounded,
@@ -38,17 +40,20 @@ const _kPages = <String, IconData>{
 };
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key}) : super(key: key);
-
+  MainPage({Key key, this.curUser}) : super(key: key);
+  User curUser;
   @override
   _MainPageState createState() => _MainPageState();
 }
+
 TabStyle _tabStyle = TabStyle.reactCircle;
+
 class _MainPageState extends State<MainPage> {
   int count = 0;
-
   @override
   Widget build(BuildContext context) {
+    print(widget.curUser.name);
+    curUserA = widget.curUser;
     return DefaultTabController(
       length: 3,
       initialIndex: 0,

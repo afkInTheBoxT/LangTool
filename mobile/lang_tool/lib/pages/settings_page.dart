@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:lang_tool/models/api.services.dart';
+import 'package:lang_tool/models/user.dart';
+import 'package:lang_tool/pages/auth_page.dart';
+import 'package:lang_tool/pages/main_page.dart';
 import 'package:lang_tool/widgets/add_comment.dart';
 import 'package:lang_tool/widgets/change_login.dart';
 import 'package:lang_tool/widgets/change_password.dart';
 import 'package:lang_tool/widgets/remove_account.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key key}) : super(key: key);
+  SettingsPage({Key key, this.curUser}) : super(key: key);
+  User curUser;
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  var passController = TextEditingController();
+  var newPassController1 = TextEditingController();
+  var newPassController2 = TextEditingController();
+  var emailController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   bool _showPassword = false;
   bool isSwitched = false;
@@ -41,13 +51,19 @@ class _SettingsPageState extends State<SettingsPage> {
                   key: _formKey,
                   child: AlertDialog(
                     title: const Text('Зміна паролю'),
-                    content: ChangePass(),
+                    content: ChangePass(
+                      passController: passController,
+                      newPassController1: newPassController1,
+                      newPassController2: newPassController2,
+                      user: curUserA,
+                    ),
                     actions: <Widget>[
                       FlatButton(
                         child: Text('Змінити'),
                         // onPressed: () => Navigator.pop(context, 'Cancel'),
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
+                            changeUserPass(curUserA);
                             return Navigator.pop(context, 'Cancel');
                           }
                         },
@@ -88,15 +104,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   key: _formKey,
                   child: AlertDialog(
                     title: const Text('Зміна логіну'),
-                    content: ChangeLogin(),
+                    content: ChangeLogin(user: curUserA, emailController: emailController,),
                     actions: <Widget>[
                       FlatButton(
                         child: Text('Змінити'),
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
+                            changeUserEmail(curUserA);
                             return Navigator.pop(context, 'Cancel');
                           }
-                          ;
                         },
                       ),
                       FlatButton(
@@ -146,7 +162,15 @@ class _SettingsPageState extends State<SettingsPage> {
                     actions: <Widget>[
                       FlatButton(
                         child: Text('Видалити'),
-                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        onPressed: () => {
+                          delUser(curUserA),
+                          Navigator.pop(context, 'Cancel'),
+                          Navigator.pop(context),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AuthPage()),
+                          ),
+                        }
                       ),
                       FlatButton(
                         child: Text('Скасувати'),
@@ -238,5 +262,50 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ],
     );
+  }
+
+  void changeUserPass(User user) async {
+    User user1 = new User.withId(user.id, user.name, user.email, newPassController2.text);
+    var saveResponse = await APIServices.putUser(user1);
+    try {
+      saveResponse == true
+          ? {
+            
+            Navigator.pop(context, true)
+            }
+          : {
+            curUserA = user1,
+            Scaffold.of(context)
+            };
+    } on Exception catch (e) {
+      //Handle exception of type SomeException
+    } catch (e) {
+      //Handle all other exceptions
+    }
+  }
+
+  void changeUserEmail(User user) async {
+    User user1 = new User.withId(user.id, user.name, emailController.text, user.password);
+    var saveResponse = await APIServices.putUser(user1);
+    try {
+      saveResponse == true
+          ? {
+            
+            Navigator.pop(context, true)
+            }
+          : {
+            curUserA = user1,
+            Scaffold.of(context)
+            };
+    } on Exception catch (e) {
+      //Handle exception of type SomeException
+    } catch (e) {
+      //Handle all other exceptions
+    }
+  }
+
+  void delUser(User user) async {
+    await APIServices.delUser(user);
+    user = new User.withId(null, "name", "email", "password");
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lang_tool/models/user.dart';
 import 'package:lang_tool/widgets/achievements.dart';
 import 'package:lang_tool/widgets/deadline_picker.dart';
 import 'package:lang_tool/widgets/statistics.dart';
@@ -6,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class AccountPage extends StatefulWidget {
+  AccountPage({this.curUser});
+  User curUser;
   @override
   _AccountPageState createState() => _AccountPageState();
 }
@@ -61,7 +64,7 @@ class _AccountPageState extends State<AccountPage> {
                         width: 120,
                         height: 30,
                         child: Text(
-                          'Name',
+                          widget.curUser.name.toString(),
                           style: TextStyle(fontSize: 25),
                         ),
                       ),
@@ -69,7 +72,7 @@ class _AccountPageState extends State<AccountPage> {
                         height: 30,
                         width: 120,
                         child: Text(
-                          'Login',
+                          widget.curUser.email.toString(),
                           style: TextStyle(fontSize: 18),
                         ),
                       ),

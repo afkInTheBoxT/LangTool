@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:lang_tool/models/api.services.dart';
+import 'package:lang_tool/models/user.dart';
+import 'package:lang_tool/pages/main_page.dart';
 import 'package:lang_tool/pages/settings_page.dart';
 
 class ChangePass extends StatefulWidget {
   // final _formKey = GlobalKey<FormState>();
-  ChangePass({Key key}) : super(key: key);
+  ChangePass({Key key, this.passController, this.newPassController1, this.newPassController2, this.user }) : super(key: key);
+
+  var passController = TextEditingController();
+  var newPassController1 = TextEditingController();
+  var newPassController2 = TextEditingController();
+  User user;
 
   @override
   _ChangePassState createState() => _ChangePassState();
@@ -11,6 +19,7 @@ class ChangePass extends StatefulWidget {
 
 class _ChangePassState extends State<ChangePass> {
   // final _formKey = GlobalKey<FormState>();
+  
   var oldPass = 'Qwer1';
   var newPass1 = null;
   bool _showPassword = false;
@@ -24,6 +33,8 @@ class _ChangePassState extends State<ChangePass> {
               padding: const EdgeInsets.only(top: 20),
               // padding: const EdgeInsets.symmetric(horizontal: 40),
               child: TextFormField(
+                controller: widget.passController,
+                onChanged: (value) => print(widget.passController.text),
                 obscureText: !this._showPassword,
                 style: TextStyle(
                   fontSize: 14,
@@ -44,8 +55,8 @@ class _ChangePassState extends State<ChangePass> {
                   ),
                 ),
                 validator: (value) {
-                  if (oldPass != value) {
-                    return 'Пароль повинен містити велику літеру та цифру';
+                  if (curUserA.password != value) {
+                    return 'Пароль не співпадає!';
                   }
                   // password1 = value;
                   return null;
@@ -56,6 +67,8 @@ class _ChangePassState extends State<ChangePass> {
               padding: const EdgeInsets.only(top: 20),
               // padding: const EdgeInsets.symmetric(horizontal: 40),
               child: TextFormField(
+                controller: widget.newPassController1,
+                onChanged: (value) => print(widget.newPassController1.text),
                 obscureText: !this._showPassword,
                 style: TextStyle(
                   fontSize: 14,
@@ -78,6 +91,8 @@ class _ChangePassState extends State<ChangePass> {
                 validator: (value) {
                   if (!value.isValidPassword) {
                     return 'Пароль повинен містити велику літеру та цифру';
+                  } else if(curUserA.password == value) {
+                    return 'Пароль схожий на страий!';
                   }
                   // password1 = value;
                   newPass1 = value;
@@ -89,6 +104,8 @@ class _ChangePassState extends State<ChangePass> {
               padding: const EdgeInsets.only(top: 20),
               // padding: const EdgeInsets.symmetric(horizontal: 40),
               child: TextFormField(
+                controller: widget.newPassController2,
+                onChanged: (value) => print(widget.newPassController2.text),
                 obscureText: !this._showPassword,
                 style: TextStyle(
                   fontSize: 14,
@@ -122,6 +139,20 @@ class _ChangePassState extends State<ChangePass> {
       ]),
     );
   }
+
+  // void changeUserPass(User user) async {
+  //   User user1 = new User(user.name, user.email, widget.newPassController2.text);
+  //   var saveResponse = await APIServices.putUser(user1);
+  //   try {
+  //     saveResponse == true
+  //         ? Navigator.pop(context, true)
+  //         : Scaffold.of(context);
+  //   } on Exception catch (e) {
+  //     //Handle exception of type SomeException
+  //   } catch (e) {
+  //     //Handle all other exceptions
+  //   }
+  // }
 }
 
 extension extString on String {
