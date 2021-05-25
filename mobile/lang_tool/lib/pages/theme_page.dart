@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lang_tool/models/widgetColors.dart';
 
 class ThemePage extends StatefulWidget {
   ThemePage({Key key}) : super(key: key);
@@ -15,7 +16,7 @@ class _ThemePageState extends State<ThemePage> {
   static const _borderRadius = 20.0;
 
   static Color _textColor = Colors.white;
-  static Color _backGroundColor = Colors.orange[400];
+  // static Color _backGroundColor = Colors.orange[400];
   static Color _iconColor = Colors.white;
 
   final _kPages = <Widget>[
@@ -23,7 +24,14 @@ class _ThemePageState extends State<ThemePage> {
       margin: const EdgeInsets.symmetric(
           vertical: _vertical, horizontal: _horizontal),
       decoration: BoxDecoration(
-        color: _backGroundColor,
+        gradient: LinearGradient(
+          colors: [
+            WidgetColor.buttonTopColor,
+            WidgetColor.buttonBotColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
         borderRadius: BorderRadius.circular(_borderRadius),
       ),
       child: FlatButton(
@@ -46,11 +54,18 @@ class _ThemePageState extends State<ThemePage> {
             ]),
       ),
     ),
-     Container(
+    Container(
       margin: const EdgeInsets.symmetric(
           vertical: _vertical, horizontal: _horizontal),
       decoration: BoxDecoration(
-        color: _backGroundColor,
+        gradient: LinearGradient(
+          colors: [
+            WidgetColor.buttonTopColor,
+            WidgetColor.buttonBotColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
         borderRadius: BorderRadius.circular(_borderRadius),
       ),
       child: FlatButton(
@@ -73,11 +88,18 @@ class _ThemePageState extends State<ThemePage> {
             ]),
       ),
     ),
-     Container(
+    Container(
       margin: const EdgeInsets.symmetric(
           vertical: _vertical, horizontal: _horizontal),
       decoration: BoxDecoration(
-        color: _backGroundColor,
+        gradient: LinearGradient(
+          colors: [
+            WidgetColor.buttonTopColor,
+            WidgetColor.buttonBotColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
         borderRadius: BorderRadius.circular(_borderRadius),
       ),
       child: FlatButton(
@@ -100,11 +122,18 @@ class _ThemePageState extends State<ThemePage> {
             ]),
       ),
     ),
-     Container(
+    Container(
       margin: const EdgeInsets.symmetric(
           vertical: _vertical, horizontal: _horizontal),
       decoration: BoxDecoration(
-        color: _backGroundColor,
+        gradient: LinearGradient(
+          colors: [
+            WidgetColor.buttonTopColor,
+            WidgetColor.buttonBotColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
         borderRadius: BorderRadius.circular(_borderRadius),
       ),
       child: FlatButton(
@@ -127,11 +156,18 @@ class _ThemePageState extends State<ThemePage> {
             ]),
       ),
     ),
-     Container(
+    Container(
       margin: const EdgeInsets.symmetric(
           vertical: _vertical, horizontal: _horizontal),
       decoration: BoxDecoration(
-        color: _backGroundColor,
+        gradient: LinearGradient(
+          colors: [
+            WidgetColor.buttonTopColor,
+            WidgetColor.buttonBotColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
         borderRadius: BorderRadius.circular(_borderRadius),
       ),
       child: FlatButton(
@@ -154,11 +190,18 @@ class _ThemePageState extends State<ThemePage> {
             ]),
       ),
     ),
-     Container(
+    Container(
       margin: const EdgeInsets.symmetric(
           vertical: _vertical, horizontal: _horizontal),
       decoration: BoxDecoration(
-        color: _backGroundColor,
+        gradient: LinearGradient(
+          colors: [
+            WidgetColor.buttonTopColor,
+            WidgetColor.buttonBotColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
         borderRadius: BorderRadius.circular(_borderRadius),
       ),
       child: FlatButton(
@@ -185,12 +228,22 @@ class _ThemePageState extends State<ThemePage> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetColor.changeColor();
     return Scaffold(
         appBar: AppBar(
           title: Text(
             'Фрази за темою',
           ),
-          backgroundColor: _backGroundColor,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                  WidgetColor.appBarTopColor,
+                  WidgetColor.appBarBotColor,
+                ])),
+          ),
         ),
         body: GridView.count(
           crossAxisCount: 2,

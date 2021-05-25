@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lang_tool/models/widgetColors.dart';
 import 'package:lang_tool/pages/account_page.dart';
 
 class AplgabetPage extends StatefulWidget {
@@ -10,7 +11,7 @@ class AplgabetPage extends StatefulWidget {
 
 class _AplgabetPageState extends State<AplgabetPage> {
   double _fontSize = 18;
-  Color appBarColor = Colors.orange[400];
+  // Color appBarColor = Colors.orange[400];
   final _kPages = <Widget>[
     Container(
       child: Image.asset('assets/images/hiragana.jpg', fit: BoxFit.fill),
@@ -27,12 +28,22 @@ class _AplgabetPageState extends State<AplgabetPage> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetColor.changeColor();
     return DefaultTabController(
       length: _kTabs.length,
        child: Scaffold(
          appBar: AppBar(
            title: Text('Абетка'),
-           backgroundColor: appBarColor,
+           flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                WidgetColor.appBarTopColor,
+                WidgetColor.appBarBotColor,
+              ])),
+        ),
            bottom: TabBar(
              labelStyle: TextStyle(fontSize: _fontSize),
              tabs: _kTabs,

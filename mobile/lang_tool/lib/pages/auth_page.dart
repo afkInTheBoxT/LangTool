@@ -5,6 +5,7 @@ import 'package:lang_tool/models/api.services.dart';
 import 'package:lang_tool/models/user.dart';
 import 'package:lang_tool/pages/main_page.dart';
 import 'package:lang_tool/pages/reg_page.dart';
+import 'package:lang_tool/models/widgetColors.dart';
 
 class AuthPage extends StatefulWidget {
   // final title;
@@ -15,6 +16,7 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  // widget_colors wdgC;
   bool _checkUserBool;
   // _RegPageState();
   var nameController = TextEditingController();
@@ -26,6 +28,7 @@ class _AuthPageState extends State<AuthPage> {
   bool _showPassword = false;
   @override
   Widget build(BuildContext context) {
+    WidgetColor.changeColor();
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -33,192 +36,234 @@ class _AuthPageState extends State<AuthPage> {
             'LangTool',
           ),
         ),
-        backgroundColor: Colors.orange[400],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                WidgetColor.appBarTopColor,
+                WidgetColor.appBarBotColor,
+              ])),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: Text(
-                        'Авторизація',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 35,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 30),
-                    // padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: TextFormField(
-                      controller: emailController,
-                      onChanged: (value){
-                        this.checkUser();
-                        this.getUser();
-                      },
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: 'Введіть електронну адресу',
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (!value.isValidEmail) {
-                          return 'Невірно введена електронна адреса!';
-                        } else if(_checkUserBool) return 'Невірно введена електронна адреса!';
-                        return null;
-                      },
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    // padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: TextFormField(
-                      controller: passController,
-                      obscureText: !this._showPassword,
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: 'Введіть пароль',
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.remove_red_eye,
-                            color:
-                                this._showPassword ? Colors.blue : Colors.grey,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              WidgetColor.backgroundTop,
+              WidgetColor.backgroundBot,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Text(
+                          'Авторизація',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 35,
                           ),
-                          onPressed: () {
-                            setState(
-                                () => this._showPassword = !this._showPassword);
-                          },
                         ),
                       ),
-                      validator: (value) {
-                        if (!value.isValidPassword) {
-                          return 'Невірно введен пароль!';
-                        } else if(passController.text != getUserPass()) return 'Невірно введен пароль!';
-                        return null;
-                      },
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsetsDirectional.only(top: 20),
-                    width: 180,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.orange[400],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    // ignore: deprecated_member_use
-                    child: FlatButton(
-                      onPressed: () {
-                        // getUser();
-                        if (_formKey.currentState.validate()) {
-                          print('UserList:' + user.toString());
-                          print('userPass');
-                          print(getUserPass());
-                          if(passController.text == getUserPass()){
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => MainPage(curUser: user,)),
-                          );
-                          } else print("notFindPass");
-                        }
-                      },
-                      child: Text(
-                        'Увійти',
+                    Container(
+                      padding: const EdgeInsets.only(top: 30),
+                      // padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: TextFormField(
+                        controller: emailController,
+                        onChanged: (value) {
+                          this.checkUser();
+                          this.getUser();
+                        },
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.white,
                         ),
+                        decoration: InputDecoration(
+                          labelText: 'Введіть електронну адресу',
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (!value.isValidEmail) {
+                            return 'Невірно введена електронна адреса!';
+                          } else if (_checkUserBool)
+                            return 'Невірно введена електронна адреса!';
+                          return null;
+                        },
                       ),
                     ),
-                  ),
-                  Container(
-                    height: 30,
-                    // padding: const EdgeInsetsDirectional.only(bottom: 10),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Забув пароль',
+                    Container(
+                      padding: const EdgeInsets.only(top: 20),
+                      // padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: TextFormField(
+                        controller: passController,
+                        obscureText: !this._showPassword,
                         style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.blue,
+                          fontSize: 18,
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Введіть пароль',
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.remove_red_eye,
+                              color:
+                                  this._showPassword ? Colors.blue : Colors.grey,
+                            ),
+                            onPressed: () {
+                              setState(
+                                  () => this._showPassword = !this._showPassword);
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (!value.isValidPassword) {
+                            return 'Невірно введен пароль!';
+                          } else if (passController.text != getUserPass())
+                            return 'Невірно введен пароль!';
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsetsDirectional.only(top: 20),
+                      width: 180,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            WidgetColor.buttonTopColor,
+                            WidgetColor.buttonBotColor,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        // boxShadow: ,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      // ignore: deprecated_member_use
+                      child: FlatButton(
+                        onPressed: () {
+                          // getUser();
+                          if (_formKey.currentState.validate()) {
+                            print('UserList:' + user.toString());
+                            print('userPass');
+                            print(getUserPass());
+                            if (passController.text == getUserPass()) {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MainPage(
+                                          curUser: user,
+                                        )),
+                              );
+                            } else
+                              print("notFindPass");
+                          }
+                        },
+                        child: Text(
+                          'Увійти',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    width: 200,
-                    margin: const EdgeInsetsDirectional.only(top: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.orange,
+                    Container(
+                      height: 30,
+                      // padding: const EdgeInsetsDirectional.only(bottom: 10),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Забув пароль',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
                     ),
-                    // ignore: deprecated_member_use
-                    child: FlatButton(
-                      onPressed: () => {},
-                      // color: Colors.orange,
-                      padding: EdgeInsets.all(0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        // Replace with a Row for horizontal icon + text
-                        children: <Widget>[
-                          IconButton(
-                              onPressed: () {},
-                              icon: Image.asset(
-                                'assets/images/g_logo_auth.png',
-                              )),
-                          Flexible(
-                            child: Text(
-                              'Увійти за допомогою Google',
-                              style: TextStyle(
-                                color: Colors.white,
+                    Container(
+                      width: 200,
+                      margin: const EdgeInsetsDirectional.only(top: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        // color: Colors.orange,
+                        gradient: LinearGradient(
+                          colors: [
+                            WidgetColor.buttonTopColor,
+                            WidgetColor.buttonBotColor,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                      // ignore: deprecated_member_use
+                      child: FlatButton(
+                        onPressed: () => {},
+                        padding: EdgeInsets.all(0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          // Replace with a Row for horizontal icon + text
+                          children: <Widget>[
+                            IconButton(
+                                onPressed: () {},
+                                icon: Image.asset(
+                                  'assets/images/g_logo_auth.png',
+                                )),
+                            Flexible(
+                              child: Text(
+                                'Увійти за допомогою Google',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 30,
-                    // padding: const EdgeInsetsDirectional.only(bottom: 10),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => RegPage()),
-                        );
-                      },
-                      child: Text(
-                        'Створити акаунт',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.blue,
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Container(
+                      height: 30,
+                      // padding: const EdgeInsetsDirectional.only(bottom: 10),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => RegPage()),
+                          );
+                        },
+                        child: Text(
+                          'Створити акаунт',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -226,26 +271,26 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   void getUser() async {
-    if(true){
-    APIServices.fetchUserEmail(emailController.text).then((response) {
-      
-      var list = json.decode(response.body);
-      User user2 = new User.fromJson(list);
-      // List<User> userList;
-      // userList = list.map((model) => User.fromJson(model)).toList();
-      // user = userList;
-        // return user;    
-        // count = students.length;   
+    if (true) {
+      APIServices.fetchUserEmail(emailController.text).then((response) {
+        var list = json.decode(response.body);
+        User user2 = new User.fromJson(list);
+        // List<User> userList;
+        // userList = list.map((model) => User.fromJson(model)).toList();
+        // user = userList;
+        // return user;
+        // count = students.length;
         user = user2;
       });
-    } else print("NotFind");
-    }
+    } else
+      print("NotFind");
+  }
 
-    String getUserPass() {
-      return user.password;
-    }
+  String getUserPass() {
+    return user.password;
+  }
 
-    void checkUser() async {
+  void checkUser() async {
     User user1 = new User(
         nameController.text, emailController.text, passController.text);
     var saveResponse = await APIServices.getEmailUser(user1);
@@ -264,14 +309,13 @@ extension extString on String {
   }
 
   bool get isValidName {
-    final nameRegExp =
-        new RegExp(r"^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$");
+    final nameRegExp = new RegExp(r"^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$");
     return nameRegExp.hasMatch(this);
   }
 
   bool get isValidPassword {
-    final passwordRegExp = new RegExp(
-        r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$');
+    final passwordRegExp =
+        new RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$');
     return passwordRegExp.hasMatch(this);
   }
 
