@@ -39,6 +39,50 @@ namespace LangTool_ASP.NET_Web_API
             return new ObjectResult(achievement);
         }
 
+        // GET achievements/5/1
+        [HttpGet("getAchievement/{Achievement_id}/{User_id}")]
+        public async Task<ActionResult<IEnumerable<Achievement>>> Get(int achievement_id, int user_id)
+        {
+            var result = await db.Achievements
+               .Include(achievement => achievement.User)
+               .Where(achievement => achievement.User.Any(c => c.User_id == user_id))
+               .ToListAsync();
+
+            return result;
+        }
+
+
+        // PUT achievements/{5}
+        [HttpPut("{User_id}")]
+        public async Task<ActionResult<Achievement>> Put(Achievement achievement)
+        {
+            //var data = from l in _context.Lookup
+            //           join t in _context.Lookup_Type
+            //           on l.Lookup_type_id equals t.Id
+
+            //           select new
+            //           {
+            //               l.Id,
+            //               l.Lookup_name,
+            //               Lookup_Type_name = t.Lookup_name
+            //           };
+            //return Json(new { data = await data.ToListAsync() });
+
+
+            if (achievement == null)
+            {
+                return BadRequest();
+            }
+            if (!db.Achievements.Any(x => x.Achievement_id == achievement.Achievement_id))
+            {
+                return NotFound();
+            }
+
+            db.Update(achievement);
+            await db.SaveChangesAsync();
+            return Ok(achievement);
+        }
+
         //// POST achievements
         //[HttpPost]
         //public async Task<ActionResult<Achievement>> Post(Achievement achievement)
@@ -49,24 +93,6 @@ namespace LangTool_ASP.NET_Web_API
         //    }
 
         //    db.Achievements.Add(achievement);
-        //    await db.SaveChangesAsync();
-        //    return Ok(achievement);
-        //}
-
-        //// PUT achievements/
-        //[HttpPut]
-        //public async Task<ActionResult<Achievement>> Put(Achievement achievement)
-        //{
-        //    if (achievement == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    if (!db.Achievements.Any(x => x.Achievement_id == achievement.Achievement_id))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.Update(achievement);
         //    await db.SaveChangesAsync();
         //    return Ok(achievement);
         //}
