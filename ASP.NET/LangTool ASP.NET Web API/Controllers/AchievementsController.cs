@@ -29,19 +29,19 @@ namespace LangTool_ASP.NET_Web_API
             return await db.Achievements.ToListAsync();
         }
 
-        // GET achievements/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Achievement>> Get(int id)
-        {
-            Achievement achievement = await db.Achievements.FirstOrDefaultAsync(x => x.Achievement_id == id);
-            if (achievement == null)
-                return NotFound();
-            return new ObjectResult(achievement);
-        }
+        //// GET achievements/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Achievement>> Get(int id)
+        //{
+        //    Achievement achievement = await db.Achievements.FirstOrDefaultAsync(x => x.Achievement_id == id);
+        //    if (achievement == null)
+        //        return NotFound();
+        //    return new ObjectResult(achievement);
+        //}
 
-        // GET achievements/5/1
-        [HttpGet("getAchievement/{Achievement_id}/{User_id}")]
-        public async Task<ActionResult<IEnumerable<Achievement>>> Get(int achievement_id, int user_id)
+        // GET achievements/getAchievement/1
+        [HttpGet("getAchievement/{User_id}")]
+        public async Task<ActionResult<IEnumerable<Achievement>>> Get(int user_id)
         {
             var result = await db.Achievements
                .Include(achievement => achievement.User)
@@ -56,19 +56,6 @@ namespace LangTool_ASP.NET_Web_API
         [HttpPut("{User_id}")]
         public async Task<ActionResult<Achievement>> Put(Achievement achievement)
         {
-            //var data = from l in _context.Lookup
-            //           join t in _context.Lookup_Type
-            //           on l.Lookup_type_id equals t.Id
-
-            //           select new
-            //           {
-            //               l.Id,
-            //               l.Lookup_name,
-            //               Lookup_Type_name = t.Lookup_name
-            //           };
-            //return Json(new { data = await data.ToListAsync() });
-
-
             if (achievement == null)
             {
                 return BadRequest();

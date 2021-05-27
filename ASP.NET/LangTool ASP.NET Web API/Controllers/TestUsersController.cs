@@ -47,19 +47,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 return NotFound();
             return new ObjectResult(testUser);
         }
-        //// GET: api/TestUsers/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<TestUser>> GetTestUser(int id)
-        //{
-        //    var testUser = await db.TestUser.FindAsync(id);
-
-        //    if (testUser == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return testUser;
-        //}
 
         // PUT: api/TestUsers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
