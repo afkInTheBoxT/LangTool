@@ -22,7 +22,6 @@ namespace LangTool_ASP.NET_Web_API
                
         }
 
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Achievement>>> Get()
         {
