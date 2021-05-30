@@ -40,6 +40,18 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             return result;
         }
 
+        // GET: Questions/answers/{how}
+        [HttpGet("answers/{question_name}")]
+        public async Task<ActionResult<IEnumerable<Answer>>> GetAnswersOnQuestion(string question_name)
+        {
+            var answers = await db.Answers
+                .Include(answ => answ.Question)
+                .Where(answ => answ.Question.Any(quest => quest.QuestionName.Contains(question_name)))
+                .ToListAsync();
+
+            return answers;
+        }
+        
         //// PUT: Questions/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPut("{id}")]
