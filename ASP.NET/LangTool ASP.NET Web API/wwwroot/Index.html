@@ -15,7 +15,7 @@
         var result = document.getElementById("result");
         var request = new XMLHttpRequest();
 
-        btn.addEventListener("click", function (e) {
+        btn.addEventListener("click", function (e) {        
             request.open("GET", "https://localhost:44352/users");
             request.onreadystatechange = reqReadyStateChange;
             request.send();
