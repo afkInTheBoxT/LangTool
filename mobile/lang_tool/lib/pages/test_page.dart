@@ -1,12 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:lang_tool/pages/test_quiz_page.dart';
+import 'package:lang_tool/models/api.services.dart';
+import 'package:lang_tool/models/Question.dart';
+import 'package:lang_tool/models/answer.dart';
+import 'package:lang_tool/models/test.dart';
+import 'package:lang_tool/models/user.dart';
+import 'package:lang_tool/pages/test_quiz.dart';
 
 class TestPage extends StatefulWidget {
-  TestPage({Key key}) : super(key: key);
+  TestPage({Key key, this.curUser}) : super(key: key);
+  User curUser;
 
   @override
   _TestPageState createState() => _TestPageState();
 }
+
+List<Question> question;
+  Test test;
+  List<Answer> answer;
+  String testName;
 
 class _TestPageState extends State<TestPage> {
   // static const _vertical = 20.0;
@@ -189,7 +202,6 @@ class _TestPageState extends State<TestPage> {
   //     ),
   //   ),
   // ];
-
   @override
   Widget build(BuildContext context) {
     const _vertical = 20.0;
@@ -212,10 +224,21 @@ class _TestPageState extends State<TestPage> {
         ),
         child: FlatButton(
           onPressed: () {
-            // Navigator.pop(context);
+            // setState(() {
+            //   testName = "Food";
+            // });
+            // getQuestion();
+            // getAnswers();
+            // // Navigator.pop(context);
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomePage()),
+              // MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => TestQuiz(
+                testName: "Food",
+                curUser: widget.curUser,
+                // answer: answer,
+                // question: question,
+                )),
             );
           },
           child: Column(
@@ -385,3 +408,25 @@ class _TestPageState extends State<TestPage> {
         ));
   }
 }
+
+void getQuestion() async {
+    await APIServices.fetchQuestions(testName).then((response) {
+      Iterable list = json.decode(response.body);
+      List<Question> studentList = List<Question>();
+      studentList = list.map((model) => Question.fromObject(model)).toList();
+        question = studentList;
+        // count = achievements.length;
+    });
+
+    await APIServices.fetchAnswers(question[0].questionName).then((response) {
+      Iterable list = json.decode(response.body);
+      List<Answer> studentList = List<Answer>();
+      studentList = list.map((model) => Answer.fromObject(model)).toList();
+        answer = studentList;
+        // count = achievements.length;
+    });
+  }
+
+  void getAnswers() {
+    
+  }

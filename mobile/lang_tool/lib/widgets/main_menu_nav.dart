@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:lang_tool/models/user.dart';
 import 'package:lang_tool/pages/alphabet_page.dart';
+import 'package:lang_tool/pages/main_page.dart';
 import 'package:lang_tool/pages/test_page.dart';
 import 'package:lang_tool/pages/theme_page.dart';
 import 'package:lang_tool/models/widgetColors.dart';
 
-class MainMenuNav extends StatelessWidget {
+class MainMenuNav extends StatefulWidget {
+  MainMenuNav({Key key, this.curUser}) : super(key: key);
+  User curUser;
+  @override
+  _MainMenuNavState createState() => _MainMenuNavState();
+}
+
+class _MainMenuNavState extends State<MainMenuNav> {
   @override
   Widget build(BuildContext context) {
     WidgetColor.changeColor();
@@ -37,15 +46,15 @@ class MainMenuNav extends StatelessWidget {
                           end: Alignment.bottomCenter,
                         ),
               borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(0, 0), // changes position of shadow
+              // boxShadow: [
+              //     BoxShadow(
+              //       color: Colors.grey.withOpacity(0.5),
+              //       spreadRadius: 3,
+              //       blurRadius: 10,
+              //       offset: Offset(0, 0), // changes position of shadow
                     
-                  ),
-                ]
+              //     ),
+              //   ]
             ),
             child: FlatButton(
               onPressed: () {
@@ -117,7 +126,7 @@ class MainMenuNav extends StatelessWidget {
                 // Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TestPage()),
+                  MaterialPageRoute(builder: (context) => TestPage(curUser: widget.curUser)),
                 );
               },
               child: Text(

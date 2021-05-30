@@ -1,53 +1,42 @@
-import 'package:flutter/foundation.dart';
+import 'dart:ffi';
 
-class Question {
-  final String title;
-  final List<Map> answers;
+class Question{
+  int questionId;
+  String questionName;
+  double multiplyer;
 
-  Question({
-    @required this.title, 
-    @required this.answers,
-    });
-}
+  Question(this.questionName, this.multiplyer);
+  Question.withId(this.questionId, this.questionName, this.multiplyer);
+  Question._({this.questionId, this.questionName, this.multiplyer});
 
-class QuestionData {
-  final _data = [
-    Question(
-      title: 'Кем хочешь стать?', 
-      answers: [
-          {'answer' : '1', 'isCorrect' : true},
-          {'answer' : '2',},
-          {'answer' : '3',},
-          {'answer' : '4',},
-        ]
-      ),
-    Question(title: 'Вопрос 2', 
-    answers: [
-        {'answer' : '1',},
-        {'answer' : '2', 'isCorrect' : true},
-        {'answer' : '3',},
-        {'answer' : '4',},
-      ]
-    ),
-    Question(title: 'Вопрос 3', 
-    answers: [
-        {'answer' : '1',},
-        {'answer' : '2',},
-        {'answer' : '3', 'isCorrect' : true},
-        {'answer' : '4',},
-      ]
-    ),
-    Question(title: 'Вопрос 4', 
-    answers: [
-        {'answer' : '1',},
-        {'answer' : '2',},
-        {'answer' : '3',},
-        {'answer' : '4', 'isCorrect' : true},
-      ]
-    ),
-  ];
+  int get idQuestion => questionId;
+  String get nameQuestion => questionName;
+  double get multiplyerQuestion => multiplyer;
 
-  List<Question> get questions {
-    return [..._data];
+  Map<String, dynamic> toMap() {
+    var map = Map<String, dynamic>();
+
+    map["questionName"] = questionName;
+    map["multiplyer"] = multiplyer;
+
+    if(questionId != null) {
+      map["question_id"] = questionId;
+    }
+
+    return map;
+  }
+
+  factory Question.fromJson(Map<String, dynamic> json) {
+    return new Question._(
+      questionId: json['question_id'],
+      questionName: json['questionName'],
+      multiplyer: json['multiplyer'],
+    );
+  }
+
+  Question.fromObject(dynamic o){
+    this.questionId = o["question_id"];
+    this.questionName = o["questionName"];
+    this.multiplyer = o["multiplyer"];
   }
 }

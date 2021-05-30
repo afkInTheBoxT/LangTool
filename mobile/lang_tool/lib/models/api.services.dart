@@ -123,4 +123,41 @@ class APIServices {
     var resp = await http.get(pathUri);
     return resp;
   }
+
+  static Future fetchQuestions(String name) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+
+    String path = "https://10.0.2.2:44352/questions" + "/" + name;
+    Uri pathUri = Uri.parse(path);
+    var resp = await http.get(pathUri);
+    return resp;
+  }
+
+  static Future fetchAnswers(String question) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+
+    String path = "https://10.0.2.2:44352/questions/answers" + "/" + question;
+    Uri pathUri = Uri.parse(path);
+    var resp = await http.get(pathUri);
+    return resp;
+  }
+
+  static Future postAnswers(String testName, String userId, List<String> answer) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+
+    String path = "https://10.0.2.2:44352/tests/checkTest" + "/" + testName + "/" + userId;
+    var studentBody = json.encode(answer);
+    var res = await http.post(Uri.parse(path), headers: header, body: studentBody);
+    print(res.statusCode);
+    return Future.value(res.statusCode == 200 ? true : false);
+  }
 }

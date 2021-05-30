@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lang_tool/models/Question.dart';
+import 'package:lang_tool/models/QuestionTest.dart';
 
 class ProgressBar extends StatelessWidget {
 

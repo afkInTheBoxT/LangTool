@@ -24,7 +24,7 @@ class MainPages {
 //   MainPages(title: 'Навчання', icon: Icons.menu_book_rounded, wdg: Pages1()),
 // ];
 final _kpages = <Widget>[
-  MainMenuNav(),
+  MainMenuNav(curUser: curUserA,),
   AccountPage(curUser: curUserA),
   SettingsPage(curUser: curUserA),
 ];
