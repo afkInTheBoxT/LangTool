@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LangTool_ASP.NET_Web_API.Models;
+using System.Web.Http.Cors;
 
 namespace LangTool_ASP.NET_Web_API.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase

@@ -31,10 +31,15 @@ namespace LangTool_ASP.NET_Web_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            })); // добавляем сервисы CORS
             services.AddControllers().AddNewtonsoftJson(options =>
-    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-);
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             string con = "Server=(localdb)\\mssqllocaldb;Database=testUserRegestration;Trusted_Connection=True;";
             // устанавливаем контекст данных
@@ -77,9 +82,14 @@ namespace LangTool_ASP.NET_Web_API
 
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // подключаем CORS
+            app.UseCors("MyPolicy");
+
 
             app.UseEndpoints(endpoints =>
             {

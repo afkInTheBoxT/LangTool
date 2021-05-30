@@ -83,18 +83,64 @@ namespace LangTool_ASP.NET_Web_API
         //    return Ok(achievement);
         //}
 
-        //// DELETE achievements/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Achievement>> Delete(int id)
-        //{
-        //    Achievement achievement = db.Achievements.FirstOrDefault(x => x.Achievement_id == id);
-        //    if (achievement == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    db.Achievements.Remove(achievement);
-        //    await db.SaveChangesAsync();
-        //    return Ok(achievement);
-        //}
+
+        [HttpGet("testGainAchievement")]
+        public async Task<ActionResult<IEnumerable<Achievement>>> GetAc()
+        {
+            GainAchievement(1, achievement_id: 1);
+            return NoContent();
+        }
+
+        public async void GainAchievement(int user_id, string achievement_name = "", int achievement_id = -1)
+        {
+            var userAchievements = await db.Achievements
+              .Include(achievement => achievement.User)
+              .Where(achievement => achievement.User.Any(c => c.User_id == user_id))
+              .ToListAsync();
+
+            var user = db.Users
+                .Include(user => user.Achievements)
+                .FirstOrDefault(user => user.User_id == user_id);
+
+
+            if (achievement_id >= 0)
+            {
+                if (userAchievements.
+                FirstOrDefault(achievement => achievement.Achievement_id == achievement_id) == null)
+                {
+                    user.Achievements.Add(
+                        db.Achievements.
+                        Where(achievement => achievement.Achievement_id == achievement_id).
+                        FirstOrDefault()
+                        ) ;
+
+                    db.Entry(user).State = EntityState.Modified;
+
+                    //try
+                    //{
+                        await db.SaveChangesAsync();
+                    //}
+                    //catch (DbUpdateConcurrencyException)
+                    //{
+                    //    if (!PhraseExists(id))
+                    //    {
+                    //        return NotFound();
+                    //    }
+                    //    else
+                    //    {
+                    //        throw;
+                    //    }
+                    //}
+                }
+            }
+            else if (achievement_name != "")
+            {
+                if (userAchievements.
+                FirstOrDefault(achievement => achievement.Name == achievement_name) == null)
+                {
+
+                }
+            }
+        }
     }
 }

@@ -333,3 +333,7 @@ C:\Users\andre\OneDrive\Документы\GitHub\LangTool\ASP.NET\LangTool ASP.
 C:\Users\andre\OneDrive\Документы\GitHub\LangTool\ASP.NET\LangTool ASP.NET Web API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\andre\OneDrive\Документы\GitHub\LangTool\ASP.NET\LangTool ASP.NET Web API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\andre\OneDrive\Документы\GitHub\LangTool\ASP.NET\LangTool ASP.NET Web API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\andre\OneDrive\Документы\GitHub\LangTool\ASP.NET\LangTool ASP.NET Web API\bin\Debug\net5.0\System.Web.Cors.dll
+C:\Users\andre\OneDrive\Документы\GitHub\LangTool\ASP.NET\LangTool ASP.NET Web API\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+C:\Users\andre\OneDrive\Документы\GitHub\LangTool\ASP.NET\LangTool ASP.NET Web API\bin\Debug\net5.0\System.Web.Http.dll
+C:\Users\andre\OneDrive\Документы\GitHub\LangTool\ASP.NET\LangTool ASP.NET Web API\bin\Debug\net5.0\System.Web.Http.Cors.dll
