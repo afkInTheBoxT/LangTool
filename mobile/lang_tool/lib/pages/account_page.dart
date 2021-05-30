@@ -23,15 +23,15 @@ class _AccountPageState extends State<AccountPage> {
     WidgetColor.changeColor();
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              WidgetColor.backgroundTop,
-              WidgetColor.backgroundBot,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+        gradient: LinearGradient(
+          colors: [
+            WidgetColor.backgroundTop,
+            WidgetColor.backgroundBot,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
+      ),
       child: ListView(children: <Widget>[
         Container(
           child: Column(
@@ -154,9 +154,10 @@ class _AccountPageState extends State<AccountPage> {
                                 // Use Navigator.pop() to return value (of type T).
                                 showDialog<String>(
                                   context: context,
-                                  builder: (BuildContext context) => AlertDialog(
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
                                     title: const Text('Досягнення'),
-                                    content: Achievement(),
+                                    content: Achievement(user: widget.curUser),
                                     actions: <Widget>[
                                       FlatButton(
                                         child: Text('Поділитися'),
@@ -201,7 +202,8 @@ class _AccountPageState extends State<AccountPage> {
                                 // Use Navigator.pop() to return value (of type T).
                                 showDialog<String>(
                                   context: context,
-                                  builder: (BuildContext context) => AlertDialog(
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
                                     title: const Text('Статистика'),
                                     content: Statistics(),
                                     actions: <Widget>[
@@ -263,7 +265,8 @@ class _AccountPageState extends State<AccountPage> {
                                   ),
                                   FlatButton(
                                     child: Text('Скасувати'),
-                                    onPressed: () => Navigator.pop(context, 'OK'),
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
                                   ),
                                 ],
                               ),

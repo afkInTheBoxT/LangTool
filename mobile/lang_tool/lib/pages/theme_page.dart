@@ -240,9 +240,10 @@ class _ThemePageState extends State<ThemePage> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: <Color>[
-                  WidgetColor.appBarTopColor,
-                  WidgetColor.appBarBotColor,
-                ])),
+                      WidgetColor.appBarTopColor,
+                      WidgetColor.appBarBotColor,
+                    ]),
+                ),
           ),
         ),
         body: GridView.count(

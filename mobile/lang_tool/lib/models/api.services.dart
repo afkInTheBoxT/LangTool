@@ -110,4 +110,17 @@ class APIServices {
     print(res.statusCode);
     return Future.value(res.statusCode == 200 ? true : false);
   }
+
+  static Future fetchUserAchievement(int user_id) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+    // /achievementsgetAchievement/{User_id}
+
+    String path = "https://10.0.2.2:44352/achievements/getAchievement" + "/" + user_id.toString();
+    Uri pathUri = Uri.parse(path);
+    var resp = await http.get(pathUri);
+    return resp;
+  }
 }

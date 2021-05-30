@@ -37,6 +37,15 @@ class MainMenuNav extends StatelessWidget {
                           end: Alignment.bottomCenter,
                         ),
               borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 3,
+                    blurRadius: 10,
+                    offset: Offset(0, 0), // changes position of shadow
+                    
+                  ),
+                ]
             ),
             child: FlatButton(
               onPressed: () {
