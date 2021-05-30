@@ -1,0 +1,31 @@
+:root{
+  --theme-color: rgba(255,168,39,255);
+  --additional-yellow: rgba(255,193,7,1);
+}
+.userInfo__Photo{
+    border-radius: 50%;
+}
+.userInfo__Photo-img{
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px var(--theme-color) solid;
+}
+.userInfo__load{
+    height: 20px;
+    width: 200px;
+}
+.userInfo__load-img{
+    margin-top: -3px;
+    width: 30px; 
+    height: 30px; 
+    object-fit: cover;
+}
+.userInfo__input-load{
+    width: 133px;
+    background-color: var(--additional-yellow);
+}
+.userInfo__input-load:hover{
+    background-color: var(--theme-color);
+}

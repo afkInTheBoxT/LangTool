@@ -21,8 +21,14 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
             if (!db.Users.Any())
             {
-                db.Users.Add(new User { Name = "Tom", Email = "Tom@gna", Password = "Qwerty" });
-                db.Users.Add(new User { Name = "Alice", Email = "secondemaul@gna", Password = "12Qwerty" });
+                db.Users.Add(new User { Name = "Tom", Email = "Tom@gna",
+                    Password = "Qwerty", date_of_registration = new DateTime(2021, 02, 20),
+                    Passed_tests = 0, Gained_achievements = 0, Completed_topics = 0,
+                    Total_learned_phrases = 0, Alphabet_progress = 0
+                });
+                db.Users.Add(new User { Name = "Alice", Email = "secondemaul@gna",
+                    Password = "12Qwerty", date_of_registration = new DateTime(2021, 02, 20)
+                });
                 db.SaveChanges();
             }
             if (!db.Tests.Any())
@@ -74,6 +80,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             return await db.Users.ToListAsync();
         }
 
+        // GET: Users/{Email}
         [HttpGet("{Email}")]
         public async Task<ActionResult<User>> Get(string email)
         {
@@ -84,7 +91,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // PUT: Users/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
@@ -115,16 +121,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // POST: Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<User>> PostUser(User user)
-        //{
-        //    db.Users.Add(user);
-        //    await db.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetUser", new { id = user.User_id }, user);
-        //}
-        // POST users
         [HttpPost]
         public async Task<ActionResult<User>> Post(User user)
         {
@@ -138,8 +134,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             return Ok(user);
         }
 
-
-        // DELETE users/{email}
+        // DELETE Users/{email}
         [HttpDelete("{Email}")]
         public async Task<ActionResult<User>> Delete(string email)
         {
@@ -157,5 +152,135 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         {
             return db.Users.Any(e => e.User_id == id);
         }
+
+
+
+        // GET: Users/deadlines/{id}
+        [HttpGet("deadlines/{user_id}")]
+        public async Task<ActionResult<IEnumerable<Deadline>>> GetUserDeadlines(int user_id)
+        {
+            //return await db.Deadlines
+            //    .Include(deadline => deadline.User)
+            //    .Where(deadline => deadline.User.All(user => user.id == user_id)
+            //    .ToListAsync();
+            return await db.Deadlines.Where(deadline => deadline.User.User_id == user_id).ToListAsync();
+        }
+
+        // POST: Users/deadlines/{id}
+        [HttpPost("deadlines/{user_id}")]
+        public async Task<ActionResult<Deadline>> PostUserDeadline(int user_id, Deadline deadline)
+        {
+            if (deadline == null)
+            {
+                return BadRequest();
+            }
+            if (db.Deadlines.FirstOrDefault(dl => dl.Topic == deadline.Topic) != null) 
+                return NotFound();
+
+            deadline.User = db.Users.FirstOrDefault(user => user.User_id == user_id);
+            db.Deadlines.Add(deadline);
+            await db.SaveChangesAsync();
+            return Ok(deadline);
+        }
+
+        // PUT: Users/deadlines/{id}
+        [HttpPut("deadlines/{id}")]
+        public async Task<IActionResult> PutUserDeadline(int id, Deadline deadline)
+        {
+            //if (user_id != deadline.User.User_id)
+            //{
+            //    return BadRequest();
+            //}
+
+            //deadline.User = db.Users.FirstOrDefault(user => user.User_id == user_id);
+            db.Entry(deadline).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+
+            //try
+            //{
+            //    await db.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!UserExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
+            return NoContent();
+        }
+
+        // DELETE Users/deadlines/{id}
+        [HttpDelete("deadlines/{id}")]
+        public async Task<ActionResult<Deadline>> DeleteDeadline(int id)
+        {
+            //Deadline deadline = 
+            //    db.Deadlines.FirstOrDefault(x => x.Topic == topic && x.User.User_id == user_id);
+            Deadline deadline = db.Deadlines.FirstOrDefault(dl => dl.Deadline_id == id);
+
+            if (deadline == null)
+            {
+                return NotFound();
+            }
+            db.Deadlines.Remove(deadline);
+            await db.SaveChangesAsync();
+            return Ok(deadline);
+        }
+
+        #region Statistics
+        // Statistics.
+        [HttpGet("statistics/getPassedTests/{user_id}")]
+        public async Task<ActionResult<int>> GetPassedTests(int user_id)
+        {
+            User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
+            if (user == null)
+                return NotFound();
+            return new ObjectResult(user.Passed_tests);
+        }
+
+        [HttpGet("statistics/getGainedAchievements/{user_id}")]
+        public async Task<ActionResult<int>> GetPassedAchievements(int user_id)
+        {
+            User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
+            if (user == null)
+                return NotFound();
+            return new ObjectResult(user.Gained_achievements);
+        }
+
+        [HttpGet("statistics/getCompletedTopics/{user_id}")]
+        public async Task<ActionResult<int>> GetCompletedTopics(int user_id)
+        {
+            User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
+            if (user == null)
+                return NotFound();
+            return new ObjectResult(user.Completed_topics);
+        }
+
+        [HttpGet("statistics/getTotalLearnedPhrases/{user_id}")]
+        public async Task<ActionResult<int>> GetTotalLearnedPhrases(int user_id)
+        {
+            User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
+            if (user == null)
+                return NotFound();
+            return new ObjectResult(user.Total_learned_phrases);
+        }
+
+        [HttpGet("statistics/getAlphabetProgress/{user_id}")]
+        public async Task<ActionResult<int>> GetAlphabetProgress(int user_id)
+        {
+            User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
+            if (user == null)
+                return NotFound();
+            return new ObjectResult(user.Alphabet_progress);
+        }
+        #endregion
+
+
+
     }
 }

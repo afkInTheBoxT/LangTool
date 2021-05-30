@@ -16,6 +16,7 @@ namespace LangTool_ASP.NET_Web_API.Models
         public DbSet<Test> Tests { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Deadline> Deadlines { get; set; }
 
 
         public Context(DbContextOptions<Context> options)
