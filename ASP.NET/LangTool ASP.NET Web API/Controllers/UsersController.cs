@@ -131,6 +131,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 return BadRequest();
             }
 
+            user.date_of_registration = DateTime.Now;
             db.Users.Add(user);
             await db.SaveChangesAsync();
             return Ok(user);
@@ -279,6 +280,66 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             if (user == null)
                 return NotFound();
             return new ObjectResult(user.Alphabet_progress);
+        }
+
+        [HttpPut("statistics/getCompletedTopics/{user_id}")]
+        public async Task<ActionResult<int>> PutCompletedTopics(int user_id)
+        {
+            //User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
+            //if (user == null)
+            //    return NotFound();
+            //return new ObjectResult(user.Completed_topics);
+
+
+            //db.Entry(user).State = EntityState.Modified;
+
+            //try
+            //{
+            //    await db.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!UserExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
+            //return NoContent();
+        }
+
+        [HttpGet("statistics/putTotalLearnedPhrases/{user_id}")]
+        public async Task<ActionResult<int>> PutTotalLearnedPhrases(int user_id)
+        {
+            User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
+            if (user == null) return NotFound();
+            
+            //var userPhrases = await db.
+
+
+            db.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
         #endregion
 

@@ -52,10 +52,10 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         [HttpPost("checkTest/{TestName}/{User_id}")]
         public async Task<ActionResult<object>> CheckTest(string testName, int user_id, string[] answers)
         {
-            Test receivedTest = await db.Tests.FirstOrDefaultAsync(x => x.TestName == testName);
-            var tempUser = db.Users.FirstOrDefault(u => u.User_id == user_id);
-            if (tempUser == null) return NoContent();
+            var checkUser = db.Users.FirstOrDefault(u => u.User_id == user_id);
+            if (checkUser == null) return NoContent();
 
+            Test receivedTest = await db.Tests.FirstOrDefaultAsync(x => x.TestName == testName);
 
             var questions = await db.Questions
                 .Include(quest => quest.Tests)
@@ -64,7 +64,27 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             float testMark = 0;
             int correctAnswers = 0;
             int answersCounter = 0;
+            bool isFirstPass = true;
 
+
+            var checkTest = db.TestUsers
+                        .Include(testUser => testUser.Test)
+                        .Include(testUser => testUser.User)
+                        .Count(testUser => testUser.Test.Test_id == receivedTest.Test_id &&
+                            testUser.User.User_id == user_id);
+
+           // Проверка на наличие предыдущей сдачи.
+            if (checkTest == 0)
+            {
+                db.TestUsers.Add(new TestUser
+                {
+                    Test_id = receivedTest.Test_id,
+                    User_id = user_id,
+                    IsEnabled = true,
+                    CurrentMark = 0
+                });
+            }
+            else isFirstPass = false;
 
             // Проверка вопросов.
             for (int i = 0; i < questions.Count; i++)
@@ -79,24 +99,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
                 // Проверка вариантов ответов.
                 for (int j = 0; j < answersDB.Count; j++)
-                {
-                    var checkTest = db.TestUsers
-                        .Include(testUser => testUser.Test)
-                        .Include(testUser => testUser.User)
-                        .Count(testUser => testUser.Test.Test_id == receivedTest.Test_id &&
-                            testUser.User.User_id == user_id);
-
-                    // Проверка на наличие предыдущей сдачи.
-                    //if (checkTest == 0)
-                    //{
-                    //    db.TestUsers.Add(new TestUser
-                    //    {
-                    //        Test_id = receivedTest.Test_id,
-                    //        User_id = user_id,
-                    //        IsEnabled = true,
-                    //        CurrentMark = 0
-                    //    });
-                    //}
+                {                    
 
                     if (answersDB[j].CorrectAnswer == answers[answersCounter])
                     {
@@ -110,27 +113,22 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
             }
 
-
             var temp = await db.TestUsers
                .Include(testUser => testUser.Test)
                .Include(testUser => testUser.User)
-               .Where(testUser => testUser.Test.Test_id == 1 &&
-                           testUser.User.User_id == 1)
+               .Where(testUser => testUser.Test.Test_id == receivedTest.Test_id &&
+                    testUser.User.User_id == user_id)
                .ToListAsync();
 
             var testUserBefore = temp[0];
-
-            //TestUser testUserResult = new TestUser()
-            //{
-            //    TestUser_id = testUserBefore.TestUser_id,
-            //    Test_id = testUserBefore.Test_id,
-            //    User_id = testUserBefore.User_id,
-            //    IsEnabled = testUserBefore.IsEnabled,
-            //    CurrentMark = testUserBefore.CurrentMark
-            //};
-
             testUserBefore.CurrentMark = testMark;
             db.Entry(testUserBefore).State = EntityState.Modified;
+            if (isFirstPass)
+            {
+                var user = testUserBefore.User;
+                user.Passed_tests++;
+                db.Entry(user).State = EntityState.Modified;
+            }
 
             // Give Achievement.
             var result = db.AchievementUsers
@@ -139,6 +137,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                .Where(achievementUser => achievementUser.User_id == user_id)
                .FirstOrDefault(achievementUser => achievementUser.Achievement.Name.Contains(testName));
             var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains(testName));
+
             if (result == null)
             {
                 db.AchievementUsers.Add(new AchievementUser()
@@ -146,6 +145,9 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                     Achievement_id = getId.Achievement_id,
                     User_id = user_id
                 });
+                var user = db.Users.FirstOrDefault(user => user.User_id == user_id);
+                user.Gained_achievements++;
+                db.Entry(user).State = EntityState.Modified;
             }
 
             try

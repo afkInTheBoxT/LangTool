@@ -88,6 +88,9 @@ namespace LangTool_ASP.NET_Web_API
                 db.AchievementUsers.Add(new AchievementUser() {
                     Achievement_id = achievement_id, User_id = user_id 
                 });
+                var user = db.Users.FirstOrDefault(user => user.User_id == user_id);
+                user.Gained_achievements++;
+                db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
             }
         }
