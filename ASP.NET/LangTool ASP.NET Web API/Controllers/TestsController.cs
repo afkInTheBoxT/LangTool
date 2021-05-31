@@ -53,6 +53,9 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         public async Task<ActionResult<object>> CheckTest(string testName, int user_id, string[] answers)
         {
             Test receivedTest = await db.Tests.FirstOrDefaultAsync(x => x.TestName == testName);
+            var tempUser = db.Users.FirstOrDefault(u => u.User_id == user_id);
+            if (tempUser == null) return NoContent();
+
 
             var questions = await db.Questions
                 .Include(quest => quest.Tests)
@@ -60,6 +63,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
             float testMark = 0;
             int correctAnswers = 0;
+            int answersCounter = 0;
+
 
             // Проверка вопросов.
             for (int i = 0; i < questions.Count; i++)
@@ -73,7 +78,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
 
                 // Проверка вариантов ответов.
-                for (int j = 0, answersCounter = 0; j < answersDB.Count; j++)
+                for (int j = 0; j < answersDB.Count; j++)
                 {
                     var checkTest = db.TestUsers
                         .Include(testUser => testUser.Test)
