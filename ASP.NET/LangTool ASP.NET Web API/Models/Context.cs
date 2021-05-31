@@ -17,6 +17,7 @@ namespace LangTool_ASP.NET_Web_API.Models
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Deadline> Deadlines { get; set; }
+        public DbSet<AchievementUser> AchievementUsers { get; set; }
 
 
         public Context(DbContextOptions<Context> options)
@@ -54,6 +55,20 @@ namespace LangTool_ASP.NET_Web_API.Models
                 .HasForeignKey(testUser => testUser.User_id);
 
 
+
+
+            modelBuilder.Entity<AchievementUser>().HasKey(achievementUser => achievementUser.AchievementUser_id);
+
+            // Relationships.
+            modelBuilder.Entity<AchievementUser>()
+                .HasOne(achievementUser => achievementUser.Achievement)
+                .WithMany(achievementUser => achievementUser.AchievementUsers)
+                .HasForeignKey(achievementUser => achievementUser.Achievement_id);
+
+            modelBuilder.Entity<AchievementUser>()
+                .HasOne(achievementUser => achievementUser.User)
+                .WithMany(achievementUser => achievementUser.AchievementUsers)
+                .HasForeignKey(achievementUser => achievementUser.User_id);
 
             //modelBuilder.Entity<TestQuestion>().HasKey(testQuestion =>
             //   new

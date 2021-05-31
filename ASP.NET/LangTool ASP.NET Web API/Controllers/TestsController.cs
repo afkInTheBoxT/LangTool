@@ -50,7 +50,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
         // Проверка теста.
         [HttpPost("checkTest/{TestName}/{User_id}")]
-        public async Task<ActionResult<Test>> CheckTest(string testName, int user_id, string[] answers)
+        public async Task<ActionResult<object>> CheckTest(string testName, int user_id, string[] answers)
         {
             Test receivedTest = await db.Tests.FirstOrDefaultAsync(x => x.TestName == testName);
 
@@ -59,6 +59,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 .Where(quest => quest.Tests.Select(test => test.TestName).Contains(testName)).ToListAsync();
 
             float testMark = 0;
+            int correctAnswers = 0;
 
             // Проверка вопросов.
             for (int i = 0; i < questions.Count; i++)
@@ -71,7 +72,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 .ToListAsync();
 
 
-
                 // Проверка вариантов ответов.
                 for (int j = 0, answersCounter = 0; j < answersDB.Count; j++)
                 {
@@ -81,7 +81,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                         .Count(testUser => testUser.Test.Test_id == receivedTest.Test_id &&
                             testUser.User.User_id == user_id);
 
-                    //// Проверка на наличие предыдущей сдачи.
+                    // Проверка на наличие предыдущей сдачи.
                     //if (checkTest == 0)
                     //{
                     //    db.TestUsers.Add(new TestUser
@@ -95,6 +95,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
                     if (answersDB[j].CorrectAnswer == answers[answersCounter])
                     {
+                        correctAnswers++;
                         float test1 = questions[i].Multiplyer;
                         float test2 = answersDB[j].Mark;
                         testMark += questions[i].Multiplyer * answersDB[j].Mark;
@@ -123,9 +124,24 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             //    CurrentMark = testUserBefore.CurrentMark
             //};
 
-            //db.Entry(testUserBefore).State = EntityState.Modified;
             testUserBefore.CurrentMark = testMark;
             db.Entry(testUserBefore).State = EntityState.Modified;
+
+            // Give Achievement.
+            var result = db.AchievementUsers
+               .Include(achievement => achievement.Achievement)
+               .Include(user => user.User)
+               .Where(achievementUser => achievementUser.User_id == user_id)
+               .FirstOrDefault(achievementUser => achievementUser.Achievement.Name.Contains(testName));
+            var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains(testName));
+            if (result == null)
+            {
+                db.AchievementUsers.Add(new AchievementUser()
+                {
+                    Achievement_id = getId.Achievement_id,
+                    User_id = user_id
+                });
+            }
 
             try
             {
@@ -143,10 +159,13 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 }
             }
 
-            return NoContent();
-
-
-
+            //return NoContent();
+            return new
+            {
+                totalMark = receivedTest.TotalMark,
+                currentMark = testMark,
+                correctUserAnswers = correctAnswers
+            };
         }
 
 

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace LangTool_ASP.NET_Web_API
 {
@@ -19,7 +20,6 @@ namespace LangTool_ASP.NET_Web_API
         public AchievementsController(Context context)
         {
             db = context;
-               
         }
 
         [HttpGet]
@@ -42,10 +42,12 @@ namespace LangTool_ASP.NET_Web_API
         [HttpGet("getAchievement/{User_id}")]
         public async Task<ActionResult<IEnumerable<Achievement>>> Get(int user_id)
         {
-            var result = await db.Achievements
-               .Include(achievement => achievement.User)
-               .Where(achievement => achievement.User.Any(c => c.User_id == user_id))
-               .ToListAsync();
+            var result = await db.AchievementUsers
+                .Include(achievement => achievement.Achievement)
+                .Include(user => user.User)
+                .Where(achievementUser => achievementUser.User_id == user_id)
+                .Select(achievementUser => achievementUser.Achievement)
+                .ToListAsync();
 
             return result;
         }
@@ -69,78 +71,74 @@ namespace LangTool_ASP.NET_Web_API
             return Ok(achievement);
         }
 
-        //// POST achievements
-        //[HttpPost]
-        //public async Task<ActionResult<Achievement>> Post(Achievement achievement)
-        //{
-        //    if (achievement == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    db.Achievements.Add(achievement);
-        //    await db.SaveChangesAsync();
-        //    return Ok(achievement);
-        //}
-
 
         [HttpGet("testGainAchievement")]
-        public async Task<ActionResult<IEnumerable<Achievement>>> GetAc()
+        public async Task<ActionResult<Achievement>> GetAc()
         {
-            GainAchievement(1, achievement_id: 1);
+            //GainAchievement(1, achievement_id: 1);
+
+
             return NoContent();
         }
 
         public async void GainAchievement(int user_id, string achievement_name = "", int achievement_id = -1)
         {
-            var userAchievements = await db.Achievements
-              .Include(achievement => achievement.User)
-              .Where(achievement => achievement.User.Any(c => c.User_id == user_id))
-              .ToListAsync();
-
-            var user = db.Users
-                .Include(user => user.Achievements)
-                .FirstOrDefault(user => user.User_id == user_id);
-
-
             if (achievement_id >= 0)
             {
-                if (userAchievements.
-                FirstOrDefault(achievement => achievement.Achievement_id == achievement_id) == null)
-                {
-                    user.Achievements.Add(
-                        db.Achievements.
-                        Where(achievement => achievement.Achievement_id == achievement_id).
-                        FirstOrDefault()
-                        ) ;
-
-                    db.Entry(user).State = EntityState.Modified;
-
-                    //try
-                    //{
-                        await db.SaveChangesAsync();
-                    //}
-                    //catch (DbUpdateConcurrencyException)
-                    //{
-                    //    if (!PhraseExists(id))
-                    //    {
-                    //        return NotFound();
-                    //    }
-                    //    else
-                    //    {
-                    //        throw;
-                    //    }
-                    //}
-                }
-            }
-            else if (achievement_name != "")
-            {
-                if (userAchievements.
-                FirstOrDefault(achievement => achievement.Name == achievement_name) == null)
-                {
-
-                }
+                db.AchievementUsers.Add(new AchievementUser() {
+                    Achievement_id = achievement_id, User_id = user_id 
+                });
+                await db.SaveChangesAsync();
             }
         }
+
+       
+        public async void CheckAchievements(int user_id)
+        {
+            var allAchievements = await db.Achievements.ToListAsync();
+            var user = db.Users.FirstOrDefault(user => user.User_id == user_id);
+
+            foreach (var achiev in allAchievements)
+            {
+                
+            }
+        }
+
+
+        public void TestCheckAchievement(int user_id)
+        {
+
+        }
+
+
+        delegate void AccountHandler(string message);
+        event AccountHandler Notify;
     }
+
+    public static class Requirements
+    {
+
+
+
+        // Achievement.Name, Achievement.Requirement
+        public static Dictionary<string, int> achievementsRequirements;
+
+
+        public static void SetAchievementsRequirements(string path = @"../achievementsRequirements.txt")
+        {
+            string[] reqs = GetAchievementsRequirements(path);
+
+            foreach (var str in reqs)
+            {
+                achievementsRequirements.Add(str.Split("|")[0], Convert.ToInt32(str.Split("|")[1]));
+            }
+        }
+
+        public static string[] GetAchievementsRequirements(string path = @"../achievementsRequirements.txt")
+        {
+            string[] requirements = File.ReadAllLines(path);
+            return requirements;
+        }
+    }
+
 }

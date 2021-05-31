@@ -14,6 +14,8 @@ namespace LangTool_ASP.NET_Web_API.Models
         public string Description { get; set; }
         //public int Photo { get; set; }
 
-        public List<User> User { get; set; }
+        //public List<User> User { get; set; }
+
+        public IEnumerable<AchievementUser> AchievementUsers { get; set; }
     }
 }

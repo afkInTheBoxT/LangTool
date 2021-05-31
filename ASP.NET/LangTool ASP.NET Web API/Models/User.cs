@@ -22,7 +22,8 @@ namespace LangTool_ASP.NET_Web_API.Models
         public float Alphabet_progress { get; set; }
         public int Finished_deadlines { get; set; }
 
-        public List<Achievement> Achievements { get; set; }
+        //public List<Achievement> Achievements { get; set; }
+        public IEnumerable<AchievementUser> AchievementUsers { get; set; }
         public List<Phrase> Phrases { get; set; }
         public virtual ICollection<TestUser> TestUser { get; set; }
         public IEnumerable<Deadline> Deadlines { get; set; }
