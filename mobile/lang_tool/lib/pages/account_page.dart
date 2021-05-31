@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lang_tool/models/user.dart';
+import 'package:lang_tool/pages/main_page.dart';
 import 'package:lang_tool/widgets/achievements.dart';
 import 'package:lang_tool/widgets/deadline_picker.dart';
 import 'package:lang_tool/widgets/statistics.dart';
@@ -205,7 +206,7 @@ class _AccountPageState extends State<AccountPage> {
                                   builder: (BuildContext context) =>
                                       AlertDialog(
                                     title: const Text('Статистика'),
-                                    content: Statistics(),
+                                    content: Statistics(curUser: widget.curUser,),
                                     actions: <Widget>[
                                       FlatButton(
                                         child: Text('Поділитися'),

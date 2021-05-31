@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:lang_tool/models/Question.dart';
 import 'package:lang_tool/models/answer.dart';
 import 'package:lang_tool/models/api.services.dart';
+import 'package:lang_tool/models/result.dart';
 import 'package:lang_tool/models/test.dart';
 import 'package:lang_tool/models/user.dart';
 import 'package:lang_tool/models/widgetColors.dart';
+import 'package:lang_tool/pages/test_page.dart';
 
 class TestQuiz extends StatefulWidget {
   TestQuiz({Key key, this.testName, this.curUser}) : super(key: key);
   String testName;
   User curUser;
-  
 
   @override
   _TestQuizState createState() => _TestQuizState();
@@ -21,11 +22,13 @@ class TestQuiz extends StatefulWidget {
 class _TestQuizState extends State<TestQuiz> {
   List<String> corretAnswers = new List(4);
   List<Question> question;
-  Test test;
+  // Test test;
   List<Answer> answer;
+  Result result;
   int index;
   int curIndex = 0;
   int state = 0;
+  int state2 = 0;
   String txt = "Ви ще не відповіли на це запитання!";
   LinearGradient gradientBox = LinearGradient(
     colors: [
@@ -50,6 +53,25 @@ class _TestQuizState extends State<TestQuiz> {
       getAnswers();
       state++;
     }
+    // if (state2 < 2) {
+    //   postAnswers();
+    //   state2++;
+    // }
+    // postAnswers();
+    // for (; state2 < 10;) {
+    //   // getQuestion();
+    //   getAnswers();
+    //   setState(() {
+    //     state2++;
+    //   });
+    // }
+    // for (; state1 < 10;) {
+    //   getQuestion();
+    //   // getAnswers();
+    //   setState(() {
+    //     state1++;
+    //   });
+    // }
 
     // curIndex = 0;
     // index = question.length;
@@ -127,13 +149,16 @@ class _TestQuizState extends State<TestQuiz> {
                               child: FlatButton(
                                 onPressed: () {
                                   print(answer[index].correctAnswer);
-                                  corretAnswers[curIndex] = answer[index].correctAnswer;
+                                  corretAnswers[curIndex] =
+                                      answer[index].correctAnswer;
                                   print(corretAnswers);
                                   checkAnswer();
+                                  postAnswers();
                                 },
                                 // focusColor: Colors.green,
                                 // onPressed: ,
-                                child: Text(answer[index].correctAnswer),
+                                child: Text(
+                                    answer[index].correctAnswer.toString()),
                               ),
                             );
                           },
@@ -158,7 +183,74 @@ class _TestQuizState extends State<TestQuiz> {
                       }),
                   FlatButton(
                     onPressed: () {
-                      postAnswers();
+                      // postAnswers();
+                      setState(() {
+                        state2 = 0;
+                      });
+                      print(result.toString());
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => Form(
+                          child: AlertDialog(
+                            title: const Text('Результат проходження'),
+                            content: result == null
+                                ? Text("Ви не відповили не на одне запитання!")
+                                : Container(
+                                    width: 200,
+                                    height: 200,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center, //Center Row contents horizontally,
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .center, //Center Row contents vertically,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .center, //Center Column contents vertically,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .center, //Center Column contents horizontally,
+                                          children: [
+                                            Text("Правильних відповідей: " +
+                                                result.correctUserAnswers
+                                                    .toString()),
+                                            Text(result.currentMark.toString()),
+                                            Text(result.totalMark.toString())
+                                          ],
+                                        ),
+                                      ],
+                                    )),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('Закінчити проходження'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) => TestPage(
+                                  //             curUser: widget.curUser,
+                                  //           )),
+                                  // );
+                                },
+                              ),
+                              // FlatButton(
+                              //     child: Text('Пойти тест ще раз'),
+                              //     onPressed: () {
+                              //       Navigator.pop(context);
+                              //       Navigator.pop(context);
+                              //       MaterialPageRoute(
+                              //           builder: (context) => TestQuiz(
+                              //                 testName: "Food",
+                              //                 curUser: widget.curUser,
+                              //                 // answer: answer,
+                              //                 // question: question,
+                              //               ));
+                              //     }),
+                            ],
+                          ),
+                        ),
+                      );
                     },
                     child: Text(
                       "Завершити тест",
@@ -184,9 +276,12 @@ class _TestQuizState extends State<TestQuiz> {
                   ),
                 ],
               ),
-              answer == null 
-              ? Text("")
-              : Text("Питання " + (curIndex + 1).toString() + " з " + answer.length.toString()),
+              answer == null
+                  ? Text("")
+                  : Text("Питання " +
+                      (curIndex + 1).toString() +
+                      " з " +
+                      answer.length.toString()),
             ],
           ),
         ],
@@ -195,7 +290,7 @@ class _TestQuizState extends State<TestQuiz> {
   }
 
   Future getQuestion() async {
-    APIServices.fetchQuestions(widget.testName).then((response) {
+    await APIServices.fetchQuestions(widget.testName).then((response) {
       Iterable list = json.decode(response.body);
       List<Question> studentList = List<Question>();
       studentList = list.map((model) => Question.fromObject(model)).toList();
@@ -207,7 +302,8 @@ class _TestQuizState extends State<TestQuiz> {
   }
 
   Future getAnswers() async {
-    APIServices.fetchAnswers(question[curIndex].questionName).then((response) {
+    await APIServices.fetchAnswers(question[curIndex].questionName)
+        .then((response) {
       Iterable list = json.decode(response.body);
       List<Answer> studentList = List<Answer>();
       studentList = list.map((model) => Answer.fromObject(model)).toList();
@@ -219,26 +315,34 @@ class _TestQuizState extends State<TestQuiz> {
     });
   }
 
-  void checkAnswer(){
+  void checkAnswer() {
     String txt1;
-    corretAnswers[curIndex] == null 
-              ? txt1 = "Ви ще не відповіли на це запитання!"
-              : txt1 = "Ваша відповідь: " + corretAnswers[curIndex];
+    corretAnswers[curIndex] == null
+        ? txt1 = "Ви ще не відповіли на це запитання!"
+        : txt1 = "Ваша відповідь: " + corretAnswers[curIndex];
     setState(() {
       txt = txt1;
     });
   }
 
-  void postAnswers() async {
-    var saveResponse = await APIServices.postAnswers(widget.testName, widget.curUser.id.toString(), corretAnswers);
-    try {
-      saveResponse == true
-          ? Navigator.pop(context, true)
-          : Scaffold.of(context);
-    } on Exception catch (e) {
-      //Handle exception of type SomeException
-    } catch (e) {
-      //Handle all other exceptions
-    }
+  Future postAnswers() async {
+    await APIServices.postAnswers(
+            widget.testName, widget.curUser.id.toString(), corretAnswers)
+        .then((response) {
+      var list = json.decode(response.body);
+      Result studentList = new Result.fromJson(list);
+      setState(() {
+        result = studentList;
+      });
+    });
+    // try {
+    //   saveResponse == true
+    //       ? Navigator.pop(context, true)
+    //       : Scaffold.of(context);
+    // } on Exception catch (e) {
+    //   //Handle exception of type SomeException
+    // } catch (e) {
+    //   //Handle all other exceptions
+    // }
   }
 }
