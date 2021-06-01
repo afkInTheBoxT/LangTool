@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LangTool_ASP.NET_Web_API.Models;
 using System.Web.Http.Cors;
+using System.IO;
 
 namespace LangTool_ASP.NET_Web_API.Controllers
 {
@@ -21,15 +22,28 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         {
             db = context;
 
+            byte[] imageData;
+            using (FileStream fs = new FileStream(@"../photo1.jpg", FileMode.Open))
+            {
+                imageData = new byte[fs.Length];
+                fs.Read(imageData, 0, imageData.Length);
+            }
+
             if (!db.Users.Any())
             {
                 db.Users.Add(new User { Name = "Tom", Email = "Tom@gna",
                     Password = "Qwerty", date_of_registration = new DateTime(2021, 02, 20),
                     Passed_tests = 0, Gained_achievements = 0, Completed_topics = 0,
-                    Total_learned_phrases = 0, Alphabet_progress = 0
+                    Total_learned_phrases = 0, Alphabet_progress = 0, Image = imageData
                 });
+                using (FileStream fs = new FileStream(@"../photo2.png", FileMode.Open))
+                {
+                    imageData = new byte[fs.Length];
+                    fs.Read(imageData, 0, imageData.Length);
+                }
                 db.Users.Add(new User { Name = "Alice", Email = "secondemaul@gna",
-                    Password = "12Qwerty", date_of_registration = new DateTime(2021, 02, 20)
+                    Password = "12Qwerty", date_of_registration = new DateTime(2021, 02, 20),
+                    Image = imageData
                 });
                 db.SaveChanges();
             }
@@ -47,8 +61,18 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             }
             if (!db.Phrases.Any())
             {
-                db.Phrases.Add(new Phrase { TopicName = "Food", PhraseName = "Banana" });
-                db.Phrases.Add(new Phrase { TopicName = "Daily", PhraseName = "Hello" });
+                db.Phrases.Add(new Phrase { TopicName = "Food",
+                    translatePhraseName = "Banana", japanesePhraseName = "バナナ"
+                });
+                db.Phrases.Add(new Phrase
+                {
+                    TopicName = "Food",
+                    translatePhraseName = "Дерево",
+                    japanesePhraseName = "木"
+                });
+                db.Phrases.Add(new Phrase { TopicName = "Daily",
+                    translatePhraseName = "мяч", japanesePhraseName = "玉"
+                });
                 db.SaveChanges();
             }
             if (!db.Questions.Any())
@@ -133,6 +157,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
             user.date_of_registration = DateTime.Now;
             db.Users.Add(user);
+            // Give Achievement.
+            var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains("Перший дзвоник"));
+            db.AchievementUsers.Add(new AchievementUser()
+            {
+                Achievement_id = getId.Achievement_id,
+                User_id = user.User_id
+            });
+            user.Gained_achievements++;
+            db.Entry(user).State = EntityState.Modified;
+
             await db.SaveChangesAsync();
             return Ok(user);
         }
@@ -182,11 +216,29 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
             deadline.User = db.Users.FirstOrDefault(user => user.User_id == user_id);
             db.Deadlines.Add(deadline);
+            // Give achievement.
+            var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains("Розумні часи"));
+            var user = db.Users.FirstOrDefault(u => u.User_id == user_id);
+            var achievementUser = db.AchievementUsers
+                .Include(test => test.User)
+                .Include(test => test.Achievement)
+                .FirstOrDefault(t => t.Achievement.Name == "Розумні часи" && t.User_id == user_id);
+            if (achievementUser == null)
+            {
+                db.AchievementUsers.Add(new AchievementUser()
+                {
+                    Achievement_id = getId.Achievement_id,
+                    User_id = user.User_id
+                });
+                user.Gained_achievements++;
+                db.Entry(user).State = EntityState.Modified;
+            }
+
             await db.SaveChangesAsync();
             return Ok(deadline);
         }
 
-        // PUT: Users/deadlines/{id}
+        // POST: Users/deadlines/{id}
         [HttpPut("deadlines/{id}")]
         public async Task<IActionResult> PutUserDeadline(int id, Deadline deadline)
         {

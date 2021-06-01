@@ -121,6 +121,28 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                .ToListAsync();
 
             var testUserBefore = temp[0];
+            if (testUserBefore.CurrentMark < testMark)
+            {
+                // Give Achievement.            
+            var achievementUser = db.AchievementUsers
+               .Include(achievement => achievement.Achievement)
+               .Include(user => user.User)
+               .Where(achievementUser => achievementUser.User_id == user_id)
+               .FirstOrDefault(achievementUser => achievementUser.Achievement.Name == "Upgrade");
+            var getById = db.Achievements.FirstOrDefault(t => t.Name == "Upgrade");
+
+                if (achievementUser == null)
+                {
+                    db.AchievementUsers.Add(new AchievementUser()
+                    {
+                        Achievement_id = getById.Achievement_id,
+                        User_id = user_id
+                    });
+                    var userT = db.Users.FirstOrDefault(user => user.User_id == user_id);
+                    userT.Gained_achievements++;
+                    db.Entry(userT).State = EntityState.Modified;
+                }
+            }
             testUserBefore.CurrentMark = testMark;
             db.Entry(testUserBefore).State = EntityState.Modified;
             if (isFirstPass)
@@ -149,6 +171,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 user.Gained_achievements++;
                 db.Entry(user).State = EntityState.Modified;
             }
+            
 
             try
             {

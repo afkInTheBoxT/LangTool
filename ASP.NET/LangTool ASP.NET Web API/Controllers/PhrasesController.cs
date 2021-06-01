@@ -21,10 +21,12 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // GET: Phrases
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Phrase>>> GetPhrases()
+        [HttpGet("getByTopic/{topicName}")]
+        public async Task<ActionResult<IEnumerable<Phrase>>> GetPhrases(string topicName)
         {
-            return await db.Phrases.ToListAsync();
+            return await db.Phrases
+                .Where(phrase => phrase.TopicName == topicName) 
+                .ToListAsync();
         }
 
         // GET: Phrases/5

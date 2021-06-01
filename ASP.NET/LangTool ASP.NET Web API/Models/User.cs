@@ -13,6 +13,7 @@ namespace LangTool_ASP.NET_Web_API.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public byte[] Image { get; set; }
         // Statistics.
         public DateTime date_of_registration { get; set; }
         public int Passed_tests { get; set; }

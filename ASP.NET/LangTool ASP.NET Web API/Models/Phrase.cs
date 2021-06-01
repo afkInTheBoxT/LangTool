@@ -11,7 +11,8 @@ namespace LangTool_ASP.NET_Web_API.Models
         [Key]
         public int Phrase_Id { get; set; }
         public string TopicName { get; set; }
-        public string PhraseName { get; set; }
+        public string japanesePhraseName { get; set; }
+        public string translatePhraseName { get; set; }
         //public int PhraseImage { get; set; }
         //public int PhraseAudio { get; set; }
 
