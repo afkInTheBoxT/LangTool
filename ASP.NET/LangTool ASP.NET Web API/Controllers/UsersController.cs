@@ -219,12 +219,20 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // DELETE Users/deadlines/{id}
-        [HttpDelete("deadlines/{id}")]
-        public async Task<ActionResult<Deadline>> DeleteDeadline(int id)
+        [HttpDelete("deadlines/{id}/{isFinished}")]
+        public async Task<ActionResult<Deadline>> DeleteDeadline(int id, bool isFinished = false)
         {
-            //Deadline deadline = 
-            //    db.Deadlines.FirstOrDefault(x => x.Topic == topic && x.User.User_id == user_id);
-            Deadline deadline = db.Deadlines.FirstOrDefault(dl => dl.Deadline_id == id);
+            Deadline deadline = db.Deadlines
+                .Include(dl => dl.User)
+                .FirstOrDefault(dl => dl.Deadline_id == id);
+            User user = deadline.User;
+
+            if (isFinished) deadline.Finished = isFinished; // ??
+            if (isFinished)
+            {
+                user.Finished_deadlines++;
+                db.Entry(user).State = EntityState.Modified;
+            }
 
             if (deadline == null)
             {
@@ -282,9 +290,9 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             return new ObjectResult(user.Alphabet_progress);
         }
 
-        [HttpPut("statistics/getCompletedTopics/{user_id}")]
-        public async Task<ActionResult<int>> PutCompletedTopics(int user_id)
-        {
+        //[HttpPut("statistics/getCompletedTopics/{user_id}")]
+        //public async Task<ActionResult<int>> PutCompletedTopics(int user_id)
+        //{
             //User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
             //if (user == null)
             //    return NotFound();
@@ -310,37 +318,37 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             //}
 
             //return NoContent();
-        }
+        //}
 
-        [HttpGet("statistics/putTotalLearnedPhrases/{user_id}")]
-        public async Task<ActionResult<int>> PutTotalLearnedPhrases(int user_id)
-        {
-            User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
-            if (user == null) return NotFound();
+        //[HttpGet("statistics/putTotalLearnedPhrases/{user_id}")]
+        //public async Task<ActionResult<int>> PutTotalLearnedPhrases(int user_id)
+        //{
+        //    //User user = await db.Users.FirstOrDefaultAsync(x => x.User_id == user_id);
+        //    //if (user == null) return NotFound();
             
-            //var userPhrases = await db.
+        //    ////var userPhrases = await db.
 
 
-            db.Entry(user).State = EntityState.Modified;
+        //    //db.Entry(user).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    //try
+        //    //{
+        //    //    await db.SaveChangesAsync();
+        //    //}
+        //    //catch (DbUpdateConcurrencyException)
+        //    //{
+        //    //    if (!UserExists(id))
+        //    //    {
+        //    //        return NotFound();
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        throw;
+        //    //    }
+        //    //}
 
-            return NoContent();
-        }
+        //    //return NoContent();
+        //}
         #endregion
 
 
