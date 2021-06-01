@@ -148,8 +148,7 @@ footer a:hover{
   margin-top: -10px;
   height: 25px;
 }
-.sign-in-absolute-block,
-.sign-in-absolute-block-content{
+.display-none{
   display: none;
 }
 .sign-in-absolute-block{
@@ -189,4 +188,27 @@ footer a:hover{
 }
 .turnoff-visibility{
   visibility: hidden;
+}
+.invalid{
+  background-color: rgb(255, 0, 0, .2);
+}
+
+.registration{
+  position: absolute;
+  z-index: 2;
+  top: 10%;
+  left: 50%;
+  margin-left: -20%;
+  height: 80%;
+  width: 40%;
+  background-color: wheat;
+}
+.registration-bg{
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgb(82 82 45 / 77%);
 }

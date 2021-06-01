@@ -8,6 +8,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <meta charset="UTF-8">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-light">
@@ -83,22 +84,23 @@
             </div>
         </div>
     </section>
-    <div class="sign-in-absolute-block" onclick="closeAuthorization()"></div>
-    <div class="sign-in-absolute-block-content p-4 rounded shadow">
+    <div class="sign-in-absolute-block display-none" onclick="closeAuthorization()"></div>
+    <div class="sign-in-absolute-block-content display-none p-4 rounded shadow">
         <div class="container">
             <dic class="flex-column">
                 <label for="login">Логін</label>
-                <input class="sign-in-absolute-block__input w-100 rounded border-0" id="login" type="email">
+                <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+                placeholder="example@gmail.com" id="login" type="email">
                 <label class="mt-3" for="password">Пароль</label>
-                <input class="sign-in-absolute-block__input w-100 rounded border-0" id="password" type="password">
+                <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" id="password" type="password">
             </dic>
         </div>
         <div class="container text-center mt-4">
             <button class="sign-in-absolute-block__button border-0 rounded w-75 mb-2" 
-            onclick="entrance()">Увійти</button>
+            onclick="validate()">Увійти</button>
             <a class="sign-in-absolute-block_link w-100" href="#">Забули пароль?</a>
             <button class="sign-in-absolute-block__button border-0 rounded w-75 mt-4 mb-2">Google</button>
-            <a class="sign-in-absolute-block_link w-100" href="#">Створити акаунт</a>
+            <a class="sign-in-absolute-block_link w-100" onclick="registration()" href="#">Створити акаунт</a>
         </div>
     </div>
 <!--FOOTER-->
@@ -131,7 +133,31 @@
         <a href="https://www.flaticon.com/ru/" title="Flaticon">www.flaticon.com</a>
     </div>
 </footer>
+<!--ABSOLUTE REGISTRATION-->
+<div class="registration display-none rounded shadow p-4 text-center">
+    <p><b>Створення аккаунта</b></p>
+
+    <p class="mt-3 mb-0">Введіть ваше ім'я:</p>
+    <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+    type="text" name="user-name" placeholder="Іван" id="user-name">
+
+    <p class="mt-3 mb-0">Введіть email:</p>
+    <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+    type="email" name="emailReg" placeholder="example@gmail.com" id="emailReg">
+
+    <p class="mt-3 mb-0">Введіть пароль:</p>
+    <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+    type="password" name="passwordReg" id="passReg">
+    <p class="mt-3 mb-0">Повторіть пароль:</p>
+    <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+    type="password" name="passwordReg">
+    
+    <button class="sign-in-absolute-block__button border-0 rounded w-75 mb-2 mt-4" 
+        onclick="regUser()">Зареєструватись</button>
+</div>
+
 <script src="script/script.js"></script>
+<script src="script/web_api.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </body>
