@@ -10,7 +10,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 {
     public class DbInit
     {
-        public static void InitializeData(Context db)
+        public static async void InitializeData(Context db)
         {
             AddUsers(db);
             AddTests(db);
@@ -19,14 +19,14 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             AddQuestions(db);
             AddTestUsers(db);
             AddAnswers(db);
-            
+
             //if (!db.TestQuestion.Any())
             //{
             //    db.TestQuestion.Add(new TestQuestion { Question_id = 1, Test_id = 1 });
             //    db.TestQuestion.Add(new TestQuestion { Question_id = 2, Test_id = 1 });
             //    db.SaveChanges();
             //}
-           
+
             //if (!db.Answers.Any()) {
             //    db.Answers.Add(new Answer { Answer_id = 1, CorrectAnswer = "a)", Mark = 5 });
             //    db.Answers.Add(new Answer { Answer_id = 2, CorrectAnswer = "b)", Mark = 0 });
@@ -45,7 +45,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 }
                 db.Users.Add(new User
                 {
-                    User_id = 1,
                     Name = "Tom",
                     Email = "Tom@gna",
                     Password = "Qwerty",
@@ -63,7 +62,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 }
                 db.Users.Add(new User
                 {
-                    User_id = 2,
                     Name = "Alice",
                     Email = "secondemaul@gna",
                     Password = "12Qwerty",
@@ -77,7 +75,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 }
                 db.Users.Add(new User
                 {
-                    User_id = 3,
                     Name = "Фред",
                     Email = "fred@gmail.com",
                     Password = "12Qwerty",
@@ -91,7 +88,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 }
                 db.Users.Add(new User
                 {
-                    User_id = 4,
                     Name = "Іванко",
                     Email = "ivanko@gmail.com",
                     Password = "12Qwerty",
@@ -317,7 +313,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             }
         }
 
-        public static async void AddQuestions(Context db)
+        public static void AddQuestions(Context db)
         {
             if (!db.Questions.Any())
             {
@@ -428,8 +424,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Entry(test).State = EntityState.Modified;
 
 
-                await db.SaveChangesAsync();
             }
+            db.SaveChanges();
         }
 
         public static void AddTestUsers(Context db)
@@ -446,843 +442,846 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.TestUsers.Add(new TestUser { User_id = 4, Test_id = 2, IsEnabled = true, CurrentMark = 0 });
                 db.TestUsers.Add(new TestUser { User_id = 4, Test_id = 3, IsEnabled = true, CurrentMark = 0 });
                 db.TestUsers.Add(new TestUser { User_id = 4, Test_id = 4, IsEnabled = true, CurrentMark = 0 });
-                db.SaveChanges();
             }
+            db.SaveChanges();
         }
 
         public static async void AddAnswers(Context db)
         {
-            #region Food
+            if (!db.Answers.Any())
+            {
+                #region Food
 
-            var question = db.Questions
+                var question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 1);
-            var temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я хліб", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я з хлібу", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                var temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я хліб", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я з хлібу", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 2);
-            temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 2);
+                temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 3);
-            temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 3);
+                temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 4);
-            temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified; 
-             
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 5);
-            temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 4);
+                temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 6);
-            temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 5);
+                temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 7);
-            temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 6);
+                temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 8);
-            temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 7);
+                temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 9);
-            temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 8);
+                temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 10);
-            temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark =  0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 9);
+                temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-                .Include(t => t.Answers)
-                .FirstOrDefault(t => t.Question_id == 11);
-            temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 1 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 10);
+                temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 12);
-            temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 1  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp); 
-            temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 0 };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-            #endregion
+                question = db.Questions
+                    .Include(t => t.Answers)
+                    .FirstOrDefault(t => t.Question_id == 11);
+                temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            #region
-            /*
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 13);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 12);
+                temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 1 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 0 };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+                #endregion
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 14);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                #region
+                /*
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 13);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 15);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 14);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 16);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-            #endregion
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 15);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            #region Transport
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 17);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 16);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+                #endregion
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 18);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                #region Transport
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 17);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 19);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 18);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 20);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 19);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 21);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 22);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 23);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 24);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 25);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 26);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 27);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 28);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 29);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 30);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 31);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 32);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-            #endregion
-
-            #region Transport
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 33);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 34);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 35);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 36);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 20);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 37);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 21);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 38);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 22);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 39);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 23);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 40);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 24);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 41);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 25);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 42);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 26);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 43);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 27);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 44);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 28);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 45);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 29);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 46);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 30);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 47);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 31);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
 
-            question = db.Questions
-               .Include(t => t.Answers)
-               .FirstOrDefault(t => t.Question_id == 48);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
-            db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-            #endregion
-            */
-            #endregion
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 32);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+                #endregion
 
-            await db.SaveChangesAsync();
+                #region Transport
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 33);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 34);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 35);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 36);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 37);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 38);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 39);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 40);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 41);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 42);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 43);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 44);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 45);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 46);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 47);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+
+                question = db.Questions
+                   .Include(t => t.Answers)
+                   .FirstOrDefault(t => t.Question_id == 48);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "", Mark =  };
+                db.Answers.Add(temp);
+                question.Answers.Add(temp);
+                db.Entry(question).State = EntityState.Modified;
+                #endregion
+                */
+                #endregion
+            }
+
+            db.SaveChanges();
         }
 
     }
