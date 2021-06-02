@@ -544,8 +544,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
                 var question5 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 6);
-                temp = new Answer { CorrectAnswer = "Переведіть вираз 彼はオートバイを買った", Mark = 0 };
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз 彼はオートバイを買った");
+                temp = new Answer { CorrectAnswer = "Він купив авто", Mark = 0 };
                 //db.Answers.Add(temp);
                 question5.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 1 };
