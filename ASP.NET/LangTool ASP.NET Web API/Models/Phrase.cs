@@ -17,6 +17,6 @@ namespace LangTool_ASP.NET_Web_API.Models
         //public int PhraseAudio { get; set; }
 
 
-        public List<User> User { get; set; }
+        public List<User> Users { get; set; }
     }
 }

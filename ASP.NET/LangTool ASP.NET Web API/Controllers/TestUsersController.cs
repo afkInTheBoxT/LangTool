@@ -17,12 +17,11 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
         public TestUsersController(Context context)
         {
-            db = context;
-
-            
+            db = context;            
         }
 
-        // GET: api/TestUsers
+
+        // GET: TestUsers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TestUser>>> GetTestUser()
         {
@@ -41,16 +40,15 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         [HttpGet("{testName}/{User_id}")]
         public async Task<ActionResult<TestUser>> Get(string testName, int user_id)
         {
-            //// Проверка на тему.
-            //var testUserCheck = db.TestUsers
-            //    .Include(t => t.Test)
-            //    .Include(t => t.Use-)
-            //    .FirstOrDefault(t => t.User_id == user_id && t.Test.TestName == testName);
-            //if (testUserCheck == null || !testUserCheck.IsEnabled)
-            //{
-            //    return NoContent();
-            //}
-
+            // Проверка на тему.
+            var testUserCheck = db.TestUsers
+                .Include(t => t.Test)
+                .Include(t => t.User)
+                .FirstOrDefault(t => t.User_id == user_id && t.Test.TestName == testName);
+            if (testUserCheck == null || !testUserCheck.IsEnabled)
+            {
+                return NoContent();
+            }
 
             TestUser testUser = await db.TestUsers.FirstOrDefaultAsync(
                 x => x.Test.TestName == testName && x.User.User_id == user_id);
@@ -60,7 +58,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // PUT: api/TestUsers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTestUser(int id, TestUser testUser)
         {
@@ -91,7 +88,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // POST: api/TestUsers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<TestUser>> PostTestUser(TestUser testUser)
         {

@@ -15,10 +15,12 @@ namespace LangTool_ASP.NET_Web_API.Controllers
     {
         private readonly Context db;
 
+
         public TestsController(Context context)
         {
             db = context;
         }
+
 
         // GET: Tests
         [HttpGet]
@@ -26,7 +28,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         {
             return await db.Tests.ToListAsync();
         }
-
 
         [HttpGet("{TestName}")]
         public async Task<ActionResult<Test>> Get(string testName)
@@ -36,17 +37,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 return NotFound();
             return new ObjectResult(test);
         }
-
-        //[HttpGet("test/test/test/{testName}/{dos}")]
-        //public async Task<ActionResult<IEnumerable<TestUser>>> GetTests(string testName, string dos)
-        //{
-        //    return await db.TestUsers
-        //       .Include(testUser => testUser.Test)
-        //       .Include(testUser => testUser.User)
-        //       .Where(testUser => testUser.Test.Test_id == 1 &&
-        //                   testUser.User.User_id == 1)
-        //       .ToListAsync();
-        //}
 
         // Проверка теста.
         [HttpPost("checkTest/{TestName}/{User_id}")]
@@ -198,7 +188,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             };
         }
 
-
         private bool TestExists(int id)
         {
             return db.Tests.Any(e => e.Test_id == id);
@@ -208,79 +197,5 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         {
             return db.TestUsers.Any(e => e.User_id == id);
         }
-
-        #region OtherRequests
-        //// GET: Tests/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Test>> GetTest(int id)
-        //{
-        //    var test = await db.Tests.FindAsync(id);
-
-        //    if (test == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return test;
-        //}
-
-        //// PUT: Tests/5
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutTest(int id, Test test)
-        //{
-        //    if (id != test.Test_id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    db.Entry(test).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await db.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!TestExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: Tests
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Test>> PostTest(Test test)
-        //{
-        //    db.Tests.Add(test);
-        //    await db.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetTest", new { id = test.Test_id }, test);
-        //}
-
-        //// DELETE: Tests/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteTest(int id)
-        //{
-        //    var test = await db.Tests.FindAsync(id);
-        //    if (test == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.Tests.Remove(test);
-        //    await db.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-        #endregion
     }
 }

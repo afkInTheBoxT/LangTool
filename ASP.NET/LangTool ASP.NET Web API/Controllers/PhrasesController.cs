@@ -29,16 +29,13 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 .ToListAsync();
         }
 
-        [HttpPost("test/test/test/{testId}")]
-        public async Task<ActionResult<Test>> AddQuestionTests(int testId, Question question)
+        [HttpGet("phraseStats")]
+        public async Task<Action> PhrasesStatistics(int user_id)
         {
-            var testQuestions = db.Tests
-                .Include(t => t.Questions)
-                .FirstOrDefault(t => t.Test_id == testId);
-            testQuestions.Questions.Add(question);
-            db.Entry(testQuestions).State = EntityState.Modified;
-            await db.SaveChangesAsync();
-            return testQuestions;
+            var userPhrases = await db.Phrases
+                .Include(up => up.Users)
+                .Where(up => up.Users.Select(user => user.User_id).Equals(user_id))
+                .ToListAsync();
         }
 
         [HttpGet("completeTopic/{topicName}/{user_id}")]
@@ -80,7 +77,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // PUT: Phrases/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPhrase(int id, Phrase phrase)
         {
@@ -111,7 +107,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // POST: Phrases
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Phrase>> PostPhrase(Phrase phrase)
         {

@@ -80,19 +80,12 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             {
                 return BadRequest();
             }
-            //if (user.User_id <= 0)
-            //{
-            //    var maxId = db.Users.Select(u => u.User_id).Max();
-            //    user.User_id = maxId + 1;
-            //}
             user.date_of_registration = DateTime.Now;
             db.Users.Add(user);
-            // Give Achievement.
-            var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains("Перший дзвоник"));
-
-
             await db.SaveChangesAsync();
 
+            // Give Achievement.
+            var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains("Перший дзвоник"));
             db.AchievementUsers.Add(new AchievementUser()
             {
                 Achievement_id = getId.Achievement_id,
@@ -100,7 +93,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             });
             user.Gained_achievements++;
             db.Entry(user).State = EntityState.Modified;
-
 
             await db.SaveChangesAsync();
 
@@ -126,16 +118,10 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             return db.Users.Any(e => e.User_id == id);
         }
 
-
-
         // GET: Users/deadlines/{id}
         [HttpGet("deadlines/{user_id}")]
         public async Task<ActionResult<IEnumerable<Deadline>>> GetUserDeadlines(int user_id)
         {
-            //return await db.Deadlines
-            //    .Include(deadline => deadline.User)
-            //    .Where(deadline => deadline.User.All(user => user.id == user_id)
-            //    .ToListAsync();
             return await db.Deadlines.Where(deadline => deadline.User.User_id == user_id).ToListAsync();
         }
 
@@ -178,30 +164,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         [HttpPut("deadlines/{id}")]
         public async Task<IActionResult> PutUserDeadline(int id, Deadline deadline)
         {
-            //if (user_id != deadline.User.User_id)
-            //{
-            //    return BadRequest();
-            //}
-
-            //deadline.User = db.Users.FirstOrDefault(user => user.User_id == user_id);
             db.Entry(deadline).State = EntityState.Modified;
             await db.SaveChangesAsync();
-
-            //try
-            //{
-            //    await db.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!UserExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
 
             return NoContent();
         }

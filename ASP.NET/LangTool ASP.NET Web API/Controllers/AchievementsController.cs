@@ -22,21 +22,12 @@ namespace LangTool_ASP.NET_Web_API
             db = context;
         }
 
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Achievement>>> Get()
         {
             return await db.Achievements.ToListAsync();
         }
-
-        //// GET achievements/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Achievement>> Get(int id)
-        //{
-        //    Achievement achievement = await db.Achievements.FirstOrDefaultAsync(x => x.Achievement_id == id);
-        //    if (achievement == null)
-        //        return NotFound();
-        //    return new ObjectResult(achievement);
-        //}
 
         // GET achievements/getAchievement/1
         [HttpGet("getAchievement/{User_id}")]
@@ -51,7 +42,6 @@ namespace LangTool_ASP.NET_Web_API
 
             return result;
         }
-
 
         // PUT achievements/{5}
         [HttpPut("{User_id}")]
@@ -97,83 +87,5 @@ namespace LangTool_ASP.NET_Web_API
             await db.SaveChangesAsync();
             return achievementReceived;
         }
-
-
-
-
-
-
-
-        [HttpGet("testGainAchievement")]
-        public async Task<ActionResult<Achievement>> GetAc()
-        {
-            //GainAchievement(1, achievement_id: 1);
-
-
-            return NoContent();
-        }
-
-        public async void GainAchievement(int user_id, string achievement_name = "", int achievement_id = -1)
-        {
-            if (achievement_id >= 0)
-            {
-                db.AchievementUsers.Add(new AchievementUser() {
-                    Achievement_id = achievement_id, User_id = user_id 
-                });
-                var user = db.Users.FirstOrDefault(user => user.User_id == user_id);
-                user.Gained_achievements++;
-                db.Entry(user).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-            }
-        }
-
-       
-        public async void CheckAchievements(int user_id)
-        {
-            var allAchievements = await db.Achievements.ToListAsync();
-            var user = db.Users.FirstOrDefault(user => user.User_id == user_id);
-
-            foreach (var achiev in allAchievements)
-            {
-                
-            }
-        }
-
-
-        public void TestCheckAchievement(int user_id)
-        {
-
-        }
-
-
-        delegate void AccountHandler(string message);
-        event AccountHandler Notify;
     }
-
-    public static class Requirements
-    {
-
-
-
-        // Achievement.Name, Achievement.Requirement
-        public static Dictionary<string, int> achievementsRequirements;
-
-
-        public static void SetAchievementsRequirements(string path = @"../achievementsRequirements.txt")
-        {
-            string[] reqs = GetAchievementsRequirements(path);
-
-            foreach (var str in reqs)
-            {
-                achievementsRequirements.Add(str.Split("|")[0], Convert.ToInt32(str.Split("|")[1]));
-            }
-        }
-
-        public static string[] GetAchievementsRequirements(string path = @"../achievementsRequirements.txt")
-        {
-            string[] requirements = File.ReadAllLines(path);
-            return requirements;
-        }
-    }
-
 }

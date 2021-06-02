@@ -15,10 +15,12 @@ namespace LangTool_ASP.NET_Web_API.Controllers
     {
         private readonly Context _context;
 
+
         public AchievementUsersController(Context context)
         {
             _context = context;
         }
+
 
         // GET: api/AchievementUsers
         [HttpGet]
@@ -50,7 +52,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(achievementUser).State = EntityState.Modified;
 
             try
@@ -73,14 +74,14 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // POST: api/AchievementUsers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<AchievementUser>> PostAchievementUser(AchievementUser achievementUser)
         {
             _context.AchievementUsers.Add(achievementUser);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAchievementUser", new { id = achievementUser.AchievementUser_id }, achievementUser);
+            return CreatedAtAction("GetAchievementUser", 
+                new { id = achievementUser.AchievementUser_id }, achievementUser);
         }
 
         // DELETE: api/AchievementUsers/5
