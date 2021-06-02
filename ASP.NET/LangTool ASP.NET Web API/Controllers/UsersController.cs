@@ -22,19 +22,18 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         {
             db = context;
 
-            byte[] imageData;
-            using (FileStream fs = new FileStream(@"../photo1.jpg", FileMode.Open))
-            {
-                imageData = new byte[fs.Length];
-                fs.Read(imageData, 0, imageData.Length);
-            }
-
             if (!db.Users.Any())
             {
+                byte[] imageData;
+                using (FileStream fs = new FileStream(@"../photo1.jpg", FileMode.Open))
+                {
+                    imageData = new byte[fs.Length];
+                    fs.Read(imageData, 0, imageData.Length);
+                }
                 db.Users.Add(new User { Name = "Tom", Email = "Tom@gna",
                     Password = "Qwerty", date_of_registration = new DateTime(2021, 02, 20),
                     Passed_tests = 0, Gained_achievements = 0, Completed_topics = 0,
-                    Total_learned_phrases = 0, Alphabet_progress = 0, Image = imageData
+                    Total_learned_phrases = 0, Alphabet_progress = 0
                 });
                 using (FileStream fs = new FileStream(@"../photo2.png", FileMode.Open))
                 {
@@ -42,8 +41,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                     fs.Read(imageData, 0, imageData.Length);
                 }
                 db.Users.Add(new User { Name = "Alice", Email = "secondemaul@gna",
-                    Password = "12Qwerty", date_of_registration = new DateTime(2021, 02, 20),
-                    Image = imageData
+                    Password = "12Qwerty", date_of_registration = new DateTime(2021, 02, 20)
                 });
                 db.SaveChanges();
             }
@@ -159,7 +157,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             }
 
             user.date_of_registration = DateTime.Now;
-            db.Users.Add(user);
             // Give Achievement.
             var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains("Перший дзвоник"));
             db.AchievementUsers.Add(new AchievementUser()
