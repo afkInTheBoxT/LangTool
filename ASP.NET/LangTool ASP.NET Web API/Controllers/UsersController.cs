@@ -80,10 +80,19 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             {
                 return BadRequest();
             }
-
+            //if (user.User_id <= 0)
+            //{
+            //    var maxId = db.Users.Select(u => u.User_id).Max();
+            //    user.User_id = maxId + 1;
+            //}
             user.date_of_registration = DateTime.Now;
+            db.Users.Add(user);
             // Give Achievement.
             var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains("Перший дзвоник"));
+
+
+            await db.SaveChangesAsync();
+
             db.AchievementUsers.Add(new AchievementUser()
             {
                 Achievement_id = getId.Achievement_id,
@@ -92,7 +101,9 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             user.Gained_achievements++;
             db.Entry(user).State = EntityState.Modified;
 
+
             await db.SaveChangesAsync();
+
             return Ok(user);
         }
 

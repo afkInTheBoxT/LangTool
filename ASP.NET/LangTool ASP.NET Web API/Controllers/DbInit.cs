@@ -10,7 +10,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 {
     public class DbInit
     {
-        public static async void InitializeData(Context db)
+        public static void InitializeData(Context db)
         {
             AddUsers(db);
             AddTests(db);
@@ -19,18 +19,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             AddQuestions(db);
             AddTestUsers(db);
             AddAnswers(db);
-
-            //if (!db.TestQuestion.Any())
-            //{
-            //    db.TestQuestion.Add(new TestQuestion { Question_id = 1, Test_id = 1 });
-            //    db.TestQuestion.Add(new TestQuestion { Question_id = 2, Test_id = 1 });
-            //    db.SaveChanges();
-            //}
-
-            //if (!db.Answers.Any()) {
-            //    db.Answers.Add(new Answer { Answer_id = 1, CorrectAnswer = "a)", Mark = 5 });
-            //    db.Answers.Add(new Answer { Answer_id = 2, CorrectAnswer = "b)", Mark = 0 });
-            //}
         }
 
         public static void AddUsers(Context db)
@@ -94,6 +82,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                     date_of_registration = new DateTime(2021, 01, 15),
                     Image = imageData
                 });
+
                 db.SaveChanges();
             }
         }
@@ -102,13 +91,12 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         {
             if (!db.Tests.Any())
             {
-                db.Tests.Add(new Test { TestName = "Їжа", TotalMark = 100 });
-                db.Tests.Add(new Test { TestName = "Транспорт", TotalMark = 200 });
-                db.Tests.Add(new Test { TestName = "Питання", TotalMark = 200 });
-                db.Tests.Add(new Test { TestName = "Дати", TotalMark = 200 });
-                db.Tests.Add(new Test { TestName = "Кольори", TotalMark = 200 });
-                db.Tests.Add(new Test { TestName = "Природа", TotalMark = 200 });
-                db.SaveChanges();
+                db.Tests.Add(new Test { Test_id = 1, TestName = "Їжа", TotalMark = 10 });
+                db.Tests.Add(new Test { Test_id = 2, TestName = "Транспорт", TotalMark = 15 });
+                db.Tests.Add(new Test { Test_id = 3, TestName = "Питання", TotalMark = 15 });
+                db.Tests.Add(new Test { Test_id = 4, TestName = "Дати", TotalMark = 15 });
+                db.Tests.Add(new Test { Test_id = 5, TestName = "Кольори", TotalMark = 15 });
+                db.Tests.Add(new Test { Test_id = 6, TestName = "Природа", TotalMark = 15 });
             }
         }
 

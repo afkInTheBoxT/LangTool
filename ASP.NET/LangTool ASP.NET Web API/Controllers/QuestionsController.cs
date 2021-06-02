@@ -40,7 +40,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             return result;
         }
 
-        // GET: Questions/answers/{how}
+        // GET: Questions/answers/{question_name}
         [HttpGet("answers/{question_name}")]
         public async Task<ActionResult<IEnumerable<Answer>>> GetAnswersOnQuestion(string question_name)
         {
