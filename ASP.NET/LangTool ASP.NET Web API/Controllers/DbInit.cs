@@ -95,11 +95,11 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         {
             if (!db.Tests.Any())
             {
-                db.Tests.Add(new Test {  TestName = "Їжа", TotalMark = 10 });
+                db.Tests.Add(new Test { TestName = "Їжа", TotalMark = 10 });
                 db.Tests.Add(new Test { TestName = "Транспорт", TotalMark = 15 });
-                db.Tests.Add(new Test {  TestName = "Питання", TotalMark = 15 });
-                db.Tests.Add(new Test {  TestName = "Дати", TotalMark = 15 });
-                db.Tests.Add(new Test {  TestName = "Кольори", TotalMark = 15 });
+                db.Tests.Add(new Test { TestName = "Питання", TotalMark = 15 });
+                db.Tests.Add(new Test { TestName = "Дати", TotalMark = 15 });
+                db.Tests.Add(new Test { TestName = "Кольори", TotalMark = 15 });
                 db.Tests.Add(new Test { TestName = "Природа", TotalMark = 15 });
             }
         }
@@ -325,7 +325,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Questions.Add(temp);                
                 test.Questions.Add(temp);
 
-                //await db.SaveChangesAsync();
+                db.SaveChanges();
 
                 test = db.Tests
                 .Include(t => t.Questions)
@@ -344,6 +344,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
 
+                db.SaveChanges();
 
                 test = db.Tests
                 .Include(t => t.Questions)
@@ -362,6 +363,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
 
+                db.SaveChanges();
 
                 test = db.Tests
                  .Include(t => t.Questions)
@@ -380,6 +382,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
 
+                db.SaveChanges();
+
                 test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Кольори");
@@ -397,6 +401,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
 
+                db.SaveChanges();
 
                 test = db.Tests
                 .Include(t => t.Questions)
@@ -414,8 +419,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
-
-
             }
             db.SaveChanges();
         }
@@ -461,6 +464,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
 
+                db.SaveChanges();
+
                 question = db.Questions
                    .Include(t => t.Answers)
                    .FirstOrDefault(t => t.Question_id == 2);
@@ -477,6 +482,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
+
+                db.SaveChanges();
 
                 question = db.Questions
                    .Include(t => t.Answers)
@@ -495,6 +502,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
 
+                db.SaveChanges();
+
                 question = db.Questions
                    .Include(t => t.Answers)
                    .FirstOrDefault(t => t.Question_id == 4);
@@ -511,6 +520,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
+
+                db.SaveChanges();
 
                 question = db.Questions
                    .Include(t => t.Answers)
@@ -529,6 +540,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
 
+                db.SaveChanges();
+
                 question = db.Questions
                    .Include(t => t.Answers)
                    .FirstOrDefault(t => t.Question_id == 6);
@@ -545,6 +558,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
+
+                db.SaveChanges();
 
                 question = db.Questions
                    .Include(t => t.Answers)
@@ -563,6 +578,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
 
+                db.SaveChanges();
+
                 question = db.Questions
                    .Include(t => t.Answers)
                    .FirstOrDefault(t => t.Question_id == 8);
@@ -579,6 +596,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
+
+                db.SaveChanges();
 
                 question = db.Questions
                    .Include(t => t.Answers)
@@ -597,6 +616,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
 
+                db.SaveChanges();
+
                 question = db.Questions
                    .Include(t => t.Answers)
                    .FirstOrDefault(t => t.Question_id == 10);
@@ -613,6 +634,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
+
+                db.SaveChanges();
 
                 question = db.Questions
                     .Include(t => t.Answers)
@@ -631,6 +654,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
 
+                db.SaveChanges();
+
                 question = db.Questions
                    .Include(t => t.Answers)
                    .FirstOrDefault(t => t.Question_id == 12);
@@ -647,6 +672,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
+                db.SaveChanges();
+
                 #endregion
 
                 #region

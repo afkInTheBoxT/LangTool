@@ -44,7 +44,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             //// Проверка на тему.
             //var testUserCheck = db.TestUsers
             //    .Include(t => t.Test)
-            //    .Include(t => t.User)
+            //    .Include(t => t.Use-)
             //    .FirstOrDefault(t => t.User_id == user_id && t.Test.TestName == testName);
             //if (testUserCheck == null || !testUserCheck.IsEnabled)
             //{
