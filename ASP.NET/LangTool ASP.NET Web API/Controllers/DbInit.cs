@@ -33,7 +33,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 }
                 db.Users.Add(new User
                 {
-                    User_id = 1,
+                    //User_id = 1,
                     Name = "Tom",
                     Email = "Tom@gna",
                     Password = "Qwerty",
@@ -51,7 +51,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 }
                 db.Users.Add(new User
                 {
-                    User_id = 2,
+                    //User_id = 2,
                     Name = "Alice",
                     Email = "secondemaul@gna",
                     Password = "12Qwerty",
@@ -65,7 +65,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 }
                 db.Users.Add(new User
                 {
-                    User_id = 3,
+                    //User_id = 3,
                     Name = "Фред",
                     Email = "fred@gmail.com",
                     Password = "12Qwerty",
@@ -79,7 +79,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 }
                 db.Users.Add(new User
                 {
-                    User_id = 4,
+                    //User_id = 4,
                     Name = "Іванко",
                     Email = "ivanko@gmail.com",
                     Password = "12Qwerty",
@@ -95,12 +95,12 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         {
             if (!db.Tests.Any())
             {
-                db.Tests.Add(new Test { Test_id = 1, TestName = "Їжа", TotalMark = 10 });
-                db.Tests.Add(new Test { Test_id = 2, TestName = "Транспорт", TotalMark = 15 });
-                db.Tests.Add(new Test { Test_id = 3, TestName = "Питання", TotalMark = 15 });
-                db.Tests.Add(new Test { Test_id = 4, TestName = "Дати", TotalMark = 15 });
-                db.Tests.Add(new Test { Test_id = 5, TestName = "Кольори", TotalMark = 15 });
-                db.Tests.Add(new Test { Test_id = 6, TestName = "Природа", TotalMark = 15 });
+                db.Tests.Add(new Test {  TestName = "Їжа", TotalMark = 10 });
+                db.Tests.Add(new Test { TestName = "Транспорт", TotalMark = 15 });
+                db.Tests.Add(new Test {  TestName = "Питання", TotalMark = 15 });
+                db.Tests.Add(new Test {  TestName = "Дати", TotalMark = 15 });
+                db.Tests.Add(new Test {  TestName = "Кольори", TotalMark = 15 });
+                db.Tests.Add(new Test { TestName = "Природа", TotalMark = 15 });
             }
         }
 
@@ -312,16 +312,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 var test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Їжа");
-                Question temp = new Question { Question_id = 1, QuestionName = "Переведіть вираз パンを食べる", Multiplyer = 1 };
+                Question temp = new Question { QuestionName = "Переведіть вираз パンを食べる", Multiplyer = 1 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 2, QuestionName = "Переведіть вираз 石油を買いたい", Multiplyer = 2 };
+                temp = new Question { QuestionName = "Переведіть вираз 石油を買いたい", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 3, QuestionName = "Переведіть вираз チーズがない", Multiplyer = 2 };
+                temp = new Question {  QuestionName = "Переведіть вираз チーズがない", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 4, QuestionName = "Переведіть вираз 彼はサンドイッチを作りたい", Multiplyer = 5 };
+                temp = new Question {  QuestionName = "Переведіть вираз 彼はサンドイッチを作りたい", Multiplyer = 5 };
                 db.Questions.Add(temp);                
                 test.Questions.Add(temp);
 
@@ -330,16 +330,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Транспорт");
-                temp = new Question { Question_id = 5, QuestionName = "Переведіть вираз 自転車に乗る", Multiplyer = 2 };
+                temp = new Question { QuestionName = "Переведіть вираз 自転車に乗る", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 6, QuestionName = "Переведіть вираз 彼はオートバイを買った", Multiplyer = 3 };
+                temp = new Question { QuestionName = "Переведіть вираз 彼はオートバイを買った", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 7, QuestionName = "Переведіть вираз お母さんはよくバスを利用します", Multiplyer = 5 };
+                temp = new Question { QuestionName = "Переведіть вираз お母さんはよくバスを利用します", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 8, QuestionName = "Переведіть вираз 彼らは車に乗る", Multiplyer = 5 };
+                temp = new Question { QuestionName = "Переведіть вираз 彼らは車に乗る", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
@@ -348,16 +348,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Питання");
-                temp = new Question { Question_id = 9, QuestionName = "Переведіть вираз お名前は何ですか", Multiplyer = 2 };
+                temp = new Question { QuestionName = "Переведіть вираз お名前は何ですか", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 10, QuestionName = "Переведіть вираз あなたは何歳ですか", Multiplyer = 4 };
+                temp = new Question { QuestionName = "Переведіть вираз あなたは何歳ですか", Multiplyer = 4 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 11, QuestionName = "Переведіть вираз それはどれくらいしますか", Multiplyer = 5 };
+                temp = new Question { QuestionName = "Переведіть вираз それはどれくらいしますか", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 12, QuestionName = "Переведіть вираз それは何色です", Multiplyer = 4 };
+                temp = new Question { QuestionName = "Переведіть вираз それは何色です", Multiplyer = 4 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
@@ -366,16 +366,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test = db.Tests
                  .Include(t => t.Questions)
                  .FirstOrDefault(t => t.TestName == "Дати");
-                temp = new Question { Question_id = 13, QuestionName = "Переведіть вираз 今日は水曜日です", Multiplyer = 3 };
+                temp = new Question { QuestionName = "Переведіть вираз 今日は水曜日です", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 14, QuestionName = "Переведіть вираз 明日は6月12日", Multiplyer = 3 };
+                temp = new Question { QuestionName = "Переведіть вираз 明日は6月12日", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 15, QuestionName = "Переведіть вираз 昨日は月曜日", Multiplyer = 2 };
+                temp = new Question { QuestionName = "Переведіть вираз 昨日は月曜日", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 16, QuestionName = "Переведіть вираз 私は最初の年に2000人生まれ", Multiplyer = 7 };
+                temp = new Question { QuestionName = "Переведіть вираз 私は最初の年に2000人生まれ", Multiplyer = 7 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
@@ -383,16 +383,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Кольори");
-                temp = new Question { Question_id = 17, QuestionName = "Переведіть вираз 庭の黄色い太陽", Multiplyer = 3 };
+                temp = new Question { QuestionName = "Переведіть вираз 庭の黄色い太陽", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 18, QuestionName = "Переведіть вираз 彼女のブラウスは真っ赤です", Multiplyer = 5 };
+                temp = new Question { QuestionName = "Переведіть вираз 彼女のブラウスは真っ赤です", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 19, QuestionName = "Переведіть вираз ホワイトトップ、ブラックボトム", Multiplyer = 5 };
+                temp = new Question { QuestionName = "Переведіть вираз ホワイトトップ、ブラックボトム", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 20, QuestionName = "Переведіть вираз 母の目は緑", Multiplyer = 2 };
+                temp = new Question { QuestionName = "Переведіть вираз 母の目は緑", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
@@ -401,16 +401,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Природа");
-                temp = new Question { Question_id = 21, QuestionName = "Переведіть вираз 賢いoの木です", Multiplyer = 2 };
+                temp = new Question { QuestionName = "Переведіть вираз 賢いoの木です", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 22, QuestionName = "Переведіть вираз 新年には、私の家族は緑のクリスマス ツリーを置きます", Multiplyer = 8 };
+                temp = new Question { QuestionName = "Переведіть вираз 新年には、私の家族は緑のクリスマス ツリーを置きます", Multiplyer = 8 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 23, QuestionName = "Переведіть вираз 女の子はバラが大好き", Multiplyer = 2 };
+                temp = new Question { QuestionName = "Переведіть вираз 女の子はバラが大好き", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { Question_id = 24, QuestionName = "Переведіть вираз この花はいいにおいがする", Multiplyer = 3 };
+                temp = new Question { QuestionName = "Переведіть вираз この花はいいにおいがする", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
