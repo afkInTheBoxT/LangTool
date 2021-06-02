@@ -41,12 +41,12 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         }
 
         // GET: Questions/answers/{question_name}
-        [HttpGet("answers/{question_name}")]
-        public async Task<ActionResult<IEnumerable<Answer>>> GetAnswersOnQuestion(string question_name)
+        [HttpGet("answers/{question_id}")]
+        public async Task<ActionResult<IEnumerable<Answer>>> GetAnswersOnQuestion(int question_id)
         {
             var answers = await db.Answers
                 .Include(answ => answ.Question)
-                .Where(answ => answ.Question.Any(quest => quest.QuestionName.Contains(question_name)))
+                .Where(answ => answ.Question.Any(quest => quest.Question_id == question_id))
                 .ToListAsync();
 
             return answers;
