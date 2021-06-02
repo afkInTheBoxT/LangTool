@@ -22,7 +22,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         {
             db = context;
 
-            //DbInit.InitializeData(db);
+            DbInit.InitializeData(db);
         }
 
         // GET: Users

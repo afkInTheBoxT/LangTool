@@ -18,6 +18,7 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             AddPhrases(db);
             AddQuestions(db);
             AddTestUsers(db);
+            AddAnswers(db);
             
             //if (!db.TestQuestion.Any())
             //{
@@ -656,8 +657,10 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
+            #endregion
 
-
+            #region
+            /*
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 13);
@@ -1275,6 +1278,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
+            #endregion
+            */
             #endregion
 
             await db.SaveChangesAsync();
