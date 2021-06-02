@@ -29,14 +29,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 .ToListAsync();
         }
 
-        [HttpGet("phraseStats")]
-        public async Task<Action> PhrasesStatistics(int user_id)
-        {
-            var userPhrases = await db.Phrases
-                .Include(up => up.Users)
-                .Where(up => up.Users.Select(user => user.User_id).Equals(user_id))
-                .ToListAsync();
-        }
+        //[HttpGet("phraseStats/{user_id}")]
+        //public async Task<Action> PhrasesStatistics(int user_id)
+        //{
+        //    var userPhrases = await db.Phrases
+        //        .Include(up => up.Users)
+        //        .Where(up => up.Users.Select(user => user.User_id).Equals(user_id))
+        //        .ToListAsync();
+
+
+        //}
 
         [HttpGet("completeTopic/{topicName}/{user_id}")]
         public async Task<IActionResult> CompleteTopic(string topicName, int user_id)

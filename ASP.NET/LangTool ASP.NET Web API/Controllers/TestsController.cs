@@ -83,21 +83,23 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
                 var answersDB = await db.Answers
                 .Include(answ => answ.Question)
-                .Where(answ => answ.Question.Any(quest => quest.Question_id == questions[i].Question_id))
+                .Where(answ => answ.Question.Any(quest => quest.QuestionName == questions[i].QuestionName))
                 .ToListAsync();
 
 
                 // Проверка вариантов ответов.
                 for (int j = 0; j < answersDB.Count; j++)
-                {                    
-
-                    if (answersDB[j].CorrectAnswer == answers[answersCounter])
+                {
+                    for (int t = 0; t < answers.Length; t++)
                     {
-                        correctAnswers++;
-                        float test1 = questions[i].Multiplyer;
-                        float test2 = answersDB[j].Mark;
-                        testMark += questions[i].Multiplyer * answersDB[j].Mark;
-                        answersCounter++;
+                        if (answersDB[j].CorrectAnswer == answers[t] && answersDB[j].Mark == 1)
+                        {
+                            correctAnswers++;
+                            float test1 = questions[i].Multiplyer;
+                            float test2 = answersDB[j].Mark;
+                            testMark += questions[i].Multiplyer * answersDB[j].Mark;
+                            answersCounter++;
+                        }
                     }
                 }
 

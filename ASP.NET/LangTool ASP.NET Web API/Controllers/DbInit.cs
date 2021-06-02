@@ -449,229 +449,229 @@ namespace LangTool_ASP.NET_Web_API.Controllers
 
                 var question = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 1);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз パンを食べる");
                 var temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 1 };
-                db.Answers.Add(temp);
+                //db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Я хліб", Mark = 0 };
-                db.Answers.Add(temp);
+                //db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Ти їш хліб", Mark = 0 };
-                db.Answers.Add(temp);
+                //db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Я їм бутерброд", Mark = 0 };
-                db.Answers.Add(temp);
+                //db.Answers.Add(temp);
                 question.Answers.Add(temp);
                 db.Entry(question).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question1 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 2);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз 石油を買いたい");
                 temp = new Answer { CorrectAnswer = "Я куплю сир", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question1.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question1.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "В мене немає картошки", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question1.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "В мене є сир", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question1.Answers.Add(temp);
+                db.Entry(question1).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question2 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 3);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз チーズがない");
                 temp = new Answer { CorrectAnswer = "Я візьму масло", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question2.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Я роблю бутерброд с маслом", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question2.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Він хоче купити масло", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question2.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question2.Answers.Add(temp);
+                db.Entry(question2).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question3 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 4);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз 彼はサンドイッチを作りたい");
                 temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question3.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Я хочу приготовить суп", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question3.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Вмене не має бутерброду", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question3.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Вона приготовила суп", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question3.Answers.Add(temp);
+                db.Entry(question3).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question4 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 5);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз 自転車に乗る");
                 temp = new Answer { CorrectAnswer = "Мама купить мені велосипед", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question4.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Він їде на велосипеді", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question4.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question4.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Вони купують велосипед", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question4.Answers.Add(temp);
+                db.Entry(question4).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question5 = db.Questions
                    .Include(t => t.Answers)
                    .FirstOrDefault(t => t.Question_id == 6);
-                temp = new Answer { CorrectAnswer = "Він купив авто", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                temp = new Answer { CorrectAnswer = "Переведіть вираз 彼はオートバイを買った", Mark = 0 };
+                //db.Answers.Add(temp);
+                question5.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question5.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Я замовив таксі", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question5.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Вони орендували авто", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question5.Answers.Add(temp);
+                db.Entry(question5).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question6 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 7);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз お母さんはよくバスを利用します");
                 temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question6.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Я їду на автобусі", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question6.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Вона користується автобусом", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question6.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Він часто користується автобусом", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question6.Answers.Add(temp);
+                db.Entry(question6).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question7 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 8);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз 彼らは車に乗る");
                 temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question7.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Папа купив мотоцикл", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question7.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Я катаюсь на авто", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question7.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Він розбив авто", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question7.Answers.Add(temp);
+                db.Entry(question7).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question8 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 9);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз お名前は何ですか");
                 temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question8.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Як справи?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question8.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Звідки ти?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question8.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Котра година?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question8.Answers.Add(temp);
+                db.Entry(question8).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question9 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 10);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз あなたは何歳ですか");
                 temp = new Answer { CorrectAnswer = "Який в тебе ріст?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question9.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Скільки років твоїй мамі?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question9.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question9.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Скільки років твоєму тату?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question9.Answers.Add(temp);
+                db.Entry(question9).State = EntityState.Modified;
 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question10 = db.Questions
                     .Include(t => t.Answers)
-                    .FirstOrDefault(t => t.Question_id == 11);
+                    .FirstOrDefault(t => t.QuestionName == "Переведіть вираз それはどれくらいしますか");
                 temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question10.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Скільки ти заплатив?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question10.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Як називається ця річ?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question10.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Скільки коштує ця річ?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question10.Answers.Add(temp);
+                db.Entry(question10).State = EntityState.Modified;
                 
                 db.SaveChanges();
 
-                question = db.Questions
+                var question11 = db.Questions
                    .Include(t => t.Answers)
-                   .FirstOrDefault(t => t.Question_id == 12);
+                   .FirstOrDefault(t => t.QuestionName == "Переведіть вираз それは何色です");
                 temp = new Answer { CorrectAnswer = "Який твій любимий колір?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question11.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Якого кольру сонце?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question11.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 1 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
+                //db.Answers.Add(temp);
+                question11.Answers.Add(temp);
                 temp = new Answer { CorrectAnswer = "Якого кольру твої очі?", Mark = 0 };
-                db.Answers.Add(temp);
-                question.Answers.Add(temp);
-                db.Entry(question).State = EntityState.Modified;
+                //db.Answers.Add(temp);
+                question11.Answers.Add(temp);
+                db.Entry(question11).State = EntityState.Modified;
 
                 db.SaveChanges();
                 #endregion
