@@ -326,31 +326,31 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 Question temp = new Question { QuestionName = "Переведіть вираз パンを食べる", Multiplyer = 1 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Переведіть вираз 石油を買いたい", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 石油を買いたい", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Переведіть вираз チーズがない", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз チーズがない", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Переведіть вираз 彼はサンドイッチを作りたい", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 彼はサンドイッチを作りたい", Multiplyer = 5 };
                 db.Questions.Add(temp);                
-                test.Questions.Add(temp);  
+                test.Questions.Add(temp);
 
                 //await db.SaveChangesAsync();
 
                 test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Транспорт");
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 自転車に乗る", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 彼はオートバイを買った", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question {QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question {QuestionName = "Переведіть вираз お母さんはよくバスを利用します", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 彼らは車に乗る", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
@@ -359,16 +359,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Питання");
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз お名前は何ですか", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз あなたは何歳ですか", Multiplyer = 4 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз それはどれくらいしますか", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз それは何色です", Multiplyer = 4 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
@@ -377,16 +377,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test = db.Tests
                  .Include(t => t.Questions)
                  .FirstOrDefault(t => t.TestName == "Дати");
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 今日は水曜日です", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 明日は6月12日", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 昨日は月曜日", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 私は最初の年に2000人生まれ", Multiplyer = 7 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
@@ -394,16 +394,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Кольори");
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 庭の黄色い太陽", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 彼女のブラウスは真っ赤です", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз ホワイトトップ、ブラックボトム", Multiplyer = 5 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 母の目は緑", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
@@ -412,16 +412,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 test = db.Tests
                 .Include(t => t.Questions)
                 .FirstOrDefault(t => t.TestName == "Природа");
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 賢いoの木です", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 新年には、私の家族は緑のクリスマス ツリーを置きます", Multiplyer = 8 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз 女の子はバラが大好き", Multiplyer = 2 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
-                temp = new Question { QuestionName = "Where are u from?", Multiplyer = 1 };
+                temp = new Question { QuestionName = "Переведіть вираз この花はいいにおいがする", Multiplyer = 3 };
                 db.Questions.Add(temp);
                 test.Questions.Add(temp);
                 db.Entry(test).State = EntityState.Modified;
@@ -456,16 +456,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             var question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 1);
-            var temp = new Answer { CorrectAnswer = "", Mark =  };
+            var temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я хліб", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я з хлібу", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -473,16 +473,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 2);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -490,16 +490,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 3);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -507,33 +507,33 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 4);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Він хоче приготовить бутерброд", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "В мене немає сиру", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я їм хліб", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я хочу купить масло", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            db.Entry(question).State = EntityState.Modified;
-
+            db.Entry(question).State = EntityState.Modified; 
+             
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 5);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -541,16 +541,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 6);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -558,16 +558,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 7);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -575,16 +575,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 8);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Він купив мотоцикл", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Мама часто користується автобусом", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Вони катаються на авто", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Я їду на велосипеді", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -592,16 +592,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 9);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -609,16 +609,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 10);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark =  0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -626,16 +626,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                 .Include(t => t.Answers)
                 .FirstOrDefault(t => t.Question_id == 11);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 1 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
@@ -643,16 +643,16 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             question = db.Questions
                .Include(t => t.Answers)
                .FirstOrDefault(t => t.Question_id == 12);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Скільки тобі років?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Скільки це коштує?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            temp = new Answer { CorrectAnswer = "Який це колір?", Mark = 1  };
             db.Answers.Add(temp);
-            question.Answers.Add(temp);
-            temp = new Answer { CorrectAnswer = "", Mark =  };
+            question.Answers.Add(temp); 
+            temp = new Answer { CorrectAnswer = "Як тебе звати?", Mark = 0 };
             db.Answers.Add(temp);
             question.Answers.Add(temp);
             db.Entry(question).State = EntityState.Modified;
