@@ -62,3 +62,40 @@ getUser().then( (value)=>{
 getAlltests().then((tests)=>{
     console.log(tests);
 });
+async function testAccess(testName, userId){
+    let access = await fetch(`https://localhost:44352/testusers/${testName}/${userId}`);
+
+    if (access.ok) { 
+        let res = await access.json();
+        return res;
+    } else {
+        return null;
+    }
+}
+
+async function getQuestions(testName){
+    let access = await fetch(`https://localhost:44352/questions/${testName}`);
+
+    if (access.ok) { 
+        let res = await access.json();
+        return res;
+    } else {
+        console.log('Failed to load questions.');
+    }
+}
+
+function startTest(testName){
+
+    testAccess(testName, userInfo.user_id).then((res)=>{
+        if(res !== null){
+            getQuestions(testName).then((qst)=>{
+
+                console.log(qst);
+                document.getElementById('test-bg').style.display = 'block';
+                document.getElementById('test').style.display = 'block';
+            });
+        }else{
+            alert('Вам ше не доступний цей тест.');
+        }
+    });
+}

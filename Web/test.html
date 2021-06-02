@@ -18,55 +18,82 @@
     <!--MAIN-->
     <div class="container">
         <div id="tests" class="row row-cols-auto tests mt-5 mb-5 justify-content-center">
-            <div class="card text-center m-3">
+            <div class="card text-center m-3 p-3">
                 <img src="content/svg/chinese-food.svg" class="card-img-top" alt="chinese food">
                 <div class="card-body">
                   <h5 class="card-title">Їжа</h5>
-                  <button href="#" class="card__button w-100">Пройти</button>
+                  <button onclick="startTest('Food')" href="#" class="card__button w-100">Пройти</button>
                 </div>
             </div>
 
-            <div class="card text-center m-3">
+            <div class="card text-center m-3 p-3">
                 <img src="content/svg/transport.svg" class="card-img-top" alt="transport">
                 <div class="card-body">
                   <h5 class="card-title">Транспорт</h5>
-                  <button href="#" class="card__button w-100">Пройти</button>
+                  <button onclick="startTest(2)" href="#" class="card__button w-100">Пройти</button>
                 </div>
             </div>
 
-            <div class="card text-center m-3">
+            <div class="card text-center m-3 p-3">
                 <img src="content/svg/dialog.svg" class="card-img-top" alt="dialog">
                 <div class="card-body">
                   <h5 class="card-title">Питання</h5>
-                  <button href="#" class="card__button w-100">Пройти</button>
+                  <button onclick="startTest(3)" href="#" class="card__button w-100">Пройти</button>
                 </div>
             </div>
 
-            <div class="card text-center m-3">
+            <div class="card text-center m-3 p-3">
                 <img src="content/svg/day.svg" class="card-img-top" alt="day">
                 <div class="card-body">
                   <h5 class="card-title">Дати</h5>
-                  <button href="#" class="card__button w-100">Пройти</button>
+                  <button onclick="startTest(4)" href="#" class="card__button w-100">Пройти</button>
                 </div>
             </div>
 
-            <div class="card text-center m-3">
+            <div class="card text-center m-3 p-3">
                 <img src="content/svg/color.svg" class="card-img-top" alt="color">
                 <div class="card-body">
                   <h5 class="card-title">Кольрои</h5>
-                  <button href="#" class="card__button w-100">Пройти</button>
+                  <button onclick="startTest(5)" href="#" class="card__button w-100">Пройти</button>
                 </div>
             </div>
 
-            <div class="card text-center m-3">
+            <div class="card text-center m-3 p-3">
                 <img src="content/svg/nature.svg" class="card-img-top" alt="nature">
                 <div class="card-body">
                   <h5 class="card-title">Природа</h5>
-                  <button href="#" class="card__button w-100">Пройти</button>
+                  <button onclick="startTest(6)" href="#" class="card__button w-100">Пройти</button>
                 </div>
             </div>
         </div>
     </div>
+    <!--TEST AREA-->
+    <div id="test-bg" class="test-bg display-none" onclick="closeAuthorization()"></div>
+    <div id="test" class="test display-none text-center p-4" onclick="closeAuthorization()">
+
+        <p class="" id="questionNumber">Питання №<span></span> із <span></span></p>
+
+        <h3 id="question"></h3>
+        <ul class="ansList">
+            <li>
+                <input type="radio" name="userAnswer" id="ans1">
+                <label class="ansLables" for="ans1"></label>
+            </li>
+            <li>
+                <input type="radio" name="userAnswer" id="ans2">
+                <label class="ansLables" for="ans2"></label>
+            </li>
+            <li>
+                <input type="radio" name="userAnswer" id="ans3">
+                <label class="ansLables" for="ans3"></label>
+            </li>
+            <li>
+                <input type="radio" name="userAnswer" id="ans4">
+                <label class="ansLables" for="ans4"></label>
+            </li>
+        </ul>  
+    </div>
+
 <!--FOOTER-->
 <footer class="p-4 text-center">
     <div class="container row justify-content-center">
