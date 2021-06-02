@@ -1,0 +1,13 @@
+.card{
+    width: 18rem!important;
+}
+.card{
+    border: 1px solid rgba(255,168,39,255)!important;
+}
+.card__button{
+    border: none;
+    background-color: rgba(255,193,7,1);
+}
+.card__button:hover{
+    background-color: rgba(255,168,39,255);
+}

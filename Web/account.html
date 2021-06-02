@@ -12,8 +12,8 @@
 </head>
 <body>
     <nav class="navbar navbar-light">
-        <a class="custom-brand" href="#"><b>LangTool</b></a>
-        <a class="nav-link text-orange-500 align-self-end" onclick="startAuthorization()" href="#">Увійти</a>
+        <a class="custom-brand" href="index.html"><b>LangTool</b></a>
+        <a class="nav-link text-orange-500 align-self-end" onclick="goToTest()" href="#">Пройти тест</a>
     </nav>
     <!--MAIN-->
     <div class="userInfo container w-50 pb-5 pt-5 mb-5">
@@ -28,13 +28,20 @@
                     <img class="userInfo__load-img" src="content/svg/picture-icon.svg" alt="load icon">
                     <input id="userPhotoInput" class="userInfo__input-load" type="file" 
                     accept=".png, .jpg, .jpeg" name="userPhoto">
+                    <br>
+                    <img class="userInfo__load-img" src="content/svg/gear.svg" alt="gear icon">
+                    <button class="userInfo__button mt-2" onclick="startSetting()">Змінити данні</button>
                 </div>
             </div>
         </div>
+        <hr>
         <div class="container">
             <div class="row">
-                <div class="container w-50">
+                <div class="container w-50 p-0">
                     <h2>Досягнення:</h2>
+                    <div class="relative">
+                        <div id="achScroll" class="scroll-ach"></div>
+                    </div>
                 </div>
                 <div class="container w-50">
                     <h2>Статистика:</h2>
@@ -101,6 +108,29 @@
         <a href="https://www.flaticon.com/ru/" title="Flaticon">www.flaticon.com</a>
     </div>
 </footer>
+<!--SETTINGS-->
+<div class="settings-bg display-none" onclick="closeSettings()"></div>
+<div class="settings display-none rounded shadow text-center p-3">
+    <div class="container">
+        <p><b>Зміна даних</b></p>
+
+        <p class="mb-0 mt-4">Змінити ім'я:</p>
+        <input class="w-100 rounded border-0 ps-3" type="text" name="newName" id="newName">
+
+        <p class="mb-0 mt-4">Змінити пошту:</p>
+        <input class="w-100 rounded border-0 ps-3" type="email" name="newEmail" id="newEmail">
+
+        <p class="mb-0 mt-4">Змінити пароль:</p>
+        <input class="w-100 rounded border-0 ps-3" type="password" name="newPass" id="newPass">
+
+        <button class="settings__button border-0 rounded w-75 mb-2 mt-4" 
+        onclick="processChanges()">Змінити</button>
+
+        <button class="settings__button border-0 rounded w-75 mb-2 mt-3" 
+        onclick="confirmDelete()">Видалити аккаунт <b>назавжди</b></button>
+    </div>
+</div>
+
 <script src="script/acc_script.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

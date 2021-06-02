@@ -154,7 +154,11 @@ function validate(){
     return;
   }
 
-  faceControl(login.value, password.value).then( (value) => { entrance( value ) } );
+  faceControl(login.value, password.value).then( (value) => { 
+    if(value){
+    entrance( value ) 
+    }
+  });
 
 }
 

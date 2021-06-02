@@ -152,7 +152,7 @@ footer a:hover{
   display: none;
 }
 .sign-in-absolute-block{
-  position: absolute;
+  position: fixed;
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -161,7 +161,7 @@ footer a:hover{
   background-color: rgb(82 82 45 / 77%);
 }
 .sign-in-absolute-block-content{
-  position: absolute;
+  position: fixed;
   z-index: 2;
   top: 10%;
   left: 50%;

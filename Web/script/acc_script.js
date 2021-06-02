@@ -17,9 +17,10 @@ function parseURLParams(url) {
     }
     return parms;
 }
+let urlParams = parseURLParams(window.location.href);
+let userInfo;
 
 async function fillStat(){
-    let urlParams = parseURLParams(window.location.href);
 
     let userss = await fetch('https://localhost:44352/users');
 
@@ -38,6 +39,8 @@ async function fillStat(){
     }
 }
 fillStat().then( (value)=>{
+    userInfo = value;
+
     let userName = document.getElementById('userName');
     userName.textContent = value.name;
     let userLogin = document.getElementById('userLogin');
@@ -66,4 +69,174 @@ fillStat().then( (value)=>{
     let finished_deadlines = document.getElementById('finished_deadlines');
     finished_deadlines.style.width = value.finished_deadlines;
     finished_deadlines.textContent = value.finished_deadlines + '%';
-} );
+
+    getAllUserAchievements().then((userAch)=>{
+        let allAchv = document.getElementById('achScroll');
+        for(let i = 0; i < allAchv.length; i++){
+            for(let ach in userAch){
+                if(userAch[ach].name !== allAchv[i].id){
+                    allAchv[i].classList.toggle('do-not-achieved');
+                }
+            }
+        }
+    });
+});
+
+function startSetting() {
+    document.body.style.overflow = "hidden";
+    document.getElementsByClassName('settings-bg')[0].style.display = 'block';
+    document.getElementsByClassName('settings')[0].style.display = 'block';
+
+    let newName = document.getElementById('newName');
+    let newEm = document.getElementById('newEmail');
+    let newPass = document.getElementById('newPass');
+
+    newName.value = userInfo.name;
+    newEm.value = userInfo.email;
+    newPass.value = userInfo.password;
+}
+
+function closeSettings(){
+    document.body.style.overflow = "";
+    document.getElementsByClassName('settings-bg')[0].style.display = 'none';
+    document.getElementsByClassName('settings')[0].style.display = 'none';
+}
+
+async function acceptChanges(id, newName, newEm, newPass){
+    let data = {
+        User_id: id,
+        Name: newName, 
+        Email: newEm, 
+        Password: newPass,
+    };
+    return await fetch('https://localhost:44352/users/'+id, {
+        method: 'PUT', 
+        mode: 'cors', 
+        cache: 'no-cache', 
+        credentials: 'same-origin', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) 
+      });  
+}
+
+function processChanges(){
+    let newName = document.getElementById('newName');
+    let newEm = document.getElementById('newEmail');
+    let newPass = document.getElementById('newPass');
+    
+    newName.addEventListener('input', function(){
+        if( newName.classList.contains('invalid') ){
+          newName.classList.toggle('invalid');
+        }
+      });
+    newEm.addEventListener('input', function(){
+        if( newEm.classList.contains('invalid') ){
+          newEm.classList.toggle('invalid');
+        }
+      });
+      newPass.addEventListener('input', function(){
+        if( newPass.classList.contains('invalid') ){
+          newPass.classList.toggle('invalid');
+        }
+      });
+
+      const regExlog = /([\w])*[@]\w+/g;
+      const regExPass = /.{6,30}/;
+    
+      if( !regExlog.test(newEm.value) ){
+        newEm.classList.toggle('invalid');
+        let p = document.createElement('p');
+        p.textContent = 'Невірно задана пошта!';
+        p.style.fontSize = '16px';
+        p.style.margin = '0';
+        newEm.after(p);
+    
+        if( !regExPass.test(newPass.value) ){
+          newPass.classList.toggle('invalid');
+          let p = document.createElement('p');
+          p.textContent = 'Пароль має більше символів!';
+          p.style.fontSize = '16px';
+          p.style.margin = '0';
+          newPass.after(p);
+        }
+        return;
+      }
+      if(newName.value === '' || newName.value === ' '){
+        newName.classList.toggle('invalid');
+        let p = document.createElement('p');
+        p.textContent = 'Ім\'я не може бути пустим!';
+        p.style.fontSize = '16px';
+        p.style.margin = '0';
+        newName.after(p);
+        return;
+      }
+      if( !regExPass.test(newPass.value) ){
+        newPass.classList.toggle('invalid');
+        let p = document.createElement('p');
+        p.textContent = 'Пароль має більше символів!';
+        p.style.fontSize = '16px';
+        p.style.margin = '0';
+        newPass.after(p);
+        return;
+      }
+      acceptChanges(userInfo.user_id, newName.value, newEm.value, newPass.value).then( ()=>{
+          let newEmail = document.getElementById('newEmail').value;
+          window.location.href = 'account.html?message='+newEmail;
+          closeSettings();
+      });
+}
+
+async function deleteUser(){
+    return await fetch('https://localhost:44352/users/'+urlParams.message[0], {
+    method: 'DELETE', 
+    mode: 'cors', 
+    });
+}
+function confirmDelete(){
+    if( confirm('Підтвердіть видалення аккаунту.\nВидаленний аккаунт не підлягає відновленню!') ){
+        deleteUser().then(()=>{window.location = 'index.html'});
+    }
+}
+
+async function getAllAchievements(){
+    let achievements1 = await fetch('https://localhost:44352/achievements');
+
+    if (achievements1.ok) { 
+        let achievements = await achievements1.json();
+        return achievements;
+    } else {
+        alert("Ошибка HTTP: " + achievements1.status);
+    }
+}
+getAllAchievements().then((achv)=>{
+    let scrollAchv = document.getElementById('achScroll');
+    for(ach in achv){
+        let div = document.createElement('div');
+        div.setAttribute('id', achv[ach].name);
+        div.classList.add('do-not-achieved', 'me-3');
+        let h2 = document.createElement('h2');
+        h2.textContent = achv[ach].name;
+        let p2 = document.createElement('p');
+        p2.textContent = achv[ach].description;
+        div.appendChild(h2);
+        div.appendChild(p2);
+        scrollAchv.appendChild(div);
+    }
+});
+
+async function getAllUserAchievements(){
+    let achievementsReq = await fetch('https://localhost:44352/achievements/getAchievement/'+userInfo.user_id);
+
+    if (achievementsReq.ok) { 
+        let achievements = await achievementsReq.json();
+        return achievements;
+    } else {
+        alert("Ошибка HTTP: " + achievementsReq.status);
+    }
+}
+
+function goToTest(){
+    window.location.href = 'test.html?message='+userInfo.email;
+}
