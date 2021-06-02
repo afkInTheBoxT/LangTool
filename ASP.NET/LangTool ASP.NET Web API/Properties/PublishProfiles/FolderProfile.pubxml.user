@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\andre\OneDrive\Документы\GitHub\LangTool\ASP.NET\LangTool ASP.NET Web API\bin\Release\net5.0\publish\</_PublishTargetUrl>
+    <History>True|2021-06-02T08:49:53.1324944Z;True|2021-06-02T11:48:57.6081722+03:00;True|2021-06-02T11:30:06.1979827+03:00;</History>
+  </PropertyGroup>
+</Project>

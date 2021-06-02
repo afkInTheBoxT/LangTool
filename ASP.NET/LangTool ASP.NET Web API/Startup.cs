@@ -42,6 +42,7 @@ namespace LangTool_ASP.NET_Web_API
             );
 
             string con = "Server=(localdb)\\mssqllocaldb;Database=testUserRegestration;Trusted_Connection=True;";
+            //string con = "workstation id=LangToolDB.mssql.somee.com;packet size=4096;user id=igogoSquad_SQLLogin_1;pwd=lrcvrumglt;data source=LangToolDB.mssql.somee.com;persist security info=False;initial catalog=LangToolDB";
             // устанавливаем контекст данных
             services.AddDbContext<Context>(options => options.UseSqlServer(con));
 

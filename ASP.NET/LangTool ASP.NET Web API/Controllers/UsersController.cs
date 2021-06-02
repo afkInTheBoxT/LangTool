@@ -55,8 +55,11 @@ namespace LangTool_ASP.NET_Web_API.Controllers
             }
             if (!db.Achievements.Any())
             {
-                db.Achievements.Add(new Achievement { Name = "Do it!", Description = "Finish the 1st stage" });
-                db.Achievements.Add(new Achievement { Name = "Do it x2!", Description = "Finish the 2nd stage" });
+                db.Achievements.Add(new Achievement { Name = "Upgrade", Description = "Підвищіть оцінку за тест" });
+                db.Achievements.Add(new Achievement { Name = "Перший дзвоник", Description = "Зареєструйтеся у додатку" });
+                db.Achievements.Add(new Achievement { Name = "Розумні часи", Description = "Завершіть ваш перший дедлайн" });
+                db.Achievements.Add(new Achievement { Name = "Свет-Тьма", Description = "Змініть тему" });
+                db.Achievements.Add(new Achievement { Name = "Food", Description = "Закінчіть тему Food" });
                 db.SaveChanges();
             }
             if (!db.Phrases.Any())
