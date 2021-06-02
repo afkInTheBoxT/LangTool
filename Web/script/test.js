@@ -59,22 +59,27 @@ getUser().then( (value)=>{
     userInfo = value;
 });
 
-getAlltests().then((tests)=>{
-    console.log(tests);
-});
+getAlltests().then((tests)=>{});
+
 async function testAccess(testName, userId){
     let access = await fetch(`https://localhost:44352/testusers/${testName}/${userId}`);
 
     if (access.ok) { 
-        let res = await access.json();
+        try{
+            let res = await JSON.parse(access);
+        }catch(e){
+            console.log(e);
+            return res;
+        }
+        
         return res;
     } else {
         return null;
     }
 }
 
-async function getQuestions(testName){
-    let access = await fetch(`https://localhost:44352/questions/${testName}`);
+async function getQuestions(testId){
+    let access = await fetch(`https://localhost:44352/questions/${testId}`);
 
     if (access.ok) { 
         let res = await access.json();
@@ -87,6 +92,7 @@ async function getQuestions(testName){
 function startTest(testName){
 
     testAccess(testName, userInfo.user_id).then((res)=>{
+        console.log(res);
         if(res !== null){
             getQuestions(testName).then((qst)=>{
 
