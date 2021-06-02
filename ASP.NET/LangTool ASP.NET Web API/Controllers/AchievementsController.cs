@@ -72,8 +72,9 @@ namespace LangTool_ASP.NET_Web_API
         }
 
         [HttpGet("changeThemeAchievement/{user_id}")]
-        public async Task<IActionResult> SetDarkTheme(int user_id)
+        public async Task<bool> SetDarkTheme(int user_id)
         {
+            bool achievementReceived = false;
             // Give Achievement.
             var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains("Свет-Тьма"));
             var user = db.Users.FirstOrDefault(u => u.User_id == user_id);
@@ -91,9 +92,10 @@ namespace LangTool_ASP.NET_Web_API
                 });
                 user.Gained_achievements++;
                 db.Entry(user).State = EntityState.Modified;
+                achievementReceived = true;
             }
             await db.SaveChangesAsync();
-            return NoContent();
+            return achievementReceived;
         }
 
 

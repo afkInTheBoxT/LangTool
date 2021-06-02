@@ -41,6 +41,17 @@ namespace LangTool_ASP.NET_Web_API.Controllers
         [HttpGet("{testName}/{User_id}")]
         public async Task<ActionResult<TestUser>> Get(string testName, int user_id)
         {
+            //// Проверка на тему.
+            //var testUserCheck = db.TestUsers
+            //    .Include(t => t.Test)
+            //    .Include(t => t.User)
+            //    .FirstOrDefault(t => t.User_id == user_id && t.Test.TestName == testName);
+            //if (testUserCheck == null || !testUserCheck.IsEnabled)
+            //{
+            //    return NoContent();
+            //}
+
+
             TestUser testUser = await db.TestUsers.FirstOrDefaultAsync(
                 x => x.Test.TestName == testName && x.User.User_id == user_id);
             if (testUser == null)

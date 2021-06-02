@@ -128,8 +128,8 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                .Include(achievement => achievement.Achievement)
                .Include(user => user.User)
                .Where(achievementUser => achievementUser.User_id == user_id)
-               .FirstOrDefault(achievementUser => achievementUser.Achievement.Name == "Upgrade");
-            var getById = db.Achievements.FirstOrDefault(t => t.Name == "Upgrade");
+               .FirstOrDefault(achievementUser => achievementUser.Achievement.Name == testName);
+            var getById = db.Achievements.FirstOrDefault(t => t.Name == testName);
 
                 if (achievementUser == null)
                 {
