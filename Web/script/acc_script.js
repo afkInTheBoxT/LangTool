@@ -18,6 +18,17 @@ function parseURLParams(url) {
     return parms;
 }
 let urlParams = parseURLParams(window.location.href);
+try{
+    let mark = parseURLParams(urlParams.message[0]);
+    if(mark !== undefined){
+        let inx = urlParams.message[0].indexOf('?');
+        urlParams.message[0] = urlParams.message[0].slice(0,inx);
+    }
+    alert(`Ви набрали балів за пройдений тест: ${+mark.mark}`);
+}catch(e){
+    console.log(e);
+    console.log('first entrance');
+}
 let userInfo;
 
 async function fillStat(){
@@ -61,10 +72,6 @@ fillStat().then( (value)=>{
     let total_learned_phrases = document.getElementById('total_learned_phrases');
     total_learned_phrases.style.width = value.total_learned_phrases;
     total_learned_phrases.textContent = value.total_learned_phrases + '%';
-
-    let alphabet_progress = document.getElementById('alphabet_progress');
-    alphabet_progress.style.width = value.alphabet_progress;
-    alphabet_progress.textContent = value.alphabet_progress + '%';
     
     let finished_deadlines = document.getElementById('finished_deadlines');
     finished_deadlines.style.width = value.finished_deadlines;

@@ -13,7 +13,6 @@
 <body>
     <nav class="navbar navbar-light">
         <a class="custom-brand" href="index.html"><b>LangTool</b></a>
-        <a class="nav-link text-orange-500 align-self-end" onclick="goToTest()" href="#">Пройти тест</a>
     </nav>
     <!--MAIN-->
     <div class="container">
@@ -38,7 +37,7 @@
                 <img src="content/svg/dialog.svg" class="card-img-top" alt="dialog">
                 <div class="card-body">
                   <h5 class="card-title">Питання</h5>
-                  <button onclick="startTest(2)" href="#" class="card__button w-100">Пройти</button>
+                  <button onclick="startTest('Питання')" href="#" class="card__button w-100">Пройти</button>
                 </div>
             </div>
 
@@ -68,12 +67,12 @@
         </div>
     </div>
     <!--TEST AREA-->
-    <div id="test-bg" class="test-bg display-none" onclick="closeAuthorization()"></div>
-    <div id="test" class="test display-none text-center p-4" onclick="closeAuthorization()">
+    <div id="test-bg" class="test-bg display-none"></div>
+    <div id="test" class="test display-none p-4">
 
-        <p class="" id="questionNumber">Питання №<span></span> із <span></span></p>
+        <p class="text-center" id="questionNumber">Питання <span></span> із <span></span></p>
 
-        <h3 id="question"></h3>
+        <h3 id="question" class="text-center"></h3>
         <ul class="ansList">
             <li>
                 <input type="radio" name="userAnswer" id="ans1">
@@ -91,7 +90,9 @@
                 <input type="radio" name="userAnswer" id="ans4">
                 <label class="ansLables" for="ans4"></label>
             </li>
-        </ul>  
+        </ul> 
+        <button id="closeBut" class="test__button">Завершити</button>
+        <button id="nextBut" class="test__button 0">Наступне питання</button>
     </div>
 
 <!--FOOTER-->
@@ -99,7 +100,7 @@
     <div class="container row justify-content-center">
         <div class="row row-cols-auto align-content-center justify-content-center w-50">
             <p class="h4 w-75">Є питання? Напишіть нам:
-                <a href="mailto:webmaster@example.com">chekaiMaty@example.com</a>
+                <a href="mailto:langTool@gmail.com">chekaiMaty@example.com</a>
             </p>
         </div>
         <div class="row row-cols-auto align-content-center justify-content-center w-50">
@@ -124,7 +125,7 @@
         <a href="https://www.flaticon.com/ru/" title="Flaticon">www.flaticon.com</a>
     </div>
 </footer>
-
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="script/test.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
