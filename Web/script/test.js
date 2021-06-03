@@ -18,7 +18,7 @@ function parseURLParams(url) {
     return parms;
 }
 async function getAlltests() {
-    let testsReq = await fetch('https://localhost:44352/tests', {
+    let testsReq = await fetch('https://6ab43dfcdc1e.ngrok.io/tests', {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -38,7 +38,7 @@ let userInfo;
 
 async function getUser() {
 
-    let userss = await fetch('https://localhost:44352/users');
+    let userss = await fetch('https://6ab43dfcdc1e.ngrok.io/users');
 
     if (userss.ok) {
         let users = await userss.json();
@@ -63,7 +63,7 @@ getAlltests().then((tests) => { });
 
 async function testAccess(testName, userId) {
     let res = false;
-    let access = await fetch(`https://localhost:44352/testusers/${testName}/${userId}`);
+    let access = await fetch(`https://6ab43dfcdc1e.ngrok.io/testusers/${testName}/${userId}`);
     if (access.ok) {
         let res = await access.json();
         return res;
@@ -73,7 +73,7 @@ async function testAccess(testName, userId) {
 }
 
 async function getQuestions(testId) {
-    let access = await fetch(`https://localhost:44352/questions/${testId}`);
+    let access = await fetch(`https://6ab43dfcdc1e.ngrok.io/questions/${testId}`);
 
     if (access.ok) {
         let res = await access.json();
@@ -84,7 +84,7 @@ async function getQuestions(testId) {
 }
 
 async function getAnswers(qstId) {
-    let access = await fetch(`https://localhost:44352/questions/answers/${qstId}`);
+    let access = await fetch(`https://6ab43dfcdc1e.ngrok.io/questions/answers/${qstId}`);
 
     if (access.ok) {
         let res = await access.json();
@@ -103,7 +103,7 @@ async function postAnswers(testName, userId, answers) {
     let mes;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", `https://localhost:44352/tests/checkTest/${testName}/${userId}`, true);
+    xhr.open("POST", `https://6ab43dfcdc1e.ngrok.io/tests/checkTest/${testName}/${userId}`, true);
 
     //Передаёт правильный заголовок в запросе
     xhr.setRequestHeader("Content-type", "application/json");
