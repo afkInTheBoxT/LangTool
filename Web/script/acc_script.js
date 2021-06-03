@@ -46,7 +46,7 @@ async function fillStat(){
         }
         return res;
     } else {
-        alert("Ошибка HTTP: " + users.status);
+        //alert("Ошибка HTTP: " + users.status);
     }
 }
 fillStat().then( (value)=>{
@@ -214,7 +214,7 @@ async function getAllAchievements(){
         let achievements = await achievements1.json();
         return achievements;
     } else {
-        alert("Ошибка HTTP: " + achievements1.status);
+        //alert("Ошибка HTTP: " + achievements1.status);
     }
 }
 getAllAchievements().then((achv)=>{
@@ -240,7 +240,7 @@ async function getAllUserAchievements(){
         let achievements = await achievementsReq.json();
         return achievements;
     } else {
-        alert("Ошибка HTTP: " + achievementsReq.status);
+        //alert("Ошибка HTTP: " + achievementsReq.status);
     }
 }
 
