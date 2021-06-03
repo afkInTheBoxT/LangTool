@@ -94,7 +94,8 @@ class APIServices {
 
     var myStudent = user.toMap();
     var studentBody = json.encode(myStudent);
-    var res = await http.put(Uri.parse(path), headers: header, body: studentBody);
+    var res =
+        await http.put(Uri.parse(path), headers: header, body: studentBody);
     print(res.statusCode);
     return Future.value(res.statusCode == 200 ? true : false);
   }
@@ -118,7 +119,9 @@ class APIServices {
     final http = new IOClient(ioc);
     // /achievementsgetAchievement/{User_id}
 
-    String path = "https://10.0.2.2:44352/achievements/getAchievement" + "/" + user_id.toString();
+    String path = "https://10.0.2.2:44352/achievements/getAchievement" +
+        "/" +
+        user_id.toString();
     Uri pathUri = Uri.parse(path);
     var resp = await http.get(pathUri);
     return resp;
@@ -148,16 +151,22 @@ class APIServices {
     return resp;
   }
 
-  static Future postAnswers(String testName, String userId, List<String> answer) async {
+  static Future postAnswers(
+      String testName, String userId, List<String> answer) async {
     final ioc = new HttpClient();
     ioc.badCertificateCallback =
         (X509Certificate cert, String host, int port) => true;
     final http = new IOClient(ioc);
     // String aboba = answer.toString();
     // aboba = "#" + aboba;
-    String path = "https://10.0.2.2:44352/tests/checkTest" + "/" + testName + "/" + userId;
+    String path = "https://10.0.2.2:44352/tests/checkTest" +
+        "/" +
+        testName +
+        "/" +
+        userId;
     var studentBody = json.encode(answer);
-    var res = await http.post(Uri.parse(path), headers: header, body: studentBody);
+    var res =
+        await http.post(Uri.parse(path), headers: header, body: studentBody);
     print(res.statusCode);
     print(res.body);
     return res;
@@ -170,7 +179,9 @@ class APIServices {
         (X509Certificate cert, String host, int port) => true;
     final http = new IOClient(ioc);
 
-    String path = "https://10.0.2.2:44352/users/statistics/getPassedTests" + "/" + userId.toString();
+    String path = "https://10.0.2.2:44352/users/statistics/getPassedTests" +
+        "/" +
+        userId.toString();
     Uri pathUri = Uri.parse(path);
     var resp = await http.get(pathUri);
     return resp;
@@ -182,7 +193,10 @@ class APIServices {
         (X509Certificate cert, String host, int port) => true;
     final http = new IOClient(ioc);
 
-    String path = "https://10.0.2.2:44352/users/statistics/getPassedTests" + "/" + userId.toString();
+    String path =
+        "https://10.0.2.2:44352/users/statistics/getGainedAchievements" +
+            "/" +
+            userId.toString();
     Uri pathUri = Uri.parse(path);
     var resp = await http.get(pathUri);
     return resp;
@@ -194,7 +208,9 @@ class APIServices {
         (X509Certificate cert, String host, int port) => true;
     final http = new IOClient(ioc);
 
-    String path = "https://10.0.2.2:44352/users/statistics/getPassedTests" + "/" + userId.toString();
+    String path = "https://10.0.2.2:44352/users/statistics/getCompletedTopics" +
+        "/" +
+        userId.toString();
     Uri pathUri = Uri.parse(path);
     var resp = await http.get(pathUri);
     return resp;
@@ -206,7 +222,10 @@ class APIServices {
         (X509Certificate cert, String host, int port) => true;
     final http = new IOClient(ioc);
 
-    String path = "https://10.0.2.2:44352/users/statistics/getPassedTests" + "/" + userId.toString();
+    String path =
+        "https://10.0.2.2:44352/users/statistics/getTotalLearnedPhrases" +
+            "/" +
+            userId.toString();
     Uri pathUri = Uri.parse(path);
     var resp = await http.get(pathUri);
     return resp;
@@ -218,7 +237,122 @@ class APIServices {
         (X509Certificate cert, String host, int port) => true;
     final http = new IOClient(ioc);
 
-    String path = "https://10.0.2.2:44352/users/statistics/getPassedTests" + "/" + userId.toString();
+    String path =
+        "https://10.0.2.2:44352/users/statistics/getAlphabetProgress" +
+            "/" +
+            userId.toString();
+    Uri pathUri = Uri.parse(path);
+    var resp = await http.get(pathUri);
+    return resp;
+  }
+
+  static Future fetchTests() async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+
+    String path = "https://10.0.2.2:44352/tests";
+    Uri pathUri = Uri.parse(path);
+    var resp = await http.get(pathUri);
+    // print(resp.statusCode);
+    // print(resp.body);
+    return resp;
+  }
+
+  static Future postDeadline(Map<String, dynamic> deadLine, int userId) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+    // String aboba = answer.toString();
+    // aboba = "#" + aboba;
+    String path =
+        "https://10.0.2.2:44352/users/deadlines" + "/" + userId.toString();
+    var studentBody = json.encode(deadLine);
+    var res =
+        await http.post(Uri.parse(path), headers: header, body: studentBody);
+    print(res.statusCode);
+    print(res.body);
+    return res;
+    return Future.value(res.statusCode == 200 ? true : false);
+  }
+
+  static Future fetchDeadlines(int id) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+
+    String path = "https://10.0.2.2:44352/users/deadlines/" + id.toString();
+    Uri pathUri = Uri.parse(path);
+    var resp = await http.get(pathUri);
+    // print(resp.statusCode);
+    // print(resp.body);
+    return resp;
+  }
+
+  static Future delDeadline(int id) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+
+    String path = "https://10.0.2.2:44352/users/deadlines/" + id.toString() + "/false";
+    var res = await http.delete(Uri.parse(path));
+    print(res.statusCode);
+    return Future.value(res.statusCode == 200 ? true : false);
+  }
+
+  static Future fetchPhrases(String topicName) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+    // /achievementsgetAchievement/{User_id}
+
+    String path = "https://10.0.2.2:44352/phrases/getByTopic" + "/" + topicName;
+    Uri pathUri = Uri.parse(path);
+    var resp = await http.get(pathUri);
+    return resp;
+  }
+
+  static Future getAchievementComplteTopic(String topicName, int userId) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+    // /achievementsgetAchievement/{User_id}
+
+    String path =
+        "https://10.0.2.2:44352/phrases/completeTopic/$topicName/$userId";
+    Uri pathUri = Uri.parse(path);
+    var resp = await http.get(pathUri);
+    return resp;
+  }
+
+  static Future getChangeThemeAchievement(int userId) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+    // /achievementsgetAchievement/{User_id}
+
+    String path =
+        "https://10.0.2.2:44352/achievements/changeThemeAchievement/$userId";
+    Uri pathUri = Uri.parse(path);
+    var resp = await http.get(pathUri);
+    return resp;
+  }
+
+  static Future getUserAccessTets(String testName, int userId) async {
+    final ioc = new HttpClient();
+    ioc.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    final http = new IOClient(ioc);
+    // /achievementsgetAchievement/{User_id}
+
+    String path = "https://10.0.2.2:44352/testusers/$testName/$userId";
     Uri pathUri = Uri.parse(path);
     var resp = await http.get(pathUri);
     return resp;

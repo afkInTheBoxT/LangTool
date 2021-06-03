@@ -32,6 +32,8 @@ dependencies:
   image_picker: ^0.7.5
   syncfusion_flutter_datepicker: ^19.1.63-beta
   http: ^0.13.3
+  get: ^4.1.4
+  flip_card: ^0.5.0 
 
 dev_dependencies:
   flutter_test:

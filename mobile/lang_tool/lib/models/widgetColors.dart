@@ -40,12 +40,14 @@ class WidgetColor {
       backgroundTop = Colors.white;
       backgroundBot = Colors.white;
     } else if (switchColor) {
-      appBarTopColor = Colors.grey[900];
-      appBarBotColor = Colors.purple;
-      buttonTopColor = Colors.grey[900];
-      buttonBotColor = Colors.purple;
-      backgroundTop = Colors.grey[900];
-      backgroundBot = Colors.grey[300];
+      appBarTopColor = Colors.grey;
+      appBarBotColor = Colors.black87;
+
+      buttonTopColor = Colors.grey;
+      buttonBotColor = Colors.black87;
+
+      backgroundTop = Colors.grey[500];
+      backgroundBot = Colors.grey[500];
     }
   }
 }

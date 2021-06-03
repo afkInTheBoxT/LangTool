@@ -6,6 +6,7 @@ import 'package:lang_tool/models/Question.dart';
 import 'package:lang_tool/models/answer.dart';
 import 'package:lang_tool/models/test.dart';
 import 'package:lang_tool/models/user.dart';
+import 'package:lang_tool/models/widgetColors.dart';
 import 'package:lang_tool/pages/test_quiz.dart';
 
 class TestPage extends StatefulWidget {
@@ -17,193 +18,28 @@ class TestPage extends StatefulWidget {
 }
 
 List<Question> question;
-  Test test;
-  List<Answer> answer;
-  String testName;
+Test test;
+List<Answer> answer;
+String testName;
 
 class _TestPageState extends State<TestPage> {
-  // static const _vertical = 20.0;
-  // static const _horizontal = 10.0;
-  // static const _iconSize = 70.0;
-  // static const _textSize = 22.0;
-  // static const _borderRadius = 20.0;
+  int state = 0;
 
-  // static Color _textColor = Colors.white;
-  // static Color _backGroundColor = Colors.orange[400];
-  // static Color _iconColor = Colors.white;
+  bool food;
+  bool vehicle;
+  bool quest;
 
-  // final _kPages = <Widget>[
-  //   Container(
-  //     margin: const EdgeInsets.symmetric(
-  //         vertical: _vertical, horizontal: _horizontal),
-  //     decoration: BoxDecoration(
-  //       color: _backGroundColor,
-  //       borderRadius: BorderRadius.circular(_borderRadius),
-  //     ),
-  //     child: FlatButton(
-  //       onPressed: () {
-  //             // Navigator.pop(context);
-  //             Navigator.push(
-  //               context,
-  //               MaterialPageRoute(builder: (context) => TestPage()),
-  //             );
-  //           },
-  //       child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: <Widget>[
-  //             Icon(
-  //               Icons.fastfood,
-  //               size: _iconSize,
-  //               color: _iconColor,
-  //             ),
-  //             Text(
-  //               'Їжа',
-  //               style: TextStyle(
-  //                 fontSize: _textSize,
-  //                 color: _textColor,
-  //               ),
-  //             ),
-  //           ]),
-  //     ),
-  //   ),
-  //    Container(
-  //     margin: const EdgeInsets.symmetric(
-  //         vertical: _vertical, horizontal: _horizontal),
-  //     decoration: BoxDecoration(
-  //       color: _backGroundColor,
-  //       borderRadius: BorderRadius.circular(_borderRadius),
-  //     ),
-  //     child: FlatButton(
-  //       onPressed: () {},
-  //       child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: <Widget>[
-  //             Icon(
-  //               Icons.car_repair,
-  //               size: _iconSize,
-  //               color: _iconColor,
-  //             ),
-  //             Text(
-  //               'Транспорт',
-  //               style: TextStyle(
-  //                 fontSize: _textSize,
-  //                 color: _textColor,
-  //               ),
-  //             ),
-  //           ]),
-  //     ),
-  //   ),
-  //    Container(
-  //     margin: const EdgeInsets.symmetric(
-  //         vertical: _vertical, horizontal: _horizontal),
-  //     decoration: BoxDecoration(
-  //       color: _backGroundColor,
-  //       borderRadius: BorderRadius.circular(_borderRadius),
-  //     ),
-  //     child: FlatButton(
-  //       onPressed: () {},
-  //       child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: <Widget>[
-  //             Icon(
-  //               Icons.question_answer_rounded,
-  //               size: _iconSize,
-  //               color: _iconColor,
-  //             ),
-  //             Text(
-  //               'Питання',
-  //               style: TextStyle(
-  //                 fontSize: _textSize,
-  //                 color: _textColor,
-  //               ),
-  //             ),
-  //           ]),
-  //     ),
-  //   ),
-  //    Container(
-  //     margin: const EdgeInsets.symmetric(
-  //         vertical: _vertical, horizontal: _horizontal),
-  //     decoration: BoxDecoration(
-  //       color: _backGroundColor,
-  //       borderRadius: BorderRadius.circular(_borderRadius),
-  //     ),
-  //     child: FlatButton(
-  //       onPressed: () {},
-  //       child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: <Widget>[
-  //             Icon(
-  //               Icons.date_range_rounded,
-  //               size: _iconSize,
-  //               color: _iconColor,
-  //             ),
-  //             Text(
-  //               'Дати',
-  //               style: TextStyle(
-  //                 fontSize: _textSize,
-  //                 color: _textColor,
-  //               ),
-  //             ),
-  //           ]),
-  //     ),
-  //   ),
-  //    Container(
-  //     margin: const EdgeInsets.symmetric(
-  //         vertical: _vertical, horizontal: _horizontal),
-  //     decoration: BoxDecoration(
-  //       color: _backGroundColor,
-  //       borderRadius: BorderRadius.circular(_borderRadius),
-  //     ),
-  //     child: FlatButton(
-  //       onPressed: () {},
-  //       child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: <Widget>[
-  //             Icon(
-  //               Icons.color_lens_rounded,
-  //               size: _iconSize,
-  //               color: _iconColor,
-  //             ),
-  //             Text(
-  //               'Кольори',
-  //               style: TextStyle(
-  //                 fontSize: _textSize,
-  //                 color: _textColor,
-  //               ),
-  //             ),
-  //           ]),
-  //     ),
-  //   ),
-  //    Container(
-  //     margin: const EdgeInsets.symmetric(
-  //         vertical: _vertical, horizontal: _horizontal),
-  //     decoration: BoxDecoration(
-  //       color: _backGroundColor,
-  //       borderRadius: BorderRadius.circular(_borderRadius),
-  //     ),
-  //     child: FlatButton(
-  //       onPressed: () {},
-  //       child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: <Widget>[
-  //             Icon(
-  //               Icons.emoji_nature,
-  //               size: _iconSize,
-  //               color: _iconColor,
-  //             ),
-  //             Text(
-  //               'Природа',
-  //               style: TextStyle(
-  //                 fontSize: _textSize,
-  //                 color: _textColor,
-  //               ),
-  //             ),
-  //           ]),
-  //     ),
-  //   ),
-  // ];
   @override
   Widget build(BuildContext context) {
+    while (state < 2) {
+      // state++;
+        state++;
+        getAccessTestFood("Їжа", widget.curUser.id);
+        getAccessTestVehicle("Транспорт", widget.curUser.id);
+        getAccessTestQuest("Питання", widget.curUser.id);
+
+    }
+
     const _vertical = 20.0;
     const _horizontal = 10.0;
     const _iconSize = 70.0;
@@ -219,7 +55,14 @@ class _TestPageState extends State<TestPage> {
         margin: const EdgeInsets.symmetric(
             vertical: _vertical, horizontal: _horizontal),
         decoration: BoxDecoration(
-          color: _backGroundColor,
+          gradient: LinearGradient(
+            colors: [
+              WidgetColor.buttonTopColor,
+              WidgetColor.buttonBotColor,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           borderRadius: BorderRadius.circular(_borderRadius),
         ),
         child: FlatButton(
@@ -230,16 +73,21 @@ class _TestPageState extends State<TestPage> {
             // getQuestion();
             // getAnswers();
             // // Navigator.pop(context);
-            Navigator.push(
-              context,
-              // MaterialPageRoute(builder: (context) => HomePage()),
-              MaterialPageRoute(builder: (context) => TestQuiz(
-                testName: "Food",
-                curUser: widget.curUser,
-                // answer: answer,
-                // question: question,
-                )),
-            );
+            food
+                ? {
+                    Navigator.push(
+                      context,
+                      // MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(
+                          builder: (context) => TestQuiz(
+                                testName: "Їжа",
+                                curUser: widget.curUser,
+                                // answer: answer,
+                                // question: question,
+                              )),
+                    )
+                  }
+                : print("qwe");
           },
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -263,11 +111,34 @@ class _TestPageState extends State<TestPage> {
         margin: const EdgeInsets.symmetric(
             vertical: _vertical, horizontal: _horizontal),
         decoration: BoxDecoration(
-          color: _backGroundColor,
+          gradient: LinearGradient(
+            colors: [
+              WidgetColor.buttonTopColor,
+              WidgetColor.buttonBotColor,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           borderRadius: BorderRadius.circular(_borderRadius),
         ),
         child: FlatButton(
-          onPressed: () {},
+          onPressed: () {
+            vehicle
+                ? {
+                    Navigator.push(
+                      context,
+                      // MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(
+                          builder: (context) => TestQuiz(
+                                testName: "Транспорт",
+                                curUser: widget.curUser,
+                                // answer: answer,
+                                // question: question,
+                              )),
+                    )
+                  }
+                : print("oop");
+          },
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -290,11 +161,32 @@ class _TestPageState extends State<TestPage> {
         margin: const EdgeInsets.symmetric(
             vertical: _vertical, horizontal: _horizontal),
         decoration: BoxDecoration(
-          color: _backGroundColor,
+          gradient: LinearGradient(
+            colors: [
+              WidgetColor.buttonTopColor,
+              WidgetColor.buttonBotColor,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           borderRadius: BorderRadius.circular(_borderRadius),
         ),
         child: FlatButton(
-          onPressed: () {},
+          onPressed: () {
+            quest
+                ? Navigator.push(
+                    context,
+                    // MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(
+                        builder: (context) => TestQuiz(
+                              testName: "Питання",
+                              curUser: widget.curUser,
+                              // answer: answer,
+                              // question: question,
+                            )),
+                  )
+                : print("Error quest");
+          },
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -317,7 +209,14 @@ class _TestPageState extends State<TestPage> {
         margin: const EdgeInsets.symmetric(
             vertical: _vertical, horizontal: _horizontal),
         decoration: BoxDecoration(
-          color: _backGroundColor,
+          gradient: LinearGradient(
+            colors: [
+              WidgetColor.buttonTopColor,
+              WidgetColor.buttonBotColor,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           borderRadius: BorderRadius.circular(_borderRadius),
         ),
         child: FlatButton(
@@ -344,7 +243,14 @@ class _TestPageState extends State<TestPage> {
         margin: const EdgeInsets.symmetric(
             vertical: _vertical, horizontal: _horizontal),
         decoration: BoxDecoration(
-          color: _backGroundColor,
+          gradient: LinearGradient(
+            colors: [
+              WidgetColor.buttonTopColor,
+              WidgetColor.buttonBotColor,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           borderRadius: BorderRadius.circular(_borderRadius),
         ),
         child: FlatButton(
@@ -371,7 +277,14 @@ class _TestPageState extends State<TestPage> {
         margin: const EdgeInsets.symmetric(
             vertical: _vertical, horizontal: _horizontal),
         decoration: BoxDecoration(
-          color: _backGroundColor,
+          gradient: LinearGradient(
+            colors: [
+              WidgetColor.buttonTopColor,
+              WidgetColor.buttonBotColor,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           borderRadius: BorderRadius.circular(_borderRadius),
         ),
         child: FlatButton(
@@ -395,38 +308,87 @@ class _TestPageState extends State<TestPage> {
         ),
       ),
     ];
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
             'Тести за темою',
           ),
-          backgroundColor: _backGroundColor,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                  WidgetColor.appBarTopColor,
+                  WidgetColor.appBarBotColor,
+                ])),
+          ),
         ),
-        body: GridView.count(
-          crossAxisCount: 2,
-          children: _kPages,
+        body: Container(
+          color: WidgetColor.backgroundBot,
+          child: GridView.count(
+            crossAxisCount: 2,
+            children: _kPages,
+          ),
         ));
+  }
+
+  // Future<bool> getAccessTest(String testName, int userId) async {
+  //   var res = await APIServices.getUserAccessTets(testName, userId);
+  //   return res;
+  // }
+
+  getAccessTestFood(String testName, int userId) async {
+    await APIServices.getUserAccessTets(testName, userId).then((response) {
+      var list = json.decode(response.body);
+      bool studentList = list;
+      if (this.mounted) {
+        // setState(() {
+          food = studentList;
+        // });
+      }
+    });
+  }
+  getAccessTestVehicle(String testName, int userId) async {
+    await APIServices.getUserAccessTets(testName, userId).then((response) {
+      var list = json.decode(response.body);
+      bool studentList = list;
+      if (this.mounted) {
+        // setState(() {
+          vehicle = studentList;
+        // });
+      }
+    });
+  }
+
+  getAccessTestQuest(String testName, int userId) async {
+    await APIServices.getUserAccessTets(testName, userId).then((response) {
+      var list = json.decode(response.body);
+      bool studentList = list;
+      if (this.mounted) {
+        // setState(() {
+          quest = studentList;
+        // });
+      }
+    });
   }
 }
 
 void getQuestion() async {
-    await APIServices.fetchQuestions(testName).then((response) {
-      Iterable list = json.decode(response.body);
-      List<Question> studentList = List<Question>();
-      studentList = list.map((model) => Question.fromObject(model)).toList();
-        question = studentList;
-        // count = achievements.length;
-    });
+  await APIServices.fetchQuestions(testName).then((response) {
+    Iterable list = json.decode(response.body);
+    List<Question> studentList = List<Question>();
+    studentList = list.map((model) => Question.fromObject(model)).toList();
+    question = studentList;
+    // count = achievements.length;
+  });
 
-    await APIServices.fetchAnswers(question[0].questionName).then((response) {
-      Iterable list = json.decode(response.body);
-      List<Answer> studentList = List<Answer>();
-      studentList = list.map((model) => Answer.fromObject(model)).toList();
-        answer = studentList;
-        // count = achievements.length;
-    });
-  }
-
-  void getAnswers() {
-    
-  }
+  await APIServices.fetchAnswers(question[0].questionName).then((response) {
+    Iterable list = json.decode(response.body);
+    List<Answer> studentList = List<Answer>();
+    studentList = list.map((model) => Answer.fromObject(model)).toList();
+    answer = studentList;
+    // count = achievements.length;
+  });
+}

@@ -244,40 +244,40 @@ class _RegPageState extends State<RegPage> {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsetsDirectional.only(top: 20),
-                    width: 180,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [
-                            WidgetColor.buttonTopColor,
-                            WidgetColor.buttonBotColor,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    // ignore: deprecated_member_use
-                    child: FlatButton(
-                      onPressed: () {
-                        // print(users[0].name);
-                        // users.forEach((element) {
-                        //   print(element.name);
-                        // });
-                        // saveUser();
-                        checkUser();
-                      },
-                      child: Text(
-                        'Test',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   margin: const EdgeInsetsDirectional.only(top: 20),
+                  //   width: 180,
+                  //   height: 50,
+                  //   decoration: BoxDecoration(
+                  //     gradient: LinearGradient(
+                  //         colors: [
+                  //           WidgetColor.buttonTopColor,
+                  //           WidgetColor.buttonBotColor,
+                  //         ],
+                  //         begin: Alignment.topCenter,
+                  //         end: Alignment.bottomCenter,
+                  //       ),
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  //   // ignore: deprecated_member_use
+                  //   // child: FlatButton(
+                  //   //   onPressed: () {
+                  //   //     // print(users[0].name);
+                  //   //     // users.forEach((element) {
+                  //   //     //   print(element.name);
+                  //   //     // });
+                  //   //     // saveUser();
+                  //   //     checkUser();
+                  //   //   },
+                  //   //   child: Text(
+                  //   //     'Test',
+                  //   //     style: TextStyle(
+                  //   //       fontSize: 18,
+                  //   //       color: Colors.white,
+                  //   //     ),
+                  //   //   ),
+                  //   // ),
+                  // ),
                 ],
               ),
             ]),

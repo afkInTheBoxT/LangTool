@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lang_tool/pages/auth_page.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 import 'package:lang_tool/pages/reg_page.dart';
+import 'package:get/get.dart';
 
 void main() {
   debugPaintSizeEnabled = false;
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,

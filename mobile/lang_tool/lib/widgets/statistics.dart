@@ -32,7 +32,7 @@ class _StatisticsState extends State<Statistics> {
   int gainedAchievements;
   int completedTopics;
   int totalLearnedPhrases;
-  int alphabetProgress;
+  double alphabetProgress;
   List<String> stats1;
   @override
   Widget build(BuildContext context) {
@@ -73,9 +73,9 @@ class _StatisticsState extends State<Statistics> {
                 Card(
                     child: Text(
                         "Вивчено фраз: " + totalLearnedPhrases.toString())),
-                Card(
-                    child:
-                        Text("Прогрес абетки: " + alphabetProgress.toString())),
+                // Card(
+                //     child:
+                //         Text("Прогрес абетки: " + alphabetProgress.toString())),
               ],
             )
           ],
@@ -135,7 +135,7 @@ class _StatisticsState extends State<Statistics> {
   getAlphabetProgress() async {
     await APIServices.fetchAlphabetProgress(widget.curUser.id).then((response) {
       var list = json.decode(response.body);
-      int studentList = list;
+      double studentList = list;
       if (this.mounted) {
         setState(() {
           alphabetProgress = studentList;

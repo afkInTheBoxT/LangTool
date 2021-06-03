@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lang_tool/models/widgetColors.dart';
+import 'package:lang_tool/pages/phrase_page.dart';
+import 'package:get/get.dart';
 
 class ThemePage extends StatefulWidget {
   ThemePage({Key key}) : super(key: key);
@@ -19,6 +21,8 @@ class _ThemePageState extends State<ThemePage> {
   // static Color _backGroundColor = Colors.orange[400];
   static Color _iconColor = Colors.white;
 
+  static String topicName = "";
+
   final _kPages = <Widget>[
     Container(
       margin: const EdgeInsets.symmetric(
@@ -35,7 +39,13 @@ class _ThemePageState extends State<ThemePage> {
         borderRadius: BorderRadius.circular(_borderRadius),
       ),
       child: FlatButton(
-        onPressed: () {},
+        onPressed: () {
+          topicName = "Їжа";
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => PhrasePage()),
+          //   );
+          //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => PhrasePage()));
+          Get.to(PhrasePage(topicName: topicName,));
+        },
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -69,7 +79,10 @@ class _ThemePageState extends State<ThemePage> {
         borderRadius: BorderRadius.circular(_borderRadius),
       ),
       child: FlatButton(
-        onPressed: () {},
+        onPressed: () {
+          topicName = "Транспорт";
+          Get.to(PhrasePage(topicName: topicName,));
+        },
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -103,7 +116,13 @@ class _ThemePageState extends State<ThemePage> {
         borderRadius: BorderRadius.circular(_borderRadius),
       ),
       child: FlatButton(
-        onPressed: () {},
+        onPressed: () {
+          topicName = "Питання";
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => PhrasePage()),
+          //   );
+          //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => PhrasePage()));
+          Get.to(PhrasePage(topicName: topicName,));
+        },
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

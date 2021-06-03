@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lang_tool/models/api.services.dart';
 import 'package:lang_tool/models/user.dart';
+import 'package:lang_tool/pages/account_page.dart';
 import 'package:lang_tool/pages/auth_page.dart';
 import 'package:lang_tool/pages/main_page.dart';
 import 'package:lang_tool/widgets/add_comment.dart';
@@ -141,6 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
                               changeUserEmail(curUserA);
+                              // curUserGlob = curUserA;
                               return Navigator.pop(context, 'Cancel');
                             }
                           },
@@ -293,6 +295,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   value: isSwitched,
                   onChanged: (value) {
                     setState(() {
+                      getChangeThemeAchievement();
                       isSwitched = value;
                       WidgetColor.switchColor = isSwitched;
                       WidgetColor.index = 2;
@@ -307,8 +310,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       );
                     });
                   },
-                  activeTrackColor: Colors.yellow,
-                  activeColor: Colors.orangeAccent,
+                  activeTrackColor: Colors.grey[600],
+                  activeColor: WidgetColor.appBarBotColor,
                 ),
                 Icon(Icons.brightness_3_sharp, size: 40)
               ],
@@ -339,6 +342,10 @@ class _SettingsPageState extends State<SettingsPage> {
         user.id, user.name, emailController.text, user.password);
     var saveResponse = await APIServices.putUser(user1);
     try {
+      setState(() {
+        curUserGlob.email = user1.email;
+      });
+      
       saveResponse == true
           ? {Navigator.pop(context, true)}
           : {curUserA = user1, Scaffold.of(context)};
@@ -352,5 +359,9 @@ class _SettingsPageState extends State<SettingsPage> {
   void delUser(User user) async {
     await APIServices.delUser(user);
     user = new User.withId(null, "name", "email", "password");
+  }
+
+  void getChangeThemeAchievement() async {
+    await APIServices.getChangeThemeAchievement(curUserGlob.id);
   }
 }
