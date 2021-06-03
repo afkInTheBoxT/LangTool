@@ -7,6 +7,8 @@ import 'package:lang_tool/pages/main_page.dart';
 import 'package:lang_tool/pages/reg_page.dart';
 import 'package:lang_tool/models/widgetColors.dart';
 
+User curUserGlob;
+
 class AuthPage extends StatefulWidget {
   // final title;
   AuthPage({Key key}) : super(key: key);
@@ -165,6 +167,7 @@ class _AuthPageState extends State<AuthPage> {
                             print('UserList:' + user.toString());
                             print('userPass');
                             print(getUserPass());
+                            // curUserGlob = cur
                             if (passController.text == getUserPass()) {
                               Navigator.pop(context);
                               Navigator.push(
@@ -282,6 +285,7 @@ class _AuthPageState extends State<AuthPage> {
         // return user;
         // count = students.length;
         user = user2;
+        curUserGlob = user;
       });
     } else
       print("NotFind");

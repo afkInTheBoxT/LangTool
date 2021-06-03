@@ -3,7 +3,7 @@ import 'dart:ffi';
 class Test{
   int testId;
   String testName;
-  Float totalMark;
+  double totalMark;
 
   Test(this.testName, this.totalMark);
   Test.withId(this.testId, this.testName, this.totalMark);
@@ -11,7 +11,7 @@ class Test{
 
   int get idTest => testId;
   String get nameTest => testName;
-  Float get totalMarkTest => totalMark;
+  double get totalMarkTest => totalMark;
 
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();

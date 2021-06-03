@@ -25,7 +25,7 @@ class _TestQuizState extends State<TestQuiz> {
   // Test test;
   List<Answer> answer;
   Result result;
-  int index;
+  // int index;
   int curIndex = 0;
   int state = 0;
   int state2 = 0;
@@ -101,7 +101,7 @@ class _TestQuizState extends State<TestQuiz> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                child: question == null
+                child: question == null || question.isEmpty
                     ? Text(
                         "Empty",
                         textAlign: TextAlign.center,
@@ -115,6 +115,7 @@ class _TestQuizState extends State<TestQuiz> {
                             child: Text(
                               question[curIndex].nameQuestion,
                               textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
@@ -130,7 +131,7 @@ class _TestQuizState extends State<TestQuiz> {
                         ),
                       ),
               ),
-              answer == null
+              answer == null || answer.isEmpty
                   ? Text("Empty")
                   : Center(
                       child: SizedBox(
@@ -158,7 +159,9 @@ class _TestQuizState extends State<TestQuiz> {
                                 // focusColor: Colors.green,
                                 // onPressed: ,
                                 child: Text(
-                                    answer[index].correctAnswer.toString()),
+                                    answer[index].correctAnswer.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.white),),
                               ),
                             );
                           },
@@ -213,8 +216,8 @@ class _TestQuizState extends State<TestQuiz> {
                                             Text("Правильних відповідей: " +
                                                 result.correctUserAnswers
                                                     .toString()),
-                                            Text(result.currentMark.toString()),
-                                            Text(result.totalMark.toString())
+                                            Text("Загальна оцінка: " + result.currentMark.toString() + " з " + result.totalMark.toString()),
+                                            // Text(result.totalMark.toString())
                                           ],
                                         ),
                                       ],
@@ -294,15 +297,18 @@ class _TestQuizState extends State<TestQuiz> {
       Iterable list = json.decode(response.body);
       List<Question> studentList = List<Question>();
       studentList = list.map((model) => Question.fromObject(model)).toList();
-      setState(() {
+      if (this.mounted) {
+        setState(() {
         question = studentList;
         // count = achievements.length;
       });
+      }
+      
     });
   }
 
   Future getAnswers() async {
-    await APIServices.fetchAnswers(question[curIndex].questionName)
+    await APIServices.fetchAnswers(question[curIndex].questionId.toString())
         .then((response) {
       Iterable list = json.decode(response.body);
       List<Answer> studentList = List<Answer>();
