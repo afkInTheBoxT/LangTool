@@ -26,6 +26,8 @@ class _ChangePassState extends State<ChangePass> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 1000,
+      height: 1000,
       child: ListView(children: <Widget>[
         Column(
           children: <Widget>[

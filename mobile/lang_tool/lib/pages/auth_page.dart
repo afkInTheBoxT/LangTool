@@ -190,61 +190,61 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                     ),
-                    Container(
-                      height: 30,
-                      // padding: const EdgeInsetsDirectional.only(bottom: 10),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Забув пароль',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 200,
-                      margin: const EdgeInsetsDirectional.only(top: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        // color: Colors.orange,
-                        gradient: LinearGradient(
-                          colors: [
-                            WidgetColor.buttonTopColor,
-                            WidgetColor.buttonBotColor,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
-                      // ignore: deprecated_member_use
-                      child: FlatButton(
-                        onPressed: () => {},
-                        padding: EdgeInsets.all(0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          // Replace with a Row for horizontal icon + text
-                          children: <Widget>[
-                            IconButton(
-                                onPressed: () {},
-                                icon: Image.asset(
-                                  'assets/images/g_logo_auth.png',
-                                )),
-                            Flexible(
-                              child: Text(
-                                'Увійти за допомогою Google',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   height: 30,
+                    //   // padding: const EdgeInsetsDirectional.only(bottom: 10),
+                    //   child: TextButton(
+                    //     onPressed: () {},
+                    //     child: Text(
+                    //       'Забув пароль',
+                    //       style: TextStyle(
+                    //         fontSize: 12,
+                    //         color: Colors.blue,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Container(
+                    //   width: 200,
+                    //   margin: const EdgeInsetsDirectional.only(top: 10),
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(10),
+                    //     // color: Colors.orange,
+                    //     gradient: LinearGradient(
+                    //       colors: [
+                    //         WidgetColor.buttonTopColor,
+                    //         WidgetColor.buttonBotColor,
+                    //       ],
+                    //       begin: Alignment.topCenter,
+                    //       end: Alignment.bottomCenter,
+                    //     ),
+                    //   ),
+                    //   // ignore: deprecated_member_use
+                    //   child: FlatButton(
+                    //     onPressed: () => {},
+                    //     padding: EdgeInsets.all(0.0),
+                    //     child: Row(
+                    //       mainAxisSize: MainAxisSize.max,
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       // Replace with a Row for horizontal icon + text
+                    //       children: <Widget>[
+                    //         IconButton(
+                    //             onPressed: () {},
+                    //             icon: Image.asset(
+                    //               'assets/images/g_logo_auth.png',
+                    //             )),
+                    //         Flexible(
+                    //           child: Text(
+                    //             'Увійти за допомогою Google',
+                    //             style: TextStyle(
+                    //               color: Colors.white,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     Container(
                       height: 30,
                       // padding: const EdgeInsetsDirectional.only(bottom: 10),

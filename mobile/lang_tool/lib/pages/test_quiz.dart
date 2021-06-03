@@ -92,202 +92,205 @@ class _TestQuizState extends State<TestQuiz> {
           ),
         ),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                child: question == null || question.isEmpty
-                    ? Text(
-                        "Empty",
-                        textAlign: TextAlign.center,
-                      )
-                    : Container(
-                        width: 280,
-                        height: 120,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              question[curIndex].nameQuestion,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white),
+      body: Container(
+        color: WidgetColor.backgroundTop,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  child: question == null || question.isEmpty
+                      ? Text(
+                          "Empty",
+                          textAlign: TextAlign.center,
+                        )
+                      : Container(
+                          width: 280,
+                          height: 120,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                question[curIndex].nameQuestion,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: <Color>[
-                                WidgetColor.appBarTopColor,
-                                WidgetColor.appBarBotColor,
-                              ]),
-                        ),
-                      ),
-              ),
-              answer == null || answer.isEmpty
-                  ? Text("Empty")
-                  : Center(
-                      child: SizedBox(
-                        height: 220,
-                        width: 250,
-                        child: ListView.builder(
-                          itemCount: answer.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              // constraints: ,
-                              margin: const EdgeInsets.only(top: 6),
-                              decoration: BoxDecoration(
-                                gradient: gradientBox,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: FlatButton(
-                                onPressed: () {
-                                  print(answer[index].correctAnswer);
-                                  corretAnswers[curIndex] =
-                                      answer[index].correctAnswer;
-                                  print(corretAnswers);
-                                  checkAnswer();
-                                  postAnswers();
-                                },
-                                // focusColor: Colors.green,
-                                // onPressed: ,
-                                child: Text(
-                                    answer[index].correctAnswer.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.white),),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-              Text(txt),
-              Row(
-                children: [
-                  IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {
-                        setState(() {
-                          if (curIndex > 0) {
-                            curIndex--;
-                          } else
-                            curIndex = question.length - 1;
-                          print("QW");
-                        });
-                        getAnswers();
-                        checkAnswer();
-                      }),
-                  FlatButton(
-                    onPressed: () {
-                      // postAnswers();
-                      setState(() {
-                        state2 = 0;
-                      });
-                      print(result.toString());
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => Form(
-                          child: AlertDialog(
-                            title: const Text('Результат проходження'),
-                            content: result == null
-                                ? Text("Ви не відповили не на одне запитання!")
-                                : Container(
-                                    width: 200,
-                                    height: 200,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center, //Center Row contents horizontally,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .center, //Center Row contents vertically,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .center, //Center Column contents vertically,
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .center, //Center Column contents horizontally,
-                                          children: [
-                                            Text("Правильних відповідей: " +
-                                                result.correctUserAnswers
-                                                    .toString()),
-                                            Text("Загальна оцінка: " + result.currentMark.toString() + " з " + result.totalMark.toString()),
-                                            // Text(result.totalMark.toString())
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text('Закінчити проходження'),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) => TestPage(
-                                  //             curUser: widget.curUser,
-                                  //           )),
-                                  // );
-                                },
-                              ),
-                              // FlatButton(
-                              //     child: Text('Пойти тест ще раз'),
-                              //     onPressed: () {
-                              //       Navigator.pop(context);
-                              //       Navigator.pop(context);
-                              //       MaterialPageRoute(
-                              //           builder: (context) => TestQuiz(
-                              //                 testName: "Food",
-                              //                 curUser: widget.curUser,
-                              //                 // answer: answer,
-                              //                 // question: question,
-                              //               ));
-                              //     }),
-                            ],
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: <Color>[
+                                  WidgetColor.appBarTopColor,
+                                  WidgetColor.appBarBotColor,
+                                ]),
                           ),
                         ),
-                      );
-                    },
-                    child: Text(
-                      "Завершити тест",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Transform.rotate(
-                    angle: 180 * 3.14 / 180,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                ),
+                answer == null || answer.isEmpty
+                    ? Text("Empty")
+                    : Center(
+                        child: SizedBox(
+                          height: 220,
+                          width: 250,
+                          child: ListView.builder(
+                            itemCount: answer.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                // constraints: ,
+                                margin: const EdgeInsets.only(top: 6),
+                                decoration: BoxDecoration(
+                                  gradient: gradientBox,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    print(answer[index].correctAnswer);
+                                    corretAnswers[curIndex] =
+                                        answer[index].correctAnswer;
+                                    print(corretAnswers);
+                                    checkAnswer();
+                                    postAnswers();
+                                  },
+                                  // focusColor: Colors.green,
+                                  // onPressed: ,
+                                  child: Text(
+                                      answer[index].correctAnswer.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.white),),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                Text(txt),
+                Row(
+                  children: [
+                    IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          setState(() {
+                            if (curIndex > 0) {
+                              curIndex--;
+                            } else
+                              curIndex = question.length - 1;
+                            print("QW");
+                          });
+                          getAnswers();
+                          checkAnswer();
+                        }),
+                    FlatButton(
                       onPressed: () {
+                        // postAnswers();
                         setState(() {
-                          if (curIndex < question.length - 1) {
-                            curIndex++;
-                          } else
-                            curIndex = 0;
-                          print("QW");
+                          state2 = 0;
                         });
-                        getAnswers();
-                        checkAnswer();
+                        print(result.toString());
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => Form(
+                            child: AlertDialog(
+                              title: const Text('Результат проходження'),
+                              content: result == null
+                                  ? Text("Ви не відповили не на одне запитання!")
+                                  : Container(
+                                      width: 200,
+                                      height: 200,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .center, //Center Row contents horizontally,
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .center, //Center Row contents vertically,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .center, //Center Column contents vertically,
+                                            crossAxisAlignment: CrossAxisAlignment
+                                                .center, //Center Column contents horizontally,
+                                            children: [
+                                              Text("Правильних відповідей: " +
+                                                  result.correctUserAnswers
+                                                      .toString()),
+                                              Text("Загальна оцінка: " + result.currentMark.toString() + " з " + result.totalMark.toString()),
+                                              // Text(result.totalMark.toString())
+                                            ],
+                                          ),
+                                        ],
+                                      )),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text('Закінчити проходження'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) => TestPage(
+                                    //             curUser: widget.curUser,
+                                    //           )),
+                                    // );
+                                  },
+                                ),
+                                // FlatButton(
+                                //     child: Text('Пойти тест ще раз'),
+                                //     onPressed: () {
+                                //       Navigator.pop(context);
+                                //       Navigator.pop(context);
+                                //       MaterialPageRoute(
+                                //           builder: (context) => TestQuiz(
+                                //                 testName: "Food",
+                                //                 curUser: widget.curUser,
+                                //                 // answer: answer,
+                                //                 // question: question,
+                                //               ));
+                                //     }),
+                              ],
+                            ),
+                          ),
+                        );
                       },
+                      child: Text(
+                        "Завершити тест",
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              answer == null
-                  ? Text("")
-                  : Text("Питання " +
-                      (curIndex + 1).toString() +
-                      " з " +
-                      answer.length.toString()),
-            ],
-          ),
-        ],
+                    Transform.rotate(
+                      angle: 180 * 3.14 / 180,
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          setState(() {
+                            if (curIndex < question.length - 1) {
+                              curIndex++;
+                            } else
+                              curIndex = 0;
+                            print("QW");
+                          });
+                          getAnswers();
+                          checkAnswer();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                answer == null
+                    ? Text("")
+                    : Text("Питання " +
+                        (curIndex + 1).toString() +
+                        " з " +
+                        answer.length.toString()),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

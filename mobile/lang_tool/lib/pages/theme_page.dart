@@ -265,9 +265,12 @@ class _ThemePageState extends State<ThemePage> {
                 ),
           ),
         ),
-        body: GridView.count(
-          crossAxisCount: 2,
-          children: _kPages,
+        body: Container(
+          color: WidgetColor.backgroundTop,
+          child: GridView.count(
+            crossAxisCount: 2,
+            children: _kPages,
+          ),
         ));
   }
 }

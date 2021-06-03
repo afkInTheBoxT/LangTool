@@ -27,6 +27,8 @@ class _AchievementState extends State<Achievement> {
     userId = widget.user.id;
     getAchievement();
     return Container(
+      width: 1000,
+      height: 1000,
         padding: const EdgeInsets.all(15.0),
         margin: const EdgeInsets.symmetric(horizontal: 0.0),
         decoration: BoxDecoration(

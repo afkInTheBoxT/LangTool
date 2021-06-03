@@ -70,162 +70,165 @@ class _PhrasePageState extends State<PhrasePage> {
           ),
         ),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                child: phrases == null
-                    ? Text(
-                        "Empty",
-                        textAlign: TextAlign.center,
-                      )
-                    : FlipCard(
+      body: Container(
+        color: WidgetColor.backgroundTop,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  child: phrases == null
+                      ? Text(
+                          "Empty",
+                          textAlign: TextAlign.center,
+                        )
+                      : FlipCard(
 
-                        direction: FlipDirection.VERTICAL,
-                        key: cardKey,
-                        front: Container(
-                          width: 280,
-                          height: 120,
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .center, //Center Column contents vertically,
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .center, //Center Column contents horizontally,
-                                  children: [
-                                    // Text(
-                                    //   phrases[curIndex].phraseName,
-                                    // ),
-                                    Text(
-                                      phrases[curIndex].japanesePhraseName,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
+                          direction: FlipDirection.VERTICAL,
+                          key: cardKey,
+                          front: Container(
+                            width: 280,
+                            height: 120,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .center, //Center Column contents vertically,
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .center, //Center Column contents horizontally,
+                                    children: [
+                                      // Text(
+                                      //   phrases[curIndex].phraseName,
+                                      // ),
+                                      Text(
+                                        phrases[curIndex].japanesePhraseName,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: <Color>[
+                                    WidgetColor.appBarTopColor,
+                                    WidgetColor.appBarBotColor,
+                                  ]),
+                            ),
                           ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: <Color>[
-                                  WidgetColor.appBarTopColor,
-                                  WidgetColor.appBarBotColor,
-                                ]),
-                          ),
-                        ),
-                        back: Container(
-                          width: 280,
-                          height: 120,
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .center, //Center Column contents vertically,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      phrases[curIndex].translatePhraseName,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
+                          back: Container(
+                            width: 280,
+                            height: 120,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .center, //Center Column contents vertically,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        phrases[curIndex].translatePhraseName,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: <Color>[
-                                  WidgetColor.appBarTopColor,
-                                  WidgetColor.appBarBotColor,
-                                ]),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: <Color>[
+                                    WidgetColor.appBarTopColor,
+                                    WidgetColor.appBarBotColor,
+                                  ]),
+                            ),
                           ),
                         ),
-                      ),
-              ),
-              Row(
-                children: [
-                  IconButton(
-                      icon: Icon(Icons.arrow_back),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          setState(() {
+                            if (curIndex > 0) {
+                              curIndex--;
+                            } else
+                              curIndex = phrases.length - 1;
+                            print("QW");
+                          });
+                          // getAnswers();
+                          // checkAnswer();
+                        }),
+                    FlatButton(
                       onPressed: () {
-                        setState(() {
-                          if (curIndex > 0) {
-                            curIndex--;
-                          } else
-                            curIndex = phrases.length - 1;
-                          print("QW");
-                        });
-                        // getAnswers();
-                        // checkAnswer();
-                      }),
-                  FlatButton(
-                    onPressed: () {
-                      // postAnswers();
-                      // setState(() {
-                      //   state2 = 0;
-                      // });
-                      // print(result.toString());
-                      Get.back();
-                    },
-                    child: Text(
-                      "Завершити вивчення фраз",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Transform.rotate(
-                    angle: 180 * 3.14 / 180,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {
-                        setState(() {
-                          if (curIndex < phrases.length - 1) {
-                            curIndex++;
-                            if(curIndex == phrases.length - 1){
-                              getAchievementComplteTopic();
-                            }
-                          } else
-                            curIndex = 0;
-                          print("QW");
-                        });
-                        // getAnswers();
-                        // checkAnswer();
+                        // postAnswers();
+                        // setState(() {
+                        //   state2 = 0;
+                        // });
+                        // print(result.toString());
+                        Get.back();
                       },
+                      child: Text(
+                        "Завершити вивчення фраз",
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              phrases == null
-                  ? Text("")
-                  : Text("Фраза " +
-                      (curIndex + 1).toString() +
-                      " з " +
-                      phrases.length.toString()),
-            ],
-          ),
-        ],
+                    Transform.rotate(
+                      angle: 180 * 3.14 / 180,
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          setState(() {
+                            if (curIndex < phrases.length - 1) {
+                              curIndex++;
+                              if(curIndex == phrases.length - 1){
+                                getAchievementComplteTopic();
+                              }
+                            } else
+                              curIndex = 0;
+                            print("QW");
+                          });
+                          // getAnswers();
+                          // checkAnswer();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                phrases == null
+                    ? Text("")
+                    : Text("Фраза " +
+                        (curIndex + 1).toString() +
+                        " з " +
+                        phrases.length.toString()),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
