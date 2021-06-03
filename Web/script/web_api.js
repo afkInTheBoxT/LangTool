@@ -1,5 +1,5 @@
 async function faceControl(login, password){
-    let userss = await fetch('http://656e444d50ad.ngrok.io/users');
+    let userss = await fetch('https://localhost:44352/users');
 
     if (userss.ok) { // если HTTP-статус в диапазоне 200-299
     // получаем тело ответа (см. про этот метод ниже)
@@ -28,7 +28,7 @@ async function createUser(){
         Password: document.getElementById('passReg').value,
     };
     
-    const response = await fetch('http://656e444d50ad.ngrok.io/users', {
+    const response = await fetch('https://localhost:44352/users', {
         method: 'POST', 
         mode: 'cors', 
         cache: 'no-cache', 

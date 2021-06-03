@@ -33,7 +33,7 @@ let userInfo;
 
 async function fillStat(){
 
-    let userss = await fetch('http://656e444d50ad.ngrok.io/users');
+    let userss = await fetch('https://localhost:44352/users');
 
     if (userss.ok) { 
         let users = await userss.json();
@@ -116,7 +116,7 @@ async function acceptChanges(id, newName, newEm, newPass){
         Email: newEm, 
         Password: newPass,
     };
-    return await fetch('http://656e444d50ad.ngrok.io/users/'+id, {
+    return await fetch('https://localhost:44352/users/'+id, {
         method: 'PUT', 
         mode: 'cors', 
         cache: 'no-cache', 
@@ -196,7 +196,7 @@ function processChanges(){
 }
 
 async function deleteUser(){
-    return await fetch('http://656e444d50ad.ngrok.io/users/'+urlParams.message[0], {
+    return await fetch('https://localhost:44352/users/'+urlParams.message[0], {
     method: 'DELETE', 
     mode: 'cors', 
     });
@@ -208,7 +208,7 @@ function confirmDelete(){
 }
 
 async function getAllAchievements(){
-    let achievements1 = await fetch('http://656e444d50ad.ngrok.io/achievements');
+    let achievements1 = await fetch('https://localhost:44352/achievements');
 
     if (achievements1.ok) { 
         let achievements = await achievements1.json();
@@ -234,7 +234,7 @@ getAllAchievements().then((achv)=>{
 });
 
 async function getAllUserAchievements(){
-    let achievementsReq = await fetch('http://656e444d50ad.ngrok.io/getAchievement/'+userInfo.user_id);
+    let achievementsReq = await fetch('https://localhost:44352/getAchievement/'+userInfo.user_id);
 
     if (achievementsReq.ok) { 
         let achievements = await achievementsReq.json();
