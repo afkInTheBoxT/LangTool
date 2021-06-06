@@ -74,7 +74,6 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                     CurrentMark = 0
                 });
             }
-            else isFirstPass = false;
 
             // Проверка вопросов.
             for (int i = 0; i < questions.Count; i++)
@@ -111,11 +110,11 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                .Where(testUser => testUser.Test.Test_id == receivedTest.Test_id &&
                     testUser.User.User_id == user_id)
                .ToListAsync();
+            var testUserBefore = new TestUser();
+            try { testUserBefore = temp[0]; }
+            catch (Exception) { }
 
-            var testUserBefore = temp[0];
-            if (testUserBefore.CurrentMark < testMark)
-            {
-                // Give Achievement.            
+            // Give Achievement.            
             var achievementUser = db.AchievementUsers
                .Include(achievement => achievement.Achievement)
                .Include(user => user.User)
@@ -123,20 +122,25 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                .FirstOrDefault(achievementUser => achievementUser.Achievement.Name == testName);
             var getById = db.Achievements.FirstOrDefault(t => t.Name == testName);
 
-                if (achievementUser == null)
+            if (achievementUser == null)
+            {
+                db.AchievementUsers.Add(new AchievementUser()
                 {
-                    db.AchievementUsers.Add(new AchievementUser()
-                    {
-                        Achievement_id = getById.Achievement_id,
-                        User_id = user_id
-                    });
-                    var userT = db.Users.FirstOrDefault(user => user.User_id == user_id);
-                    userT.Gained_achievements++;
-                    db.Entry(userT).State = EntityState.Modified;
-                }
+                    Achievement_id = getById.Achievement_id,
+                    User_id = user_id
+                });
+                var userT = db.Users.FirstOrDefault(user => user.User_id == user_id);
+                userT.Gained_achievements++;
+                db.Entry(userT).State = EntityState.Modified;
+
             }
-            testUserBefore.CurrentMark = testMark;
-            db.Entry(testUserBefore).State = EntityState.Modified;
+
+            if (testUserBefore.CurrentMark < testMark)
+            {
+                testUserBefore.CurrentMark = testMark;
+                db.Entry(testUserBefore).State = EntityState.Modified;
+            }
+            
             if (isFirstPass)
             {
                 var user = testUserBefore.User;
@@ -144,26 +148,29 @@ namespace LangTool_ASP.NET_Web_API.Controllers
                 db.Entry(user).State = EntityState.Modified;
             }
 
-            // Give Achievement.
-            var result = db.AchievementUsers
-               .Include(achievement => achievement.Achievement)
-               .Include(user => user.User)
-               .Where(achievementUser => achievementUser.User_id == user_id)
-               .FirstOrDefault(achievementUser => achievementUser.Achievement.Name.Contains(testName));
-            var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains(testName));
+            //// Give Achievement.
+            //var result = db.AchievementUsers
+            //   .Include(achievement => achievement.Achievement)
+            //   .Include(user => user.User)
+            //   .Where(achievementUser => achievementUser.User_id == user_id)
+            //   .FirstOrDefault(achievementUser => achievementUser.Achievement.Name.Contains(testName));
+            //var getId = db.Achievements.FirstOrDefault(t => t.Name.Contains(testName));
 
-            if (result == null)
-            {
-                db.AchievementUsers.Add(new AchievementUser()
-                {
-                    Achievement_id = getId.Achievement_id,
-                    User_id = user_id
-                });
-                var user = db.Users.FirstOrDefault(user => user.User_id == user_id);
-                user.Gained_achievements++;
-                db.Entry(user).State = EntityState.Modified;
-            }
-            
+            //if (result == null)
+            //{
+            //    db.AchievementUsers.Add(new AchievementUser()
+            //    {
+            //        Achievement_id = getId.Achievement_id,
+            //        User_id = user_id
+            //    });
+            //    var user = db.Users.FirstOrDefault(user => user.User_id == user_id);
+            //    user.Gained_achievements++;
+            //    db.Entry(user).State = EntityState.Modified;
+            //}
+            var userR = db.Users.FirstOrDefault(user => user.User_id == user_id);
+            userR.Total_learned_phrases += 40;
+            db.Entry(userR).State = EntityState.Modified;
+
 
             try
             {

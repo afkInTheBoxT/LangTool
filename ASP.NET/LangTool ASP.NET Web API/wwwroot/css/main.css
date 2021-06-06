@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+:root {
+  /*hex #FFA827 -- #E6AA50*/
+  --theme-color: rgba(255,168,39,255);
+  --additional-yellow: rgba(255,193,7,1);
+}
+html{
+  scroll-behavior: smooth;
+}
+body{
+    font-family: 'Ubuntu', sans-serif!important;
+    -webkit-scrollbar: none;
+    overflow: auto;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+nav{
+    height: 15% !important;
+    background-color: var(--theme-color);
+    background: linear-gradient(180deg, rgba(255,193,7,1) 21%, rgba(255,168,39,1) 100%);
+}
+.custom-brand{
+    font-size: 200%;
+}
+nav a{
+  margin-left: 5%;
+  margin-right: 5%;
+    font-size: 200%;
+    color: black !important;
+    text-decoration: none;
+    transition-property: color;
+    transition-duration: .2s;
+}
+
+nav a:hover{
+    color:wheat !important;
+    text-decoration: none;
+}
+
+.img-main{
+    background-image: url(../content/img/index1.png);
+    -webkit-background-size: 100% 100%;
+    background-size: cover;
+    margin: 0!important;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: black;
+}
+
+.text-container{
+    padding-top: 10%;
+    padding-bottom: 15%;
+}
+.img-main2{
+    background-image: url(../content/img/index2.jpg);
+    -webkit-background-size: 100% 100%;
+    background-size: cover;
+    margin: 0!important;
+    width: 100%;
+    height: 100%;
+    color: black;
+}
+.txt-indent{
+  text-indent: .5em;
+}
+.small-custom-text{
+  font-size: .15em;
+}
+.img-main2-img{
+  height: 500px;
+  transition: .5s;
+}
+.phone-rotation:hover{
+  transition: .5s;
+  transform: rotate(4deg);
+}
+/*FADE IN*/
+.fade-in-text {
+    display: inline-block;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 150px !important;
+    animation: fadeIn linear 2s;
+    -webkit-animation: fadeIn linear 2s;
+    -moz-animation: fadeIn linear 2s;
+    -o-animation: fadeIn linear 2s;
+    -ms-animation: fadeIn linear 2s;
+  }
+  
+  @keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+/*FADE IN END*/
+.basic-info{
+  margin: 5rem 5rem 5rem 5rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  position: relative;
+}
+.advantages{
+  text-align: center;
+}
+.advantages__img{
+  height: 240px;
+  transition: .5s;
+}
+footer{
+  background-color: var(--theme-color);
+  background: linear-gradient(180deg, rgba(255,193,7,1) 21%, rgba(255,168,39,1) 100%);
+  color: black;
+  margin-bottom: 0;
+}
+footer a{
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  transition-property: color;
+  transition-duration: .2s;
+}
+footer a:hover{
+  color: wheat;
+}
+.footer__inner-img{
+  width: 50px;
+}
+.footer__inner-img img{
+  margin-top: -10px;
+  height: 25px;
+}
+.display-none{
+  display: none;
+}
+.sign-in-absolute-block{
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgb(82 82 45 / 77%);
+}
+.sign-in-absolute-block-content{
+  position: fixed;
+  z-index: 2;
+  top: 10%;
+  left: 50%;
+  margin-left: -20%;
+  height: 80%;
+  width: 40%;
+  background-color: wheat;
+}
+.sign-in-absolute-block__input{
+  height: 40px;
+}
+.sign-in-absolute-block__button{
+  height: 40px;
+  background-color: var(--additional-yellow);
+}
+.sign-in-absolute-block__button:hover{
+  background-color: var(--theme-color);
+}
+.sign-in-absolute-block_link{
+  display: inline-block;
+}
+.sign-in-absolute-block_link:visited{
+  color: blue;
+}
+.turnoff-visibility{
+  visibility: hidden;
+}
+.invalid{
+  background-color: rgb(255, 0, 0, .2);
+}
+
+.registration{
+  position: absolute;
+  z-index: 2;
+  top: 10%;
+  left: 50%;
+  margin-left: -20%;
+  height: 80%;
+  width: 40%;
+  background-color: wheat;
+}
+.registration-bg{
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgb(82 82 45 / 77%);
+}

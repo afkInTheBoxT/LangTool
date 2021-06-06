@@ -1,35 +1,165 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="ua">
 <head>
-    <meta charset="utf-8" />
-    <title>Test CORS</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-    <div id="result">
+    <nav class="navbar navbar-light">
+        <a class="custom-brand" href="index.html"><b>LangTool</b></a>
+        <a class="nav-link text-orange-500 align-self-end" onclick="startAuthorization()" href="#">Увійти</a>
+    </nav>
 
+    <div class="img-main">
+        <div class="text-container fade-in-text">
+            <h2 class="display-3">Welcome</h2>
+            <h2 class="display-3">こんにちは</h2>
+            <h2 class="display-3">Kon'nichiwa</h2>
+        </div>        
     </div>
-    <div><p><button id="btn" value="Запрос">Запрос</button></p></div>
+    <section class="basic-info">
+    <div class="img-main2 row row-cols-auto justify-content-center pt-5 pb-5">
+        <div class="container col-3 mr-0 ml-5">
+            <img class="img-main2-img phone-rotation" src="content/img/main-phone.png" alt="LangTool on phone">
+        </div>
+        <div class="basic-info__text-line col-7 pt-5 mt-5 text-white turnoff-visibility">
+            <p class="display-6 ps-3 shadow">LangTool - це нове застосування для тих, хто 
+                не має багато часу на вивчення іноземної мови
+            </p>
+            <p class="basic-info__text-line small-custom-text shadow ps-3">
+                Усього 15 хвилин кожного дня протягом тижня для перших досягнень у вивченні мові!
+            </p>
+        </div>        
+    </div>
+    </section>
+    <!--швидка реєстрація. фразы прослушать, (игровой формат)прогресс остлеживание, безплатность-->
+    <section class="advantages">
+        <div class="container w-50 shadow pt-3 pb-3 mb-5 turnoff-visibility fade-in-right">
+            <div class="row row-cols-auto justify-content-center align-content-center">
+                <div class="container">
+                    <img class="advantages__img phone-rotation" src="content/img/main-phone-advantages.png" alt="phone">
+                </div>
+                <div class="w-75 mt-5">
+                    <h2>Реєстрація у пару тапів</h2>
+                    <p>Використовуйте свій аккаунт у <b>Google</b> або <b>Facebook</b> і розпочинайте вивчення</p>
+                </div>
+            </div>
+        </div>
+        <div class="container w-50 shadow pt-3 pb-3 mb-5 turnoff-visibility fade-in-left">
+            <div class="row row-cols-auto justify-content-center">
+                <div class="w-75 mt-5">
+                    <h2>Темне оформлення</h2>
+                    <p>
+                        Погане освітлення не перешкода на шляху вивчення, бо є темна тема
+                    </p>
+                </div>
+                <div class="container">
+                    <img class="advantages__img phone-rotation" src="content/img/main-phone-advantages2.png" alt="phone">
+                </div>
+            </div>
+        </div>
+        <div class="container w-50 shadow pt-3 pb-3 mb-5 turnoff-visibility fade-in-right">
+            <div class="row row-cols-auto justify-content-center">
+                <div class="container">
+                    <img class="advantages__img phone-rotation" src="content/img/main-phone-advantages3.png" alt="phone">
+                </div>
+                <div class="w-75 mt-5">
+                    <h2>Відстежуй прогресс у формі гри</h2>
+                    <p>Вивчайте теми, проходьте тести и отримуте бали та діліться своїми досягненнями у соцмережах</p>
+                </div>
+            </div>
+        </div>
+        <div class="container w-50 shadow pt-3 pb-3 mb-5 turnoff-visibility fade-in-left">
+            <div class="row row-cols-auto justify-content-center">
+                <div class="w-100 mt-5">
+                    <h2>Безкоштовне використання</h2>
+                    <p>Для вивчення мови у нашому застосуванні <b>не</b> потрібно оформлювати підписку,
+                     або купляти його</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="sign-in-absolute-block display-none" onclick="closeAuthorization()"></div>
+    <div class="sign-in-absolute-block-content display-none p-4 rounded shadow">
+        <div class="container">
+            <dic class="flex-column">
+                <label for="login">Логін</label>
+                <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+                placeholder="example@gmail.com" id="login" type="email">
+                <label class="mt-3" for="password">Пароль</label>
+                <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" id="password" type="password">
+            </dic>
+        </div>
+        <div class="container text-center mt-4">
+            <button class="sign-in-absolute-block__button border-0 rounded w-75 mb-2" 
+            onclick="validate()">Увійти</button>
+            <a class="sign-in-absolute-block_link w-100" href="#">Забули пароль?</a>
+            <button class="sign-in-absolute-block__button border-0 rounded w-75 mt-4 mb-2">Google</button>
+            <a class="sign-in-absolute-block_link w-100" onclick="registration()" href="#">Створити акаунт</a>
+        </div>
+    </div>
+<!--FOOTER-->
+<footer class="p-4 text-center">
+    <div class="container row justify-content-center">
+        <div class="row row-cols-auto align-content-center justify-content-center w-50">
+            <p class="h4 w-75">Є питання? Напишіть нам:
+                <a href="mailto:webmaster@example.com">chekaiMaty@example.com</a>
+            </p>
+        </div>
+        <div class="row row-cols-auto align-content-center justify-content-center w-50">
+            <p class="h4">Приєднуйтесь до нас у соцмережах:</p>
+            <div class="col-8 mt-1">
+                <span class="">
+                    <span class="footer__inner-img col-1">
+                        <img src="content/img/ficon-instagram.png" alt="icon facebook">
+                    </span>
+                    <a class="h4 ms-1 me-3" href="#">Instagram</a>
+                    <span class="footer__inner-img">
+                    <img src="content/img/ficon-facebook.png" alt="icon instagram">
+                    </span>
+                    <a class="h4 ms-1" href="#">Facebook</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">Автор иконок: 
+        <a href="https://www.freepik.com" title="Freepik">Freepik</a> 
+        from 
+        <a href="https://www.flaticon.com/ru/" title="Flaticon">www.flaticon.com</a>
+    </div>
+</footer>
+<!--ABSOLUTE REGISTRATION-->
+<div class="registration display-none rounded shadow p-4 text-center">
+    <p><b>Створення аккаунта</b></p>
 
-    <script>
-        var btn = document.getElementById("btn");
-        var result = document.getElementById("result");
-        var request = new XMLHttpRequest();
+    <p class="mt-3 mb-0">Введіть ваше ім'я:</p>
+    <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+    type="text" name="user-name" placeholder="Іван" id="user-name">
 
-        btn.addEventListener("click", function (e) {        
-            request.open("GET", "https://localhost:44352/users");
-            request.onreadystatechange = reqReadyStateChange;
-            request.send();
-        });
+    <p class="mt-3 mb-0">Введіть email:</p>
+    <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+    type="email" name="emailReg" placeholder="example@gmail.com" id="emailReg">
 
-        function reqReadyStateChange() {
-            if (request.readyState == 4) {
-                var status = request.status;
-                if (status == 200)
-                    result.innerText = request.responseText;
-                else
-                    result.innerText = request.statusText;
-            }
-        }
-    </script>
+    <p class="mt-3 mb-0">Введіть пароль:</p>
+    <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+    type="password" name="passwordReg" id="passReg">
+    <p class="mt-3 mb-0">Повторіть пароль:</p>
+    <input class="sign-in-absolute-block__input w-100 rounded border-0 ps-3" 
+    type="password" name="passwordReg">
+    
+    <button class="sign-in-absolute-block__button border-0 rounded w-75 mb-2 mt-4" 
+        onclick="regUser()">Зареєструватись</button>
+</div>
+
+<script src="script/script.js"></script>
+<script src="script/web_api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </body>
 </html>
